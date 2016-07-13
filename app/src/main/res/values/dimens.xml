@@ -16,6 +16,11 @@
     <dimen name="margin_top_splash_text">378dp</dimen>
     <dimen name="margin_left_splash_text">48dp</dimen>
 
+    <!--button in splash activity-->
+    <dimen name="margin_top_splash_button">470dp</dimen>
+    <dimen name="width_splash_button">275dp</dimen>
+    <dimen name="height_splash_button">70dp</dimen>
+
     <!--font size-->
     <dimen name="textsize_medium">24sp</dimen>
 
