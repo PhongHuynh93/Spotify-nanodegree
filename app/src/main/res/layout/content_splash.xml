@@ -11,5 +11,7 @@
     tools:context="dhbk.android.spotifygcs.MainActivity"
     tools:showIn="@layout/activity_main">
 
-
+    <ImageView
+        android:layout_width=""
+        android:layout_height=""/>
 </RelativeLayout>
