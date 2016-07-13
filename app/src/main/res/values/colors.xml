@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimary">@color/pink_red</color>
+    <!--FIXME fix color primary dark to pink_red_dark-->
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
-    <color name="primary_content_background">@color/pink_red</color>
+    <!--Name syntax: where_description-->
+    <!--<color name="main_background">@color/pink_red</color>-->
 
 <!--basic color-->
     <color name="pink_red">#FF3757</color>
+    <color name="white_solid">#FFFFFFFF</color>
 
 </resources>

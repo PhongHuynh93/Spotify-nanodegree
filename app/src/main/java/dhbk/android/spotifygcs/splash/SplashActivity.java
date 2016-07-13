@@ -1,0 +1,68 @@
+package dhbk.android.spotifygcs.splash;
+
+import android.animation.AnimatorInflater;
+import android.animation.ObjectAnimator;
+import android.content.Context;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.text.Html;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import dhbk.android.spotifygcs.R;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+
+/*
+a beginner activity: which show a headphone icon + text + button with animation
+because it's a simple layout with no background tasks, so no fragment here
+ */
+public class SplashActivity extends AppCompatActivity {
+    @BindView(R.id.imageview_splash_headphone)
+    ImageView mImageviewSplashHeadphone;
+    @BindView(R.id.textview_splash_logan)
+    TextView mTextviewSplashLogan;
+    private boolean animationStarted = false;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        setTheme(R.style.AppThemeNoActionBar);
+        getWindow().getDecorView().setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
+        initView();
+    }
+
+
+    // animation when layout load successful
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        if (!hasFocus || animationStarted) {
+            return;
+        }
+        animate();
+        super.onWindowFocusChanged(hasFocus);
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
+
+    private void animate() {
+        ObjectAnimator set = (ObjectAnimator) AnimatorInflater.loadAnimator(this, R.animator.main_move_translation_y);
+        set.setTarget(mImageviewSplashHeadphone);
+        set.start();
+    }
+
+
+    private void initView() {
+        String formattedText = getResources().getString(R.string.splash_text);
+        mTextviewSplashLogan.setText(Html.fromHtml(formattedText));
+    }
+
+}

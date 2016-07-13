@@ -4,20 +4,32 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/PinkRedBackground"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/primary_content_background"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="dhbk.android.spotifygcs.MainActivity"
+    tools:context=".splash.SplashActivity"
     tools:showIn="@layout/activity_main">
 
+    <!--id synctax: what where description-->
     <ImageView
-        android:layout_width="@dimen/image_headphone_width"
-        android:layout_height="@dimen/image_headphone_height"
+        android:id="@+id/imageview_splash_headphone"
+        android:layout_width="@dimen/width_splash_headphone"
+        android:layout_height="@dimen/height_splash_headphone"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="@dimen/image_headphone_margin_left"
-        android:layout_marginRight="@dimen/image_headphone_margin_left"
-        android:layout_marginTop="@dimen/image_headphone_margin_top"
-        android:src="@drawable/headphone"
-        android:scaleType="fitXY"/>
+        android:layout_marginLeft="@dimen/margin_left_splash_headphone"
+        android:layout_marginRight="@dimen/margin_left_splash_headphone"
+        android:layout_marginTop="@dimen/margin_top_splash_headphone"
+        android:scaleType="fitXY"
+        android:src="@drawable/main_headphone"/>
+
+    <TextView
+        android:id="@+id/textview_splash_logan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/margin_top_splash_text"
+        android:textSize="@dimen/textsize_medium"
+        android:textColor="@color/white_solid"
+        tools:ignore="MissingPrefix"/>
 </RelativeLayout>

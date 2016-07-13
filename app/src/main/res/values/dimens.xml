@@ -4,10 +4,19 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
 
-    <!--size and position of headphone image-->
-    <dimen name="image_headphone_width">243dp</dimen>
-    <dimen name="image_headphone_height">137dp</dimen>
-    <dimen name="image_headphone_margin_left">66dp</dimen>
-    <dimen name="image_headphone_margin_top">199dp</dimen>
+    <!--headphone image in splash activity-->
+    <!--Name syntax: what_where_description_size-->
+    <dimen name="width_splash_headphone">243dp</dimen>
+    <dimen name="height_splash_headphone">137dp</dimen>
+    <dimen name="margin_left_splash_headphone">66dp</dimen>
+    <dimen name="margin_top_splash_headphone">289dp</dimen>  <!--199dp but the anim take 90dp -->
+    <dimen name="margin_top_translation_y_headphone">-90dp</dimen>
+
+    <!--text in splash activity-->
+    <dimen name="margin_top_splash_text">365dp</dimen>
+    <dimen name="margin_left_splash_text">48dp</dimen>
+
+    <!--font size-->
+    <dimen name="textsize_medium">24sp</dimen>
 
 </resources>

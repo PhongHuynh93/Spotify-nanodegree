@@ -6,6 +6,11 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <!--set this null because we dont want the windowBackground depend on application theme-->
+        <!--we want to custome windowbackground by showing a icon + text with animation-->
+        <item name="android:windowBackground">@null</item>
+        <!--custom font-->
+        <item name="android:textViewStyle">@style/FontCustom</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -13,8 +18,20 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 
+    <!--custome style-->
+    <style name="PinkRedBackground">
+        <item name="android:background">@color/pink_red</item>
+    </style>
+
+    <style name="AppThemeNoActionBar" parent="@style/AppTheme.NoActionBar">
+    </style>
+    
+    <style name="FontCustom">
+        <item name="fontPath">fonts/Montserrat-Light.otf</item>
+    </style>
 </resources>
