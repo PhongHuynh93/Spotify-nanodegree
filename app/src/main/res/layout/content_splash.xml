@@ -12,6 +12,12 @@
     tools:showIn="@layout/activity_main">
 
     <ImageView
-        android:layout_width=""
-        android:layout_height=""/>
+        android:layout_width="@dimen/image_headphone_width"
+        android:layout_height="@dimen/image_headphone_height"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="@dimen/image_headphone_margin_left"
+        android:layout_marginRight="@dimen/image_headphone_margin_left"
+        android:layout_marginTop="@dimen/image_headphone_margin_top"
+        android:src="@drawable/headphone"
+        android:scaleType="fitXY"/>
 </RelativeLayout>

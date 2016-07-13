@@ -5,9 +5,9 @@
     <dimen name="fab_margin">16dp</dimen>
 
     <!--size and position of headphone image-->
-    <dimen name="headphone_width">243dp</dimen>
-    <dimen name="headphone_height">137dp</dimen>
-    <dimen name="headphone_margin_left">66dp</dimen>
-    <dimen name="headphone_margin_top">199dp</dimen>
+    <dimen name="image_headphone_width">243dp</dimen>
+    <dimen name="image_headphone_height">137dp</dimen>
+    <dimen name="image_headphone_margin_left">66dp</dimen>
+    <dimen name="image_headphone_margin_top">199dp</dimen>
 
 </resources>
