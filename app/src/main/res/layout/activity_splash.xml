@@ -33,5 +33,10 @@
         android:textColor="@color/white_solid"
         tools:ignore="MissingPrefix"/>
 
-
+    <Button
+        android:layout_width="@dimen/width_splash_button"
+        android:layout_height="@dimen/height_splash_button"
+        android:layout_marginTop="@dimen/margin_top_splash_button"
+        android:background="@drawable/all_button_transparent_bg"
+        android:layout_centerHorizontal="true"/>
 </RelativeLayout>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--this is a button with transparent background-->
+<!--and a white border used for all class in my project-->
+<shape android:shape="rectangle"
+       xmlns:android="http://schemas.android.com/apk/res/android">
+    <corners android:radius="3dip"/>
+    <stroke android:width="1dip" android:color="@android:color/white"/>
+    <solid android:color="@android:color/transparent"/>
+</shape>
