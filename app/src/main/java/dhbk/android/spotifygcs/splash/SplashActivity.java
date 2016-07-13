@@ -67,5 +67,6 @@ public class SplashActivity extends AppCompatActivity {
     private void initView() {
         String formattedText = getResources().getString(R.string.splash_text);
         mTextviewSplashLogan.setText(Html.fromHtml(formattedText));
+
     }
 }

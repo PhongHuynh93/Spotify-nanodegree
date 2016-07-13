@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--this is a button with transparent background-->
+<!--and a white border used for all class in my project-->
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+        android:color="?android:colorControlHighlight">
+    <item android:drawable="@drawable/button_normal_transparent_bg" />
+</ripple>
