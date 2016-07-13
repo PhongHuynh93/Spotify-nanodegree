@@ -25,7 +25,6 @@ public class SplashActivity extends AppCompatActivity {
     ImageView mImageviewSplashHeadphone;
     @BindView(R.id.textview_splash_logan)
     TextView mTextviewSplashLogan;
-    private boolean animationStarted = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +35,7 @@ public class SplashActivity extends AppCompatActivity {
         }
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_splash);
         ButterKnife.bind(this);
         initView();
     }
@@ -45,7 +44,7 @@ public class SplashActivity extends AppCompatActivity {
     // animation when layout load successful
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
-        if (!hasFocus || animationStarted) {
+        if (!hasFocus) {
             return;
         }
         animate();
@@ -57,6 +56,7 @@ public class SplashActivity extends AppCompatActivity {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
+    // move the image upward
     private void animate() {
         ObjectAnimator set = (ObjectAnimator) AnimatorInflater.loadAnimator(this, R.animator.main_move_translation_y);
         set.setTarget(mImageviewSplashHeadphone);

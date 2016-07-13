@@ -9,7 +9,7 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".splash.SplashActivity"
-    tools:showIn="@layout/activity_main">
+    tools:showIn="@layout/activity_splash">
 
     <!--id synctax: what where description-->
     <ImageView
@@ -32,4 +32,6 @@
         android:textSize="@dimen/textsize_medium"
         android:textColor="@color/white_solid"
         tools:ignore="MissingPrefix"/>
+
+
 </RelativeLayout>
