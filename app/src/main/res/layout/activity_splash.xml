@@ -29,17 +29,19 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/margin_top_splash_text"
-        android:textSize="@dimen/textsize_medium"
         android:textColor="@color/white_solid"
+        android:textSize="@dimen/textsize_medium"
         tools:ignore="MissingPrefix"/>
 
     <Button
+        fontPath="fonts/Montserrat-Bold.otf"
         android:layout_width="@dimen/width_splash_button"
         android:layout_height="@dimen/height_splash_button"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/margin_top_splash_button"
         android:background="@drawable/all_button_transparent_bg"
         android:text="listen now"
         android:textColor="@android:color/white"
         android:textSize="@dimen/textsize_medium"
-        android:layout_centerHorizontal="true"/>
+        tools:ignore="MissingPrefix"/>
 </RelativeLayout>
