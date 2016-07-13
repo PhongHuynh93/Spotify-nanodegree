@@ -3,4 +3,10 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <color name="primary_content_background">@color/pink_red</color>
+
+<!--basic color-->
+    <color name="pink_red">#FF3757</color>
+
 </resources>
