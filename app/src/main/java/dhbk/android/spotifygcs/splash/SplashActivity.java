@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import dhbk.android.spotifygcs.R;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
@@ -51,6 +52,7 @@ public class SplashActivity extends AppCompatActivity {
         super.onWindowFocusChanged(hasFocus);
     }
 
+    // use this method for an activity to change font of text
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
@@ -63,10 +65,16 @@ public class SplashActivity extends AppCompatActivity {
         set.start();
     }
 
-
+    // load view
     private void initView() {
         String formattedText = getResources().getString(R.string.splash_text);
         mTextviewSplashLogan.setText(Html.fromHtml(formattedText));
+
+    }
+
+    // when click button, go to search artist activity.
+    @OnClick(R.id.button_splash_go_to_search_activity)
+    public void onClick() {
 
     }
 }

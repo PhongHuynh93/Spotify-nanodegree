@@ -34,6 +34,7 @@
         tools:ignore="MissingPrefix"/>
 
     <Button
+        android:id="@+id/button_splash_go_to_search_activity"
         fontPath="fonts/Montserrat-Bold.otf"
         android:layout_width="@dimen/width_splash_button"
         android:layout_height="@dimen/height_splash_button"

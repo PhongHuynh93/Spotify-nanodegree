@@ -30,7 +30,7 @@
 
     <style name="AppThemeNoActionBar" parent="@style/AppTheme.NoActionBar">
     </style>
-    
+
     <style name="FontCustom">
         <item name="fontPath">fonts/Montserrat-Light.otf</item>
     </style>

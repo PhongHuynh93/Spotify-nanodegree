@@ -8,5 +8,6 @@
         Without <b>music,</b><br/>life would be a <b>mistake.</b>
         ]]>
     </string>
+    <string name="title_activity_search_artist_activiy">SearchArtistActiviy</string>
 
 </resources>
