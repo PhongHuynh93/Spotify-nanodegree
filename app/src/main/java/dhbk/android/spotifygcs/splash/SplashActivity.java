@@ -3,6 +3,7 @@ package dhbk.android.spotifygcs.splash;
 import android.animation.AnimatorInflater;
 import android.animation.ObjectAnimator;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -15,6 +16,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import dhbk.android.spotifygcs.R;
+import dhbk.android.spotifygcs.searchArtist.SearchArtistActiviy;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 /*
@@ -75,6 +77,7 @@ public class SplashActivity extends AppCompatActivity {
     // when click button, go to search artist activity.
     @OnClick(R.id.button_splash_go_to_search_activity)
     public void onClick() {
-
+        Intent gotoSearchArtistAcIntent = new Intent(this, SearchArtistActiviy.class);
+        startActivity(gotoSearchArtistAcIntent);
     }
 }

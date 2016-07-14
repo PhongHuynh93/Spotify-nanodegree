@@ -11,14 +11,14 @@ import dhbk.android.spotifygcs.R;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class SearchArtistActiviyFragment extends Fragment {
+public class SearchArtistFragment extends Fragment {
 
-    public SearchArtistActiviyFragment() {
+    public SearchArtistFragment() {
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_search_artist_activiy, container, false);
+        return inflater.inflate(R.layout.fragment_search_artist, container, false);
     }
 }
