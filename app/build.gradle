@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'android-apt'
 
 android {
     compileSdkVersion 24
@@ -19,9 +20,24 @@ android {
     }
 }
 
+
+/*
+ Dependency versions are defined in the top level build.gradle file. This helps keeping track of
+ all versions in a single place. This improves readability and helps managing project complexity.
+ */
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:24.0.0'
-    compile 'com.android.support:design:24.0.0'
+    compile "com.android.support:appcompat-v7:$rootProject.supportLibraryVersion"
+    compile "com.android.support:design:$rootProject.supportLibraryVersion"
+
+//    butter knife
+    compile "com.jakewharton:butterknife:$rootProject.butterknife"
+    apt "com.jakewharton:butterknife-compiler:$rootProject.butterknife"
+
+//    font
+    compile "uk.co.chrisjenx:calligraphy:$rootProject.font"
+
+    // guava
+    compile "com.google.guava:guava:$rootProject.guavaVersion"
 }

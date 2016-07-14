@@ -6,6 +6,11 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <!--set this null because-->
+        <!--we want to custome windowbackground by showing a icon first before any load has loaded-->
+        <item name="android:windowBackground">@null</item>
+        <!--custom font-->
+        <item name="android:textViewStyle">@style/FontCustom</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -13,8 +18,27 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 
+    <!--custome style-->
+    <style name="PinkRedBackground">
+        <item name="android:background">@color/pink_red</item>
+    </style>
+
+    <!--style with no actionbar-->
+    <style name="AppThemeNoActionBar" parent="@style/AppTheme.NoActionBar">
+    </style>
+
+    <!--style for activity to load the image icon before loading any objs for activity-->
+    <style name="AppThemeNoActionBar.CenterAnimation">
+        <item name="android:windowBackground">@drawable/splash_layerlist_anim</item>
+    </style>
+
+    <!--style for views to use MontSerret Light font-->
+    <style name="FontCustom">
+        <item name="fontPath">fonts/Montserrat-Light.otf</item>
+    </style>
 </resources>

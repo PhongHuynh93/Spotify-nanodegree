@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--anim 1s, move up 90dp after 0.3s-->
+<objectAnimator
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:duration="@integer/main_anim_move_y_duration"
+    android:propertyName="translationY"
+    android:interpolator="@android:anim/decelerate_interpolator"
+    android:startOffset="@integer/main_anim_delay_headphone"
+    android:valueTo="@dimen/margin_top_splash_translation_y_headphone"/>
