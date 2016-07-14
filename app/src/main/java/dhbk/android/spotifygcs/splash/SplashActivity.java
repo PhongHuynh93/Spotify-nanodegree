@@ -8,6 +8,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
+import android.text.Spanned;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -69,8 +70,17 @@ public class SplashActivity extends AppCompatActivity {
 
     // load view
     private void initView() {
-        String formattedText = getResources().getString(R.string.splash_text);
-        mTextviewSplashLogan.setText(Html.fromHtml(formattedText));
+//        String formattedText = getResources().getString(R.string.splash_text);
+        Spanned formattedText;
+
+        // check because in android N, Html.fromHtml is deprecated
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            formattedText = Html.fromHtml(getResources().getString(R.string.splash_text), Html.FROM_HTML_MODE_LEGACY);
+        } else {
+            formattedText = Html.fromHtml(getResources().getString(R.string.splash_text));
+        }
+
+        mTextviewSplashLogan.setText(formattedText);
 
     }
 
