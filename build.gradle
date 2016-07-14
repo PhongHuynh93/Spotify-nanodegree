@@ -23,3 +23,22 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+
+// Define versions in a single place
+ext {
+    // Sdk and tools
+    minSdkVersion = 15
+    targetSdkVersion = 24
+    compileSdkVersion = 24
+    buildToolsVersion = "24.0.0"
+
+    // App dependencies
+    supportLibraryVersion = '24.0.0'
+    guavaVersion = '19.0'
+    junitVersion = '4.12'
+    butterknife = '8.2.1'
+    font = '2.2.0'
+
+}
+
