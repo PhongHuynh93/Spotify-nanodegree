@@ -21,13 +21,13 @@
         <!--android:layout_marginRight="@dimen/margin_left_splash_headphone"-->
         <!--android:layout_marginTop="@dimen/margin_top_splash_headphone"-->
         <!--android:scaleType="fitXY"-->
-        <!--android:src="@drawable/main_headphone"/>-->
+        <!--android:src="@drawable/splash_headphone"/>-->
     <ImageView
         android:id="@+id/imageview_splash_headphone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:src="@drawable/main_headphone"/>
+        android:src="@drawable/splash_headphone"/>
     <!--alpha = 0 because we want it to dissappear first, but after a delay it can appear-->
     <TextView
         android:id="@+id/textview_splash_logan"
