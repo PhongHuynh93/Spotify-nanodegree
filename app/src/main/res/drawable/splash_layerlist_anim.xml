@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--drawn in the order-->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android"
+            android:opacity="opaque">
+    <item style="@style/PinkRedBackground"/>
+    <!--draw image after draw bg-->
+    <item>
+        <bitmap
+            android:gravity="center"
+            android:src="@drawable/main_headphone"/>
+    </item>
+</layer-list>

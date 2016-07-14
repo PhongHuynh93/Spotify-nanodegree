@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--name syntax; where description-->
+    <!--splash activity-->
+    <integer name="main_anim_move_y_duration">1000</integer>
+    <integer name="main_anim_delay_headphone">300</integer>
+    <integer name="main_anim_delay_text">300</integer>
+    <integer name="main_anim_scale_duration">500</integer>
+    <integer name="main_anim_delay_button">400</integer>
+    <integer name="main_anim_full_reveal">1</integer>
+</resources>
