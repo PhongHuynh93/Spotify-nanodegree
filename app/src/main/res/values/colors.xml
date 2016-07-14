@@ -13,4 +13,7 @@
     <color name="pink_red_dark">#E5314E</color>
     <color name="white_solid">#FFFFFFFF</color>
     <color name="white_yellow">#F9F8EE</color>
+    <color name="grey_dark">#994A4A4A</color>
+    <color name="grey_light">#664A4A4A</color>
+
 </resources>

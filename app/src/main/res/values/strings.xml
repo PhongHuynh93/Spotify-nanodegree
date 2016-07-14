@@ -3,11 +3,15 @@
     <string name="app_name">SpotifyGCS</string>
     <string name="action_settings">Settings</string>
 
+    <!--splash-->
     <string name="splash_text">
         <![CDATA[
         Without <b>music,</b><br/>life would be a <b>mistake.</b>
         ]]>
     </string>
+
+    <!--search empty-->
     <string name="title_activity_search_artist_activiy">SearchArtistActiviy</string>
+    <string name="search_artist_emtpy_info_text">Can not find artists yet</string>
 
 </resources>
