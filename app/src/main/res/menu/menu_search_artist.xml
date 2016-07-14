@@ -1,0 +1,28 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+      xmlns:tools="http://schemas.android.com/tools"
+      tools:context="dhbk.android.spotifygcs.searchArtist.SearchArtistActiviy">
+    <!--<item-->
+        <!--android:id="@+id/action_settings"-->
+        <!--android:orderInCategory="100"-->
+        <!--android:title="@string/action_settings"-->
+        <!--app:showAsAction="never"/>-->
+
+
+    <item
+        android:id="@+id/menu_search"
+        android:title="@string/toolbar_search"
+        android:icon="@drawable/all_ic_search_24dp"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/menu_login"
+        android:title="@string/toolbar_login"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/menu_about"
+        android:title="@string/toolbar_about"
+        app:showAsAction="never" />
+
+</menu>

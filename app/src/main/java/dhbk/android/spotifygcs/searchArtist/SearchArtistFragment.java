@@ -3,6 +3,9 @@ package dhbk.android.spotifygcs.searchArtist;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -33,8 +36,33 @@ public class SearchArtistFragment extends Fragment implements SearchArtistContra
         View view = inflater.inflate(R.layout.fragment_search_artist_emtpy, container, false);
         ButterKnife.bind(this, view);
         initView();
+        setHasOptionsMenu(true);
         return view;
     }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_clear:
+                mPresenter.clearCompletedTasks();
+                break;
+            case R.id.menu_filter:
+                showFilteringPopUpMenu();
+                break;
+            case R.id.menu_refresh:
+                mPresenter.loadTasks(true);
+                break;
+        }
+        return true;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_search_artist, menu);
+    }
+
+
 
     // set presenter for this view
     @Override

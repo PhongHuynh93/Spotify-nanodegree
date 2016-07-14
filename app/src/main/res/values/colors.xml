@@ -6,7 +6,8 @@
     <color name="colorAccent">#FF4081</color>
 
     <!--Name syntax: where_description-->
-    <!--<color name="main_background">@color/pink_red</color>-->
+    <color name="color_ic_search">@color/white_solid</color>
+
 
 <!--basic color-->
     <color name="pink_red">#FF3757</color>
