@@ -25,9 +25,12 @@
     <dimen name="margin_top_empty_search_artist_image">142dp</dimen>
     <!--text-->
     <dimen name="margin_top_empty_search_artist_info_text">240dp</dimen>
-    <dimen name="margin_top_empty_search_artist_help_text">142dp</dimen>
+    <dimen name="margin_top_empty_search_artist_help_text">346dp</dimen>
+
 
     <!--font size-->
-    <dimen name="textsize_medium">24sp</dimen>
+    <dimen name="textsize_medium_17">17sp</dimen>
+    <dimen name="textsize_medium_24">24sp</dimen>
+    <dimen name="textsize_medium_28">28sp</dimen>
 
 </resources>

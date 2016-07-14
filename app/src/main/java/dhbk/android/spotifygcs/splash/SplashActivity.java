@@ -8,8 +8,6 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.text.Html;
-import android.text.Spanned;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -20,6 +18,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import dhbk.android.spotifygcs.R;
 import dhbk.android.spotifygcs.searchArtist.SearchArtistActiviy;
+import dhbk.android.spotifygcs.util.HelpUtil;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 /*
@@ -85,15 +84,8 @@ public class SplashActivity extends AppCompatActivity {
 
     // load view
     private void initView() {
-        Spanned formattedText;
-        // check because in android N, Html.fromHtml is deprecated
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            formattedText = Html.fromHtml(getResources().getString(R.string.splash_text), Html.FROM_HTML_MODE_LEGACY);
-        } else {
-            formattedText = Html.fromHtml(getResources().getString(R.string.splash_text));
-        }
-        mTextviewSplashLogan.setText(formattedText);
-
+        // load text to textview
+        mTextviewSplashLogan.setText(HelpUtil.getSpannedText(this, R.string.splash_text));
     }
 
     // when click button, go to search artist activity.
