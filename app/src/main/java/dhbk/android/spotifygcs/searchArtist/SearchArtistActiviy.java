@@ -1,31 +1,88 @@
 package dhbk.android.spotifygcs.searchArtist;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.design.widget.NavigationView;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
+import android.view.MenuItem;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import dhbk.android.spotifygcs.R;
+import dhbk.android.spotifygcs.util.ActivityUtils;
+import dhbk.android.spotifygcs.util.HelpUtil;
 
 public class SearchArtistActiviy extends AppCompatActivity {
+    @BindView(R.id.toolbar)
+    Toolbar mToolbar;
+    @BindView(R.id.nav_view)
+    NavigationView mNavView;
+    @BindView(R.id.drawer_layout)
+    DrawerLayout mDrawerLayout;
+    private SearchArtistPresenter mSearchArtistPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search_artist_activiy);
+        setContentView(R.layout.activity_search_artists);
+        ButterKnife.bind(this);
+
+        // Set up the toolbar.
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        ActionBar ab = getSupportActionBar();
+//        ab.setHomeAsUpIndicator(R.drawable.ic_menu);
+        ab.setDisplayHomeAsUpEnabled(true); // set the left arrow in toolbar
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        // Set up the navigation drawer.
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mDrawerLayout.setStatusBarBackground(R.color.colorPrimaryDark);
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        if (navigationView != null) {
+            setupDrawerContent(navigationView);
+        }
+
+        SearchArtistFragment searchArtistFragment = (SearchArtistFragment) getSupportFragmentManager().findFragmentByTag(HelpUtil.TAG_FRAGMENT_SEARCH_ARTISTS);
+        if (searchArtistFragment == null) {
+            // Create the fragment
+            searchArtistFragment = SearchArtistFragment.newInstance();
+            ActivityUtils.addFragmentToActivity(
+                    getSupportFragmentManager(), searchArtistFragment, R.id.contentFrame_searchartist);
+        }
+
+
+        // Create the presenter
+        mSearchArtistPresenter = new SearchArtistPresenter(searchArtistFragment);
+    }
+
+    // Set up the navigation drawer.
+    private void setupDrawerContent(NavigationView navigationView) {
+        navigationView.setNavigationItemSelectedListener(
+                new NavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(MenuItem menuItem) {
+                        switch (menuItem.getItemId()) {
+//                            case R.id.list_navigation_menu_item:
+//                                // Do nothing, we're already on that screen
+//                                break;
+//                            case R.id.statistics_navigation_menu_item:
+//                                Intent intent =
+//                                        new Intent(TasksActivity.this, StatisticsActivity.class);
+//                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK
+//                                        | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//                                startActivity(intent);
+//                                break;
+                            default:
+                                break;
+                        }
+                        // Close the navigation drawer when an item is selected.
+                        menuItem.setChecked(true);
+                        mDrawerLayout.closeDrawers();
+                        return true;
+                    }
+                });
     }
 
 }

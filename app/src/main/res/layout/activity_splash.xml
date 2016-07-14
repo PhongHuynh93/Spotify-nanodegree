@@ -12,23 +12,30 @@
     tools:showIn="@layout/activity_splash">
 
     <!--id synctax: what where description-->
+    <!--<ImageView-->
+        <!--android:id="@+id/imageview_splash_headphone"-->
+        <!--android:layout_width="@dimen/width_splash_headphone"-->
+        <!--android:layout_height="@dimen/height_splash_headphone"-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--android:layout_marginLeft="@dimen/margin_left_splash_headphone"-->
+        <!--android:layout_marginRight="@dimen/margin_left_splash_headphone"-->
+        <!--android:layout_marginTop="@dimen/margin_top_splash_headphone"-->
+        <!--android:scaleType="fitXY"-->
+        <!--android:src="@drawable/main_headphone"/>-->
     <ImageView
         android:id="@+id/imageview_splash_headphone"
-        android:layout_width="@dimen/width_splash_headphone"
-        android:layout_height="@dimen/height_splash_headphone"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="@dimen/margin_left_splash_headphone"
-        android:layout_marginRight="@dimen/margin_left_splash_headphone"
-        android:layout_marginTop="@dimen/margin_top_splash_headphone"
-        android:scaleType="fitXY"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
         android:src="@drawable/main_headphone"/>
-
+    <!--alpha = 0 because we want it to dissappear first, but after a delay it can appear-->
     <TextView
         android:id="@+id/textview_splash_logan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/margin_top_splash_text"
+        android:alpha="0"
         android:textColor="@color/white_solid"
         android:textSize="@dimen/textsize_medium"
         tools:ignore="MissingPrefix"/>
@@ -41,6 +48,8 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/margin_top_splash_button"
         android:background="@drawable/all_button_transparent_bg"
+        android:scaleX="0"
+        android:scaleY="0"
         android:text="listen now"
         android:textColor="@android:color/white"
         android:textSize="@dimen/textsize_medium"

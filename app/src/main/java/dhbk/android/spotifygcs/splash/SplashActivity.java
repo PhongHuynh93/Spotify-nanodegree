@@ -1,5 +1,6 @@
 package dhbk.android.spotifygcs.splash;
 
+import android.animation.Animator;
 import android.animation.AnimatorInflater;
 import android.animation.ObjectAnimator;
 import android.content.Context;
@@ -10,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.text.Spanned;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -29,10 +31,12 @@ public class SplashActivity extends AppCompatActivity {
     ImageView mImageviewSplashHeadphone;
     @BindView(R.id.textview_splash_logan)
     TextView mTextviewSplashLogan;
+    @BindView(R.id.button_splash_go_to_search_activity)
+    Button mButtonSplashGoToSearchActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setTheme(R.style.AppThemeNoActionBar);
+        setTheme(R.style.AppThemeNoActionBar); // set theme default
         if (Build.VERSION.SDK_INT >= 16) {
             getWindow().getDecorView().setSystemUiVisibility(
                     View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
@@ -61,25 +65,33 @@ public class SplashActivity extends AppCompatActivity {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
-    // move the image upward
+    // anim view on the screen, amin with different start delay
     private void animate() {
-        ObjectAnimator set = (ObjectAnimator) AnimatorInflater.loadAnimator(this, R.animator.main_move_translation_y);
-        set.setTarget(mImageviewSplashHeadphone);
-        set.start();
+        // anim image - move upward
+        ObjectAnimator setImage = (ObjectAnimator) AnimatorInflater.loadAnimator(this, R.animator.main_move_translation_y_headphone);
+        setImage.setTarget(mImageviewSplashHeadphone);
+        setImage.start();
+
+        // anim text - move downward and appear
+        Animator setText = AnimatorInflater.loadAnimator(this, R.animator.main_move_translation_y_text);
+        setText.setTarget(mTextviewSplashLogan);
+        setText.start();
+
+        // anim button - zoom out
+        Animator setButton = AnimatorInflater.loadAnimator(this, R.animator.main_scale_button);
+        setButton.setTarget(mButtonSplashGoToSearchActivity);
+        setButton.start();
     }
 
     // load view
     private void initView() {
-//        String formattedText = getResources().getString(R.string.splash_text);
         Spanned formattedText;
-
         // check because in android N, Html.fromHtml is deprecated
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             formattedText = Html.fromHtml(getResources().getString(R.string.splash_text), Html.FROM_HTML_MODE_LEGACY);
         } else {
             formattedText = Html.fromHtml(getResources().getString(R.string.splash_text));
         }
-
         mTextviewSplashLogan.setText(formattedText);
 
     }
