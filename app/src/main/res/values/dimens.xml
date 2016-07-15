@@ -33,4 +33,10 @@
     <dimen name="textsize_medium_24">24sp</dimen>
     <dimen name="textsize_medium_28">28sp</dimen>
 
+    <!--size for all layout in my project-->
+    <dimen name="z_app_bar">4dp</dimen>
+    <dimen name="padding_normal">16dp</dimen>
+
+
+
 </resources>

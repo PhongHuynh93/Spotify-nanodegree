@@ -1,6 +1,7 @@
 package dhbk.android.spotifygcs.searchArtist;
 
 import android.app.ActivityOptions;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import dhbk.android.spotifygcs.R;
+import dhbk.android.spotifygcs.searchArtist.childSearchArtist.SearchChildActivity;
 import dhbk.android.spotifygcs.util.HelpUtil;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -90,6 +92,19 @@ public class SearchArtistFragment extends Fragment implements SearchArtistContra
                 loc[0], loc[0] + (searchMenuView.getWidth() / 2)), RC_SEARCH,
                 ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
         searchMenuView.setAlpha(0f);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case RC_SEARCH:
+                // reset the search icon which we hid
+                View searchMenuView = getActivity().findViewById(R.id.menu_search);
+                if (searchMenuView != null) {
+                    searchMenuView.setAlpha(1f);
+                }
+        }
     }
 
     private void initView() {
