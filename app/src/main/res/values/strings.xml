@@ -3,11 +3,34 @@
     <string name="app_name">SpotifyGCS</string>
     <string name="action_settings">Settings</string>
 
+    <!--icon-->
+    <string name="path_search">M13.3843083,13.3956843 C11.233862,15.5399983 7.7581039,15.5381046 5.61000013,13.3900003 C3.46000004,11.2399998 3.46000004,7.76000023 5.61000013,5.61000013 C7.76000023,3.46000004 11.2400007,3.46000004 13.3900003,5.61000013 C15.54,7.76000023 15.5400009,11.2400007 13.3900003,13.3900003 C13.388104,13.3918967 13.3862067,13.3937913 13.3843083,13.3956843 C15.1427975,15.1834093 19.6826174,19.798706 19.6826172,19.7987061 L13.3843085,13.3956846 L13.3843083,13.3956843 Z</string>
+
+    <!--toolbar-->
+    <string name="toolbar_search">Search Artists</string>
+    <string name="toolbar_login">Login</string>
+    <string name="toolbar_about">About</string>
+
+    <!--splash-->
     <string name="splash_text">
         <![CDATA[
-        Without <b>music,</b><br/>life would be a <b>mistake.</b>
+        Without <b>music,</b>
+        <br/>
+        life would be a <b>mistake.</b>
         ]]>
     </string>
+
+    <!--search empty-->
     <string name="title_activity_search_artist_activiy">SearchArtistActiviy</string>
+    <string name="search_artist_emtpy_info_text">Can not find artists yet</string>
+    <string name="search_artist_emtpy_help_text">
+        <![CDATA[
+        Try another name
+        <br/>
+        or check the network connection
+        ]]>
+    </string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

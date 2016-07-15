@@ -4,22 +4,39 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
 
-    <!--headphone image in splash activity-->
+    <!--splash activity-->
     <!--Name syntax: what_where_description_size-->
-    <!--move the image up-->
+    <!--move the headphone image up-->
     <dimen name="margin_top_splash_translation_y_headphone">-90dp</dimen>
 
-    <!--text in splash activity-->
+    <!--text-->
     <dimen name="margin_top_splash_text">333dp</dimen>
     <dimen name="margin_left_splash_text">48dp</dimen>
     <dimen name="margin_bottom_splash_translation_y_headphone">45dp</dimen>
 
-    <!--button in splash activity-->
+    <!--button-->
     <dimen name="margin_top_splash_button">470dp</dimen>
     <dimen name="width_splash_button">275dp</dimen>
     <dimen name="height_splash_button">70dp</dimen>
 
+
+    <!--emtpy search artist-->
+    <!--image-->
+    <dimen name="margin_top_empty_search_artist_image">142dp</dimen>
+    <!--text-->
+    <dimen name="margin_top_empty_search_artist_info_text">240dp</dimen>
+    <dimen name="margin_top_empty_search_artist_help_text">346dp</dimen>
+
+
     <!--font size-->
-    <dimen name="textsize_medium">24sp</dimen>
+    <dimen name="textsize_medium_17">17sp</dimen>
+    <dimen name="textsize_medium_24">24sp</dimen>
+    <dimen name="textsize_medium_28">28sp</dimen>
+
+    <!--size for all layout in my project-->
+    <dimen name="z_app_bar">4dp</dimen>
+    <dimen name="padding_normal">16dp</dimen>
+
+
 
 </resources>

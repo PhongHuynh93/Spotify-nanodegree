@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!--background for this layout, grey opacity so we can see result under it.-->
+    <View
+        android:id="@+id/scrim"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/grey_opa"/>
+
+    <!--toolbar-->
+    <FrameLayout
+        android:id="@+id/search_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?android:actionBarSize"
+        android:layout_alignParentTop="true"
+        android:elevation="@dimen/z_app_bar"
+        android:outlineProvider="bounds"
+        android:theme="@style/SearchViewTheme">
+
+        <!--background for toolbar, make it darker than the content background-->
+        <View
+            android:id="@+id/search_background"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0"
+            android:background="@color/grey_dark2"/>
+
+        <SearchView
+            android:id="@+id/search_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="@dimen/padding_normal"
+            android:alpha="0"
+            android:iconifiedByDefault="false"/>
+
+        <!-- wrapping layout needed for the touch ripple -->
+        <FrameLayout
+            android:id="@+id/searchback_container"
+            android:layout_width="96dp"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:paddingStart="4dp">
+
+            <ImageButton
+                android:id="@+id/searchback"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="?android:selectableItemBackgroundBorderless"
+                android:gravity="start|center_vertical"
+                android:src="@drawable/all_ic_search_24dp"/>
+        </FrameLayout>
+    </FrameLayout>
+
+</FrameLayout>

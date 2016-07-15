@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white_yellow"
+    android:orientation="vertical"
+    tools:ignore="MissingPrefix">
+
+    <!--music note-->
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/margin_top_empty_search_artist_image"
+        android:src="@drawable/empty_search_artists_music_note"/>
+
+    <!--text info-->
+    <TextView
+        fontPath="fonts/Montserrat-Bold.otf"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/margin_top_empty_search_artist_info_text"
+        android:text="@string/search_artist_emtpy_info_text"
+        android:textColor="@color/grey_dark"
+        android:textSize="@dimen/textsize_medium_28"/>
+
+    <!--text help-->
+    <TextView
+        android:id="@+id/textview_empty_search_artist_help_info"
+        fontPath="fonts/Montserrat-Bold.otf"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/margin_top_empty_search_artist_help_text"
+        android:textColor="@color/grey_light"
+        android:textSize="@dimen/textsize_medium_17"/>
+</RelativeLayout>
