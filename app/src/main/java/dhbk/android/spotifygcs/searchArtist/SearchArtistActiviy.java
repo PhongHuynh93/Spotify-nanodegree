@@ -13,7 +13,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import dhbk.android.spotifygcs.R;
 import dhbk.android.spotifygcs.util.ActivityUtils;
-import dhbk.android.spotifygcs.util.HelpUtil;
+import dhbk.android.spotifygcs.util.Constant;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class SearchArtistActiviy extends AppCompatActivity {
@@ -46,7 +46,7 @@ public class SearchArtistActiviy extends AppCompatActivity {
             setupDrawerContent(navigationView);
         }
 
-        SearchArtistFragment searchArtistFragment = (SearchArtistFragment) getSupportFragmentManager().findFragmentByTag(HelpUtil.TAG_FRAGMENT_SEARCH_ARTISTS);
+        SearchArtistFragment searchArtistFragment = (SearchArtistFragment) getSupportFragmentManager().findFragmentByTag(Constant.TAG_FRAGMENT_SEARCH_ARTISTS);
         if (searchArtistFragment == null) {
             // Create the fragment
             searchArtistFragment = SearchArtistFragment.newInstance();

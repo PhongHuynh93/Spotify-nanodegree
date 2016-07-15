@@ -1,14 +1,16 @@
 apply plugin: 'com.android.application'
 apply plugin: 'android-apt'
+apply plugin: 'com.neenbedankt.android-apt'
+apply plugin: 'me.tatarka.retrolambda'
 
 android {
-    compileSdkVersion 24
-    buildToolsVersion "24.0.0"
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
 
     defaultConfig {
         applicationId "dhbk.android.spotifygcs"
-        minSdkVersion 15
-        targetSdkVersion 24
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
     }
@@ -18,8 +20,13 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-}
 
+//    retro lambda
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
 
 /*
  Dependency versions are defined in the top level build.gradle file. This helps keeping track of
@@ -40,4 +47,21 @@ dependencies {
 
     // guava
     compile "com.google.guava:guava:$rootProject.guavaVersion"
+    compile "com.android.support:support-v4:$rootProject.buildToolsVersion"
+
+    dagger
+    // apt command comes from the android-apt plugin
+    apt "com.google.dagger:dagger-compiler:$rootProject.daggerCompiler"
+    compile "com.google.dagger:dagger:$rootProject.dagger"
+    provided "javax.annotation:jsr250-api:$rootProject.javax"
+
+//    retrofit
+    compile "com.google.code.gson:gson:$rootProject.gsonVersion"
+    compile "com.squareup.retrofit2:retrofit:$rootProject.retrofitVersion"
+    compile "com.squareup.retrofit2:converter-gson:$rootProject.gsonConverterVersion"
+
+//    rxjava
+    compile "io.reactivex:rxjava:$rootProject.rxjavaVersion"
+    compile "io.reactivex:rxandroid:$rootProject.rxandroidVersion"
+    compile "com.squareup.retrofit2:adapter-rxjava:$rootProject.adapterRxjavaVersion"
 }
