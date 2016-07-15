@@ -24,6 +24,8 @@
             android:label="@string/title_activity_search_artist_activiy"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
+        <activity android:name=".searchArtist.SearchChildActivity">
+        </activity>
     </application>
 
 </manifest>

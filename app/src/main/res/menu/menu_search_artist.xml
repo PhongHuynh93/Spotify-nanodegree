@@ -16,11 +16,6 @@
         app:showAsAction="ifRoom" />
 
     <item
-        android:id="@+id/menu_login"
-        android:title="@string/toolbar_login"
-        app:showAsAction="never" />
-
-    <item
         android:id="@+id/menu_about"
         android:title="@string/toolbar_about"
         app:showAsAction="never" />
