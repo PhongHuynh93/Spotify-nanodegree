@@ -1,6 +1,7 @@
 package dhbk.android.spotifygcs;
 
 import android.app.Application;
+import android.content.Context;
 
 import dhbk.android.spotifygcs.module.SpotifyStreamerModule;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
@@ -36,5 +37,10 @@ public class MVPApp extends Application {
 
     public SpotifyStreamerComponent getSpotifyStreamerComponent() {
         return mSpotifyStreamerComponent;
+    }
+
+    // get this application
+    public static MVPApp getApp(Context context) {
+        return (MVPApp) context.getApplicationContext();
     }
 }

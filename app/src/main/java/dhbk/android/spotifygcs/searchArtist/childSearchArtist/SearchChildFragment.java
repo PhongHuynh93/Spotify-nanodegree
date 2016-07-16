@@ -9,21 +9,19 @@ import android.graphics.Color;
 import android.graphics.drawable.AnimatedVectorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewAnimationUtils;
-import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.SearchView;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
+import dhbk.android.spotifygcs.BaseFragment;
 import dhbk.android.spotifygcs.R;
+import dhbk.android.spotifygcs.SpotifyStreamerComponent;
 import dhbk.android.spotifygcs.util.AnimUtils;
 import dhbk.android.spotifygcs.util.ImeUtils;
 import dhbk.android.spotifygcs.util.ViewUtils;
@@ -31,7 +29,7 @@ import dhbk.android.spotifygcs.util.ViewUtils;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 // TODO: 7/15/2016 listen on search bar when click
-public class SearchChildFragment extends Fragment implements SearchChildContract.View {
+public class SearchChildFragment extends BaseFragment implements SearchChildContract.View {
     private static final String ARG_SEARCH_BACK_DISTANCE_X = "searchBackDistanceX";
     private static final String ARG_SEARCH_ICON_CENTER_X = "searchIconCenterX";
     @BindView(R.id.scrim)
@@ -76,18 +74,39 @@ public class SearchChildFragment extends Fragment implements SearchChildContract
         }
     }
 
+//    @Override
+//    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+//                             Bundle savedInstanceState) {
+//        // Inflate the layout for this fragment
+//        View v = inflater.inflate(R.layout.fragment_search_child, container, false);
+//        ButterKnife.bind(this, v);
+//        // anim the searchbar, move it from left to right when open its.
+//        mPresenter.animTheSearchBar();
+//        return v;
+//    }
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_search_child, container, false);
-        ButterKnife.bind(this, v);
-        // anim the searchbar, move it from left to right when open its.
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+//         anim the searchbar, move it from left to right when open its.
         mPresenter.animTheSearchBar();
-        return v;
+
+    }
+
+    // implement parent class
+    @Override
+    public int getLayout() {
+        return R.layout.fragment_search_child;
+    }
+
+    @Override
+    public void setUpComponent(SpotifyStreamerComponent appComponent) {
+
     }
 
 
+    ////////////////////////////////////////////////////////////////////////////
+    // implement interface
     // anim the search icon when open this activity
     @Override
     public void animSearchView() {
