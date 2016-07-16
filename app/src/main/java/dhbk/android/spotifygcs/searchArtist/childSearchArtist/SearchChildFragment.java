@@ -10,8 +10,13 @@ import android.graphics.drawable.AnimatedVectorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewAnimationUtils;
+import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
@@ -20,6 +25,7 @@ import android.widget.SearchView;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import dhbk.android.spotifygcs.BaseFragment;
 import dhbk.android.spotifygcs.BasePresenter;
@@ -37,6 +43,13 @@ import static com.google.common.base.Preconditions.checkNotNull;
 public class SearchChildFragment extends BaseFragment implements SearchChildContract.View {
     private static final String ARG_SEARCH_BACK_DISTANCE_X = "searchBackDistanceX";
     private static final String ARG_SEARCH_ICON_CENTER_X = "searchIconCenterX";
+    private static final int NUMBER_OF_COLUMN_LIST = 2;
+
+    // get adapter components
+    @Inject
+    SearchResultsAdapter mSearchResultsAdapter;
+
+
     @BindView(R.id.scrim)
     View mScrim;
     @BindView(R.id.search_background)
@@ -51,10 +64,8 @@ public class SearchChildFragment extends BaseFragment implements SearchChildCont
     FrameLayout mSearchToolbar;
     @BindView(R.id.container)
     FrameLayout mContainer;
-
-    // get adapter components
-    @Inject
-    SearchResultsAdapter mSearchResultsAdapter;
+    @BindView(R.id.recyclerview_search_artist)
+    RecyclerView mRecyclerviewSearchArtist;
 
     private boolean dismissing = false;
     // location of the search icon
@@ -255,17 +266,26 @@ public class SearchChildFragment extends BaseFragment implements SearchChildCont
     // setup recyclerview
     @Override
     public void setupRecyclerView() {
-
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), NUMBER_OF_COLUMN_LIST, LinearLayoutManager.VERTICAL, false);
+        mRecyclerviewSearchArtist.setLayoutManager(gridLayoutManager);
     }
 
     // setup adatper to add to recyclerview
     @Override
     public void setupAdapter() {
-
+        mRecyclerviewSearchArtist.setAdapter(mSearchResultsAdapter);
     }
 
     @Override
     public void setPresenter(SearchChildContract.Presenter presenter) {
         mPresenter = checkNotNull(presenter);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // TODO: inflate a fragment view
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        ButterKnife.bind(this, rootView);
+        return rootView;
     }
 }
