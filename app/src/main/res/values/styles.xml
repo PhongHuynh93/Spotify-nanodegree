@@ -55,10 +55,37 @@
         <item name="android:searchViewStyle">@style/Widget.Plaid.SearchView</item>
     </style>
 
+    <!--style for search view-->
     <style name="Widget.Plaid.SearchView" parent="android:style/Widget.Material.SearchView">
         <item name="android:searchIcon">@null</item>
         <item name="android:searchHintIcon">@null</item>
         <item name="android:queryBackground">@android:color/transparent</item>
         <item name="android:submitBackground">@android:color/transparent</item>
+    </style>
+
+    <!--custome plaid-->
+
+    <style name="Plaid" parent="AppThemeNoActionBar">
+        <!--<item name="android:navigationBarColor">@color/primary_super_dark</item>-->
+        <!--<item name="android:statusBarColor">@color/background_super_dark</item>-->
+        <!--<item name="android:textColorHint">@color/hint_disabled_dark</item>-->
+        <!--<item name="android:windowBackground">@color/background_light</item>-->
+        <item name="android:windowAllowEnterTransitionOverlap">true</item>
+        <item name="android:windowAllowReturnTransitionOverlap">true</item>
+        <item name="android:windowSharedElementsUseOverlay">false</item>
+    </style>
+
+    <style name="Widget.Plaid" parent="android:Widget" />
+
+    <style name="TextAppearance.DialogContent" parent="@android:style/TextAppearance.Material.Subhead">
+        <item name="android:textColor">@color/text_secondary_dark</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:letterSpacing">0.01</item>
+    </style>
+    <!--style for emtpy search view-->
+    <style name="Widget.Plaid.EmptyText">
+        <item name="android:textAppearance">@style/TextAppearance.DialogContent</item>
+        <item name="lineHeightHint">24sp</item>
+        <item name="android:textColor">@color/text_primary_light</item>
     </style>
 </resources>

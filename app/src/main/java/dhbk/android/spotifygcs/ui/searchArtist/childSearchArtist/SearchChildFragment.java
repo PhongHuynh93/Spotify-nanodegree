@@ -1,10 +1,11 @@
-package dhbk.android.spotifygcs.searchArtist.childSearchArtist;
+package dhbk.android.spotifygcs.ui.searchArtist.childSearchArtist;
 
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.app.SearchManager;
 import android.graphics.Color;
 import android.graphics.drawable.AnimatedVectorDrawable;
 import android.os.Bundle;
@@ -13,11 +14,14 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.InputType;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.view.inputmethod.EditorInfo;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.SearchView;
@@ -48,7 +52,6 @@ public class SearchChildFragment extends BaseFragment implements SearchChildCont
     // get adapter components
     @Inject
     SearchResultsAdapter mSearchResultsAdapter;
-
 
     @BindView(R.id.scrim)
     View mScrim;
@@ -276,6 +279,35 @@ public class SearchChildFragment extends BaseFragment implements SearchChildCont
         mRecyclerviewSearchArtist.setAdapter(mSearchResultsAdapter);
     }
 
+    // setup searchbar
+    @Override
+    public void setupSearchBar() {
+        SearchManager searchManager = (SearchManager) getContext().getSystemService(getContext().SEARCH_SERVICE);
+        mSearchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
+        // hint, inputType & ime options seem to be ignored from XML! Set in code
+        mSearchView.setQueryHint(getString(R.string.search_artist_child_text));
+        mSearchView.setInputType(InputType.TYPE_TEXT_FLAG_CAP_WORDS);
+        mSearchView.setImeOptions(mSearchView.getImeOptions() | EditorInfo.IME_ACTION_SEARCH |
+                EditorInfo.IME_FLAG_NO_EXTRACT_UI | EditorInfo.IME_FLAG_NO_FULLSCREEN);
+        mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                searchFor(query);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String query) {
+                if (TextUtils.isEmpty(query)) {
+                    // when remove everytext from search view, remove results
+                    clearResults();
+                }
+                return true;
+            }
+        });
+    }
+
+
     @Override
     public void setPresenter(SearchChildContract.Presenter presenter) {
         mPresenter = checkNotNull(presenter);
@@ -287,5 +319,20 @@ public class SearchChildFragment extends BaseFragment implements SearchChildCont
         View rootView = super.onCreateView(inflater, container, savedInstanceState);
         ButterKnife.bind(this, rootView);
         return rootView;
+    }
+
+    // search artists with a query
+    private void searchFor(String query) {
+        // when user wait for connection, so a progress
+//        clearResults();
+//        progress.setVisibility(View.VISIBLE);
+//        ImeUtils.hideIme(searchView);
+//        searchView.clearFocus();
+
+//        dataManager.searchFor(query);
+    }
+
+    private void clearResults() {
+
     }
 }

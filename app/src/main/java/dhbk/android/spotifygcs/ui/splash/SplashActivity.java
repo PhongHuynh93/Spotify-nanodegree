@@ -1,4 +1,4 @@
-package dhbk.android.spotifygcs.splash;
+package dhbk.android.spotifygcs.ui.splash;
 
 import android.animation.Animator;
 import android.animation.AnimatorInflater;
@@ -17,7 +17,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import dhbk.android.spotifygcs.R;
-import dhbk.android.spotifygcs.searchArtist.SearchArtistActiviy;
+import dhbk.android.spotifygcs.ui.searchArtist.SearchArtistActiviy;
 import dhbk.android.spotifygcs.util.HelpUtil;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 

@@ -1,4 +1,4 @@
-package dhbk.android.spotifygcs.searchArtist;
+package dhbk.android.spotifygcs.ui.searchArtist;
 
 import android.content.Context;
 import android.os.Bundle;

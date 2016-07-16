@@ -39,4 +39,6 @@
 
     <!--size for search artist list-->
     <dimen name="size_artist_image">168dp</dimen>
+    <dimen name="spacing_huge">64dp</dimen>
+    <dimen name="spacing_micro">4dp</dimen>
 </resources>

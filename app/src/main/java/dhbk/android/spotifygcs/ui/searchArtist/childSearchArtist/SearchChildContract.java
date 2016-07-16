@@ -1,4 +1,4 @@
-package dhbk.android.spotifygcs.searchArtist.childSearchArtist;
+package dhbk.android.spotifygcs.ui.searchArtist.childSearchArtist;
 
 import dhbk.android.spotifygcs.BasePresenter;
 import dhbk.android.spotifygcs.BaseView;
@@ -19,6 +19,8 @@ public interface SearchChildContract {
         void setupRecyclerView();
         // setup adatper to add to recyclerview
         void setupAdapter();
+        // setup searchbar
+        void setupSearchBar();
     }
 
     // method presenter search artist must override

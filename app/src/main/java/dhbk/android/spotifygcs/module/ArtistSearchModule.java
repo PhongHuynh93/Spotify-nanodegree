@@ -4,8 +4,8 @@ import android.content.Context;
 
 import dagger.Module;
 import dagger.Provides;
-import dhbk.android.spotifygcs.searchArtist.childSearchArtist.SearchChildContract;
-import dhbk.android.spotifygcs.searchArtist.childSearchArtist.SearchResultsAdapter;
+import dhbk.android.spotifygcs.ui.searchArtist.childSearchArtist.SearchChildContract;
+import dhbk.android.spotifygcs.ui.searchArtist.childSearchArtist.SearchResultsAdapter;
 
 /**
  * Created by huynhducthanhphong on 7/16/16.
