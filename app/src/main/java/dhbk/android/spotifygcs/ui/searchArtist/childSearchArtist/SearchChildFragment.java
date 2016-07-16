@@ -117,6 +117,7 @@ public class SearchChildFragment extends BaseFragment implements SearchChildCont
                 .artistSearchModule(new ArtistSearchModule(this))
                 .build()
                 .inject(this);
+//        ((MVPApp) getActivity().getApplication()).getSpotifyStreamerComponent().inject(this);
     }
 
     @Override
@@ -126,7 +127,9 @@ public class SearchChildFragment extends BaseFragment implements SearchChildCont
 
     @Override
     public ArtistSearchInteractor getArtistSearchInteractor() {
+        checkNotNull(mArtistSearchInteractor, "ArtistSearchInteractor cannot be null");
         return mArtistSearchInteractor;
+//        return  null;
     }
 
     ////////////////////////////////////////////////////////////////////////////
