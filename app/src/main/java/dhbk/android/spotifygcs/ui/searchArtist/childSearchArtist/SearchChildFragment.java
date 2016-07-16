@@ -36,6 +36,7 @@ import dhbk.android.spotifygcs.BasePresenter;
 import dhbk.android.spotifygcs.R;
 import dhbk.android.spotifygcs.component.DaggerArtistSearchComponent;
 import dhbk.android.spotifygcs.component.SpotifyStreamerComponent;
+import dhbk.android.spotifygcs.interactor.ArtistSearchInteractor;
 import dhbk.android.spotifygcs.module.ArtistSearchModule;
 import dhbk.android.spotifygcs.util.AnimUtils;
 import dhbk.android.spotifygcs.util.ImeUtils;
@@ -52,6 +53,9 @@ public class SearchChildFragment extends BaseFragment implements SearchChildCont
     // get adapter components
     @Inject
     SearchResultsAdapter mSearchResultsAdapter;
+
+    @Inject
+    ArtistSearchInteractor mArtistSearchInteractor;
 
     @BindView(R.id.scrim)
     View mScrim;
@@ -120,6 +124,10 @@ public class SearchChildFragment extends BaseFragment implements SearchChildCont
         return mPresenter;
     }
 
+    @Override
+    public ArtistSearchInteractor getArtistSearchInteractor() {
+        return mArtistSearchInteractor;
+    }
 
     ////////////////////////////////////////////////////////////////////////////
     // implement interface
@@ -307,7 +315,6 @@ public class SearchChildFragment extends BaseFragment implements SearchChildCont
         });
     }
 
-
     @Override
     public void setPresenter(SearchChildContract.Presenter presenter) {
         mPresenter = checkNotNull(presenter);
@@ -330,6 +337,9 @@ public class SearchChildFragment extends BaseFragment implements SearchChildCont
 //        searchView.clearFocus();
 
 //        dataManager.searchFor(query);
+
+        // connect to network and search
+        mPresenter.searchArtists(query);
     }
 
     private void clearResults() {

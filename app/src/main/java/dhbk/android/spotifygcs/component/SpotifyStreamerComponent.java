@@ -5,6 +5,7 @@ import android.content.Context;
 import javax.inject.Singleton;
 
 import dagger.Component;
+import dhbk.android.spotifygcs.interactor.ArtistSearchInteractor;
 import dhbk.android.spotifygcs.module.InteractorModule;
 import dhbk.android.spotifygcs.module.SpotifyStreamerModule;
 
@@ -23,5 +24,5 @@ import dhbk.android.spotifygcs.module.SpotifyStreamerModule;
 public interface SpotifyStreamerComponent {
     // method that child component can use
     Context getContext();
-//    ArtistSearchComponent artistSearchComponent(ArtistSearchModule module);
+    ArtistSearchInteractor getArtistSearchInteractor(); // for child component to use retrofit service to search
 }

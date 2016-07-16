@@ -2,6 +2,8 @@ package dhbk.android.spotifygcs.ui.searchArtist.childSearchArtist;
 
 import android.support.annotation.NonNull;
 
+import dhbk.android.spotifygcs.interactor.ArtistSearchInteractor;
+
 import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
@@ -10,6 +12,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 public class SearchChildPresenter implements SearchChildContract.Presenter{
 
     private final SearchChildContract.View mSearchChildView;
+    private ArtistSearchInteractor mArtistSearchInteractor;
 
     public SearchChildPresenter(@NonNull SearchChildContract.View searchChildView) {
         mSearchChildView = checkNotNull(searchChildView, "tasksView cannot be null!");
@@ -19,6 +22,8 @@ public class SearchChildPresenter implements SearchChildContract.Presenter{
     // start views, so we can do anything to load the content in this method
     @Override
     public void start() {
+        // get the ArtistSearchInteractor for connect to the internet
+        mArtistSearchInteractor = mSearchChildView.getArtistSearchInteractor();
         // start search bar anim in view
         animTheSearchBar();
         // setup recyclerview and setup adapter
@@ -42,5 +47,11 @@ public class SearchChildPresenter implements SearchChildContract.Presenter{
     public void setupList() {
         mSearchChildView.setupRecyclerView();
         mSearchChildView.setupAdapter();
+    }
+
+    // search artist with string para
+    @Override
+    public void searchArtists(String query) {
+
     }
 }

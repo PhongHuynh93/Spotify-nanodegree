@@ -31,4 +31,9 @@ public class ArtistSearchModule {
     public SearchResultsAdapter provideAdapter(Context context) {
         return new SearchResultsAdapter(context);
     }
+
+//    @Provides
+//    public ArtistSearchInteractor provideSearchIntertor(ArtistSearchInteractor artistSearchInteractor) {
+//        return artistSearchInteractor;
+//    }
 }

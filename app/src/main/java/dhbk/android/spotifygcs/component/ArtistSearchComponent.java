@@ -14,4 +14,5 @@ import dhbk.android.spotifygcs.ui.searchArtist.childSearchArtist.SearchChildFrag
 public interface ArtistSearchComponent {
     void inject(SearchChildFragment searchFragment);
 //    SearchResultsAdapter getAdapter();
+//    ArtistSearchInteractor getArtistSearchInteractor();
 }
