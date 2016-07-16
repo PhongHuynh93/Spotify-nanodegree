@@ -1,10 +1,9 @@
 package dhbk.android.spotifygcs.component;
 
-import android.content.Context;
-
 import javax.inject.Singleton;
 
 import dagger.Component;
+import dhbk.android.spotifygcs.module.ArtistSearchModule;
 import dhbk.android.spotifygcs.module.InteractorModule;
 import dhbk.android.spotifygcs.module.SpotifyStreamerModule;
 
@@ -21,7 +20,9 @@ import dhbk.android.spotifygcs.module.SpotifyStreamerModule;
 @Singleton
 @Component(modules = {SpotifyStreamerModule.class, InteractorModule.class})
 public interface SpotifyStreamerComponent {
-//    void inject(SearchChildFragment searchFragment);
+    //    void inject(SearchChildFragment searchFragment);
     // method that child component can use
-    Context getContext();
+//    Context getContext();
+    ArtistSearchComponent artistSearchComponent(ArtistSearchModule artistSearchModule);
+
 }

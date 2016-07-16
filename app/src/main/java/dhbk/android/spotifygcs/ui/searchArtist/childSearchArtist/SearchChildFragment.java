@@ -33,8 +33,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import dhbk.android.spotifygcs.BaseFragment;
 import dhbk.android.spotifygcs.BasePresenter;
+import dhbk.android.spotifygcs.MVPApp;
 import dhbk.android.spotifygcs.R;
-import dhbk.android.spotifygcs.component.DaggerArtistSearchComponent;
 import dhbk.android.spotifygcs.component.SpotifyStreamerComponent;
 import dhbk.android.spotifygcs.interactor.ArtistSearchInteractor;
 import dhbk.android.spotifygcs.module.ArtistSearchModule;
@@ -112,11 +112,13 @@ public class SearchChildFragment extends BaseFragment implements SearchChildCont
     // DaggerArtistSearchComponent contains adapter for this fragment to use to show a list of artists
     @Override
     public void setUpComponent(SpotifyStreamerComponent appComponent) {
-        DaggerArtistSearchComponent.builder()
-                .spotifyStreamerComponent(appComponent)
-                .artistSearchModule(new ArtistSearchModule(this))
-                .build()
-                .inject(this);
+//        DaggerArtistSearchComponent.builder()
+//                .spotifyStreamerComponent(appComponent)
+//                .artistSearchModule(new ArtistSearchModule(this))
+//                .build()
+//                .inject(this);
+        ((MVPApp) getActivity().getApplication()).getSpotifyStreamerComponent()
+        .artistSearchComponent(new ArtistSearchModule(this)).inject(this);
 //        ((MVPApp) getActivity().getApplication()).getSpotifyStreamerComponent().inject(this);
     }
 
@@ -129,7 +131,6 @@ public class SearchChildFragment extends BaseFragment implements SearchChildCont
     public ArtistSearchInteractor getArtistSearchInteractor() {
         checkNotNull(mArtistSearchInteractor, "ArtistSearchInteractor cannot be null");
         return mArtistSearchInteractor;
-//        return  null;
     }
 
     ////////////////////////////////////////////////////////////////////////////
