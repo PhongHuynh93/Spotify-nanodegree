@@ -21,7 +21,9 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import dhbk.android.spotifygcs.BaseFragment;
 import dhbk.android.spotifygcs.R;
-import dhbk.android.spotifygcs.SpotifyStreamerComponent;
+import dhbk.android.spotifygcs.component.DaggerArtistSearchComponent;
+import dhbk.android.spotifygcs.component.SpotifyStreamerComponent;
+import dhbk.android.spotifygcs.module.ArtistSearchModule;
 import dhbk.android.spotifygcs.util.AnimUtils;
 import dhbk.android.spotifygcs.util.ImeUtils;
 import dhbk.android.spotifygcs.util.ViewUtils;
@@ -74,34 +76,29 @@ public class SearchChildFragment extends BaseFragment implements SearchChildCont
         }
     }
 
-//    @Override
-//    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-//                             Bundle savedInstanceState) {
-//        // Inflate the layout for this fragment
-//        View v = inflater.inflate(R.layout.fragment_search_child, container, false);
-//        ButterKnife.bind(this, v);
-//        // anim the searchbar, move it from left to right when open its.
-//        mPresenter.animTheSearchBar();
-//        return v;
-//    }
-
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 //         anim the searchbar, move it from left to right when open its.
         mPresenter.animTheSearchBar();
-
     }
 
+    ////////////////////////////////////////////////////////////////////////////
     // implement parent class
     @Override
     public int getLayout() {
         return R.layout.fragment_search_child;
     }
 
+    // inject component, by passing parent component
+    // DaggerArtistSearchComponent contains adapter for this fragment to use to show a list of artists
     @Override
     public void setUpComponent(SpotifyStreamerComponent appComponent) {
-
+        DaggerArtistSearchComponent.builder()
+                .spotifyStreamerComponent(appComponent)
+                .artistSearchModule(new ArtistSearchModule(this))
+                .build()
+                .inject(this);
     }
 
 

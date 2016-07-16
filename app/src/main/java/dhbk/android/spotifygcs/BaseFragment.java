@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import butterknife.ButterKnife;
+import dhbk.android.spotifygcs.component.SpotifyStreamerComponent;
 
 /**
  * Created by huynhducthanhphong on 7/16/16.
@@ -28,6 +29,7 @@ public abstract class BaseFragment extends Fragment {
     // return layout for fragment
     public abstract int getLayout();
 
+    // if view use any dagger, call component
     public abstract void setUpComponent(SpotifyStreamerComponent appComponent);
 
     /**

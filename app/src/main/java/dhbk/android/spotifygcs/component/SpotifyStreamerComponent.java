@@ -1,11 +1,10 @@
-package dhbk.android.spotifygcs;
+package dhbk.android.spotifygcs.component;
 
 import android.content.Context;
 
 import javax.inject.Singleton;
 
 import dagger.Component;
-import dhbk.android.spotifygcs.interactor.ArtistSearchInteractor;
 import dhbk.android.spotifygcs.module.InteractorModule;
 import dhbk.android.spotifygcs.module.SpotifyStreamerModule;
 
@@ -14,6 +13,7 @@ import dhbk.android.spotifygcs.module.SpotifyStreamerModule;
  */
 
 /**
+ * This is a parent dependence: define method to connect to spotify api
  * Module:
  * spotify: contains all retrofit instance and services need for connecting and downloading a list of artists
  * InteractorModule: contains method to for service to connect to network.
@@ -21,6 +21,7 @@ import dhbk.android.spotifygcs.module.SpotifyStreamerModule;
 @Singleton
 @Component(modules = {SpotifyStreamerModule.class, InteractorModule.class})
 public interface SpotifyStreamerComponent {
+    // method that child component can use
     Context getContext();
-    ArtistSearchInteractor getArtistSearchInteractor();
+//    ArtistSearchComponent artistSearchComponent(ArtistSearchModule module);
 }
