@@ -17,9 +17,12 @@ import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.SearchView;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 import dhbk.android.spotifygcs.BaseFragment;
+import dhbk.android.spotifygcs.BasePresenter;
 import dhbk.android.spotifygcs.R;
 import dhbk.android.spotifygcs.component.DaggerArtistSearchComponent;
 import dhbk.android.spotifygcs.component.SpotifyStreamerComponent;
@@ -49,6 +52,10 @@ public class SearchChildFragment extends BaseFragment implements SearchChildCont
     @BindView(R.id.container)
     FrameLayout mContainer;
 
+    // get adapter components
+    @Inject
+    SearchResultsAdapter mSearchResultsAdapter;
+
     private boolean dismissing = false;
     // location of the search icon
     private int searchBackDistanceX;
@@ -76,13 +83,6 @@ public class SearchChildFragment extends BaseFragment implements SearchChildCont
         }
     }
 
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-//         anim the searchbar, move it from left to right when open its.
-        mPresenter.animTheSearchBar();
-    }
-
     ////////////////////////////////////////////////////////////////////////////
     // implement parent class
     @Override
@@ -99,6 +99,11 @@ public class SearchChildFragment extends BaseFragment implements SearchChildCont
                 .artistSearchModule(new ArtistSearchModule(this))
                 .build()
                 .inject(this);
+    }
+
+    @Override
+    protected BasePresenter getPresenter() {
+        return mPresenter;
     }
 
 
@@ -245,6 +250,18 @@ public class SearchChildFragment extends BaseFragment implements SearchChildCont
     @Override
     public boolean isActive() {
         return isAdded();
+    }
+
+    // setup recyclerview
+    @Override
+    public void setupRecyclerView() {
+
+    }
+
+    // setup adatper to add to recyclerview
+    @Override
+    public void setupAdapter() {
+
     }
 
     @Override

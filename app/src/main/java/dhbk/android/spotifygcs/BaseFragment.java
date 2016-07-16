@@ -25,12 +25,24 @@ public abstract class BaseFragment extends Fragment {
         return v;
     }
 
+    // when view start, start the presenter too
+    @Override
+    public void onStart() {
+        super.onStart();
+        getPresenter().start();
+    }
 
     // return layout for fragment
     public abstract int getLayout();
 
     // if view use any dagger, call component
     public abstract void setUpComponent(SpotifyStreamerComponent appComponent);
+
+
+    /**
+     * @return The presenter attached to the fragment. This must extends from {@link BasePresenter}
+     * */
+    protected abstract BasePresenter getPresenter();
 
     /**
      * Setup the object graph and inject the dependencies needed on this fragment.

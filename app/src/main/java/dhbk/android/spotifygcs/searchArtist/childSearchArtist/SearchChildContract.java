@@ -15,13 +15,21 @@ public interface SearchChildContract {
         void dismiss();
         // declare whether view is live or not.
         boolean isActive();
+        // setup recyclerview
+        void setupRecyclerView();
+        // setup adatper to add to recyclerview
+        void setupAdapter();
     }
 
     // method presenter search artist must override
     interface Presenter extends BasePresenter {
         // remove the view of this presenter
         void dismissView();
+
         // anim search bar of views
         void animTheSearchBar();
+
+        // setup recyclerview and setup adapter
+        void setupList();
     }
 }

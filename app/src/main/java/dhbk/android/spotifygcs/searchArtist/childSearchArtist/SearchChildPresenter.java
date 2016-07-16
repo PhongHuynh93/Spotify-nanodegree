@@ -19,7 +19,10 @@ public class SearchChildPresenter implements SearchChildContract.Presenter{
     // start views, so we can do anything to load the content in this method
     @Override
     public void start() {
-
+        // start search bar anim in view
+        animTheSearchBar();
+        // setup recyclerview and setup adapter
+        setupList();
     }
 
     // close views
@@ -32,5 +35,12 @@ public class SearchChildPresenter implements SearchChildContract.Presenter{
     @Override
     public void animTheSearchBar() {
         mSearchChildView.animSearchView();
+    }
+
+    // setup recyclerview and adapter of a list
+    @Override
+    public void setupList() {
+        mSearchChildView.setupRecyclerView();
+        mSearchChildView.setupAdapter();
     }
 }
