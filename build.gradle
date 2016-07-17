@@ -51,5 +51,8 @@ ext {
     rxjavaVersion = '1.1.6'
     rxandroidVersion = '1.2.1'
     adapterRxjavaVersion = '2.1.0'
+    // picasso
+    picassoVersion = '2.5.2'
+
 }
 
