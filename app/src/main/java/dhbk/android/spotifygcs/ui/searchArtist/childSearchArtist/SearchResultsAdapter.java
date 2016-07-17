@@ -16,7 +16,6 @@ import dhbk.android.spotifygcs.domain.Artist;
 
 /**
  * Created by huynhducthanhphong on 7/16/16.
- * // TODO: 7/16/16 extend recycler view adapter
  */
 public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdapter.ArtistViewHolder> {
     private final ArrayList<Artist> mArtists;
@@ -30,13 +29,20 @@ public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdap
     @Override
     public ArtistViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_search_artist, parent, false);
-        ArtistViewHolder holder = new ArtistViewHolder(v);
-        return holder;
+        return new ArtistViewHolder(v);
     }
 
     @Override
     public void onBindViewHolder(ArtistViewHolder holder, int position) {
+        Artist currentArtist = mArtists.get(position);
+//
+//        holder.setArtistName(currentArtist.getName());
 
+        if(currentArtist.getMediumImage() != null)
+            holder.setArtistImage(currentArtist.getMediumImage().getUrl());
+
+        else
+            holder.setPlaceholderImage();
     }
 
     @Override

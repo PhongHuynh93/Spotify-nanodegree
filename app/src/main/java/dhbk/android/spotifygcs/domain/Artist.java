@@ -9,6 +9,7 @@ import dhbk.android.spotifygcs.util.Constant;
 /**
  * Created by phongdth.ky on 7/15/2016.
  * a model JSON for an artist
+ * // add another field here if you want to show more than image of artist
  */
 public class Artist {
     // image url of an artist can be null, so check first
@@ -16,4 +17,14 @@ public class Artist {
     @SerializedName(Constant.IMAGES)
     @Nullable
     SpotifyImage[] urlImage;
+
+    // if on artist have many image, image at position 1 is medium (other is large or small)
+    @Nullable
+    public SpotifyImage getMediumImage() {
+        assert urlImage != null;
+        if (urlImage.length >= 2) {
+            return urlImage[1];
+        }
+        return null;
+    }
 }
