@@ -10,7 +10,7 @@ import dhbk.android.spotifygcs.ui.searchArtist.childSearchArtist.SearchResultsAd
 
 /**
  * Created by huynhducthanhphong on 7/16/16.
- * // TODO: 7/16/16 command this module
+ * provide adapter for view to add data to list
  */
 @Module
 public class ArtistSearchModule {

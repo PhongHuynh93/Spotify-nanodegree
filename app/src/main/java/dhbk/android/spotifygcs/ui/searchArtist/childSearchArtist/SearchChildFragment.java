@@ -26,6 +26,8 @@ import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.SearchView;
 
+import java.util.ArrayList;
+
 import javax.inject.Inject;
 
 import butterknife.BindView;
@@ -36,6 +38,7 @@ import dhbk.android.spotifygcs.BasePresenter;
 import dhbk.android.spotifygcs.MVPApp;
 import dhbk.android.spotifygcs.R;
 import dhbk.android.spotifygcs.component.SpotifyStreamerComponent;
+import dhbk.android.spotifygcs.domain.Artist;
 import dhbk.android.spotifygcs.interactor.ArtistSearchInteractor;
 import dhbk.android.spotifygcs.module.ArtistSearchModule;
 import dhbk.android.spotifygcs.util.AnimUtils;
@@ -44,7 +47,6 @@ import dhbk.android.spotifygcs.util.ViewUtils;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-// TODO: 7/15/2016 listen on search bar when click
 public class SearchChildFragment extends BaseFragment implements SearchChildContract.View {
     private static final String ARG_SEARCH_BACK_DISTANCE_X = "searchBackDistanceX";
     private static final String ARG_SEARCH_ICON_CENTER_X = "searchIconCenterX";
@@ -326,11 +328,17 @@ public class SearchChildFragment extends BaseFragment implements SearchChildCont
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // TODO: inflate a fragment view
         View rootView = super.onCreateView(inflater, container, savedInstanceState);
         ButterKnife.bind(this, rootView);
         return rootView;
     }
+
+    // callback when query the spotify api, if found the artists
+    @Override
+    public void displaySearchArtists(ArrayList<Artist> artists) {
+
+    }
+
 
     // search artists with a query
     private void searchFor(String query) {

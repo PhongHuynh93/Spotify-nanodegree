@@ -2,14 +2,18 @@ package dhbk.android.spotifygcs.ui.searchArtist.childSearchArtist;
 
 import android.support.annotation.NonNull;
 
+import java.util.ArrayList;
+
+import dhbk.android.spotifygcs.domain.Artist;
 import dhbk.android.spotifygcs.interactor.ArtistSearchInteractor;
+import dhbk.android.spotifygcs.io.callback.ArtistSearchServerCallback;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * Created by phongdth.ky on 7/15/2016.
  */
-public class SearchChildPresenter implements SearchChildContract.Presenter{
+public class SearchChildPresenter implements SearchChildContract.Presenter, ArtistSearchServerCallback {
 
     private final SearchChildContract.View mSearchChildView;
     private ArtistSearchInteractor mArtistSearchInteractor;
@@ -52,6 +56,18 @@ public class SearchChildPresenter implements SearchChildContract.Presenter{
     // search artist with string para
     @Override
     public void searchArtists(String query) {
+        mArtistSearchInteractor.performSearch(query, this);
+    }
 
+    // callback when query the spotify api, if found the artists
+    @Override
+    public void onArtistsFound(ArrayList<Artist> artists) {
+        mSearchChildView.displaySearchArtists(artists);
+    }
+
+    // callback when query the spotify api, if not found the artists
+    @Override
+    public void onFailedSearch() {
+        // TODO: 7/16/16 look at plaid to see if not found artist
     }
 }

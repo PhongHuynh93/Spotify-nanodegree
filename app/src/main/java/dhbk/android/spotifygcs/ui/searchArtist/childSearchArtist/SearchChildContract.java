@@ -1,7 +1,10 @@
 package dhbk.android.spotifygcs.ui.searchArtist.childSearchArtist;
 
+import java.util.ArrayList;
+
 import dhbk.android.spotifygcs.BasePresenter;
 import dhbk.android.spotifygcs.BaseView;
+import dhbk.android.spotifygcs.domain.Artist;
 import dhbk.android.spotifygcs.interactor.ArtistSearchInteractor;
 
 /**
@@ -22,9 +25,10 @@ public interface SearchChildContract {
         void setupAdapter();
         // setup searchbar
         void setupSearchBar();
-
         // get the ArtistSearchInteractor for connect to the internet
         ArtistSearchInteractor getArtistSearchInteractor();
+        // display artists in recyclerview
+        void displaySearchArtists(ArrayList<Artist> artists);
     }
 
     // method presenter search artist must override
