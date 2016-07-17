@@ -93,7 +93,8 @@
             android:layout_marginTop="?android:actionBarSize"
             android:scrollbars="vertical"
             android:scrollbarStyle="outsideOverlay"
-            android:clipToPadding="false"/>
+            android:clipToPadding="false"
+            android:visibility="gone" />
 
         <!--background of view, make it grey and opacity-->
         <View

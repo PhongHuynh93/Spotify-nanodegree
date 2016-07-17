@@ -4,6 +4,7 @@ import android.content.Context;
 
 import dagger.Module;
 import dagger.Provides;
+import dhbk.android.spotifygcs.ActivityScope;
 import dhbk.android.spotifygcs.ui.searchArtist.childSearchArtist.SearchChildContract;
 import dhbk.android.spotifygcs.ui.searchArtist.childSearchArtist.SearchResultsAdapter;
 
@@ -22,14 +23,14 @@ public class ArtistSearchModule {
 
     // return this view which inject this module
     @Provides
-//    @ActivityScope
+    @ActivityScope
     public SearchChildContract.View provideView() {
         return view;
     }
 
     // return adapter for this view, context from parent component
     @Provides
-//    @ActivityScope
+    @ActivityScope
     public SearchResultsAdapter provideAdapter(Context context) {
         return new SearchResultsAdapter(context);
     }

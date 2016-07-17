@@ -7,6 +7,7 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.app.SearchManager;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.AnimatedVectorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -15,15 +16,23 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.InputType;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
 import android.text.TextUtils;
+import android.text.style.StyleSpan;
+import android.transition.Transition;
+import android.transition.TransitionInflater;
+import android.transition.TransitionManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
+import android.view.ViewStub;
 import android.view.ViewTreeObserver;
 import android.view.inputmethod.EditorInfo;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.SearchView;
 
 import java.util.ArrayList;
@@ -41,6 +50,7 @@ import dhbk.android.spotifygcs.component.SpotifyStreamerComponent;
 import dhbk.android.spotifygcs.domain.Artist;
 import dhbk.android.spotifygcs.interactor.ArtistSearchInteractor;
 import dhbk.android.spotifygcs.module.ArtistSearchModule;
+import dhbk.android.spotifygcs.ui.widget.BaselineGridTextView;
 import dhbk.android.spotifygcs.util.AnimUtils;
 import dhbk.android.spotifygcs.util.ImeUtils;
 import dhbk.android.spotifygcs.util.ViewUtils;
@@ -71,16 +81,26 @@ public class SearchChildFragment extends BaseFragment implements SearchChildCont
     FrameLayout mSearchbackContainer;
     @BindView(R.id.search_toolbar)
     FrameLayout mSearchToolbar;
-    @BindView(R.id.container)
-    FrameLayout mContainer;
     @BindView(R.id.recyclerview_search_artist)
     RecyclerView mRecyclerviewSearchArtist;
+    @BindView(R.id.container)
+    FrameLayout mContainer;
+    @BindView(android.R.id.empty)
+    ProgressBar mProgressBar;
+    @BindView(R.id.stub_no_search_results)
+    ViewStub mStubNoSearchResults;
+    @BindView(R.id.results_scrim)
+    View mResultsScrim;
+    @BindView(R.id.results_container)
+    FrameLayout mResultsContainer;
 
     private boolean dismissing = false;
     // location of the search icon
     private int searchBackDistanceX;
     private int searchIconCenterX;
     private SearchChildContract.Presenter mPresenter;
+    private Transition mAutoTransition;
+    private BaselineGridTextView noResults;
 
     public SearchChildFragment() {
     }
@@ -103,6 +123,13 @@ public class SearchChildFragment extends BaseFragment implements SearchChildCont
         }
     }
 
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        startTransition();
+    }
+
+
     ////////////////////////////////////////////////////////////////////////////
     // implement parent class
     @Override
@@ -120,7 +147,7 @@ public class SearchChildFragment extends BaseFragment implements SearchChildCont
 //                .build()
 //                .inject(this);
         ((MVPApp) getActivity().getApplication()).getSpotifyStreamerComponent()
-        .artistSearchComponent(new ArtistSearchModule(this)).inject(this);
+                .artistSearchComponent(new ArtistSearchModule(this)).inject(this);
 //        ((MVPApp) getActivity().getApplication()).getSpotifyStreamerComponent().inject(this);
     }
 
@@ -339,9 +366,33 @@ public class SearchChildFragment extends BaseFragment implements SearchChildCont
     // callback when query the spotify api, if found the artists
     @Override
     public void displaySearchArtists(ArrayList<Artist> artists) {
-        // TODO: 7/17/16 add to recyclerview
-        // change data to adapter
-        mSearchResultsAdapter.replaceAnotherData(artists);
+        // if has results, show it to recycler view
+        if (artists != null && artists.size() > 0) {
+            mPresenter.doOtherThingToShowResults();
+            // change data to adapter
+            mSearchResultsAdapter.replaceAnotherData(artists);
+        } else {
+            // if not have result, info to user
+            mPresenter.infoUsersNotHaveData();
+        }
+    }
+
+    // delay transition
+    // remove the progress bar
+    // set the rcv to visible
+    @Override
+    public void showtoRcv() {
+        endTransition();
+        mProgressBar.setVisibility(View.GONE);
+        mRecyclerviewSearchArtist.setVisibility(View.VISIBLE);
+    }
+
+    // if we dont have data to show, info the user
+    @Override
+    public void showEmptyArtistsLayout() {
+        endTransition();
+        mProgressBar.setVisibility(View.GONE);
+        setNoResultsVisibility(View.VISIBLE);
     }
 
 
@@ -362,4 +413,43 @@ public class SearchChildFragment extends BaseFragment implements SearchChildCont
     private void clearResults() {
 
     }
+
+
+    private void startTransition() {
+        mAutoTransition = TransitionInflater.from(getContext()).inflateTransition(R.transition.auto);
+    }
+
+    private void endTransition() {
+        TransitionManager.beginDelayedTransition(mContainer, mAutoTransition);
+    }
+
+    // show empty artists layout
+    private void setNoResultsVisibility(int visibility) {
+        if (visibility == View.VISIBLE) {
+            // will be null for the first time
+            if (noResults == null) {
+                // remove text from search view and show keyboard
+                noResults = (BaselineGridTextView) ((ViewStub)
+                        getActivity().findViewById(R.id.stub_no_search_results)).inflate();
+                noResults.setOnClickListener(v -> {
+                    mSearchView.setQuery("", false);
+                    mSearchView.requestFocus();
+                    ImeUtils.showIme(mSearchView);
+                });
+            }
+            // show info to user depends on their search
+            String message = String.format(getString(R
+                    .string.no_search_results), mSearchView.getQuery().toString());
+            SpannableStringBuilder ssb = new SpannableStringBuilder(message);
+            ssb.setSpan(new StyleSpan(Typeface.ITALIC),
+                    message.indexOf('“') + 1,
+                    message.length() - 1,
+                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            noResults.setText(ssb);
+        }
+        if (noResults != null) {
+            noResults.setVisibility(visibility);
+        }
+    }
+
 }
