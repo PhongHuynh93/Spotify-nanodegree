@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
 import butterknife.BindView;
@@ -38,26 +40,45 @@ public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdap
 //
 //        holder.setArtistName(currentArtist.getName());
 
-        if(currentArtist.getMediumImage() != null)
+        if(currentArtist.getMediumImage() != null) {
             holder.setArtistImage(currentArtist.getMediumImage().getUrl());
-
-        else
+        }
+        else {
             holder.setPlaceholderImage();
+        }
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return mArtists.isEmpty() ? 0 : mArtists.size();
     }
 
 
-    public static class ArtistViewHolder extends RecyclerView.ViewHolder {
+    public class ArtistViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.imageview_item_search_artist)
         ImageView mImageviewItemSearchArtist;
 
         ArtistViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
+        }
+
+        // we have url of image, so download it by picasso and cache it, so the other time, not download it again but get in cache
+        // resize image depend on width height of viewholder
+        public void setArtistImage(String urlImage) {
+            Picasso.with(mContext)
+                    .load(urlImage)
+                    .placeholder(R.drawable.face)
+                    .resize(mImageviewItemSearchArtist.getWidth(), mImageviewItemSearchArtist.getHeight())
+                    .into(mImageviewItemSearchArtist);
+        }
+
+        // if not found, add a place holder for artist
+        public void setPlaceholderImage() {
+            Picasso.with(mContext)
+                    .load(R.drawable.face)
+                    .resize(mImageviewItemSearchArtist.getWidth(), mImageviewItemSearchArtist.getHeight())
+                    .into(mImageviewItemSearchArtist);
         }
     }
 }

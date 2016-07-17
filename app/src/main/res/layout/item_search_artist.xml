@@ -8,5 +8,6 @@
         android:id="@+id/imageview_item_search_artist"
         android:layout_width="168dp"
         android:layout_height="168dp"
-        android:layout_alignParentTop="true"/>
+        android:layout_alignParentTop="true"
+        android:scaleType="fitXY"/>
 </RelativeLayout>

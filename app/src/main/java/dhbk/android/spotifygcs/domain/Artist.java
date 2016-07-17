@@ -18,7 +18,7 @@ public class Artist {
     @Nullable
     SpotifyImage[] urlImage;
 
-    // if on artist have many image, image at position 1 is medium (other is large or small)
+    // if on artist have many image, image at position 1 is medium 300 x 300 pixel (other is large or small)
     @Nullable
     public SpotifyImage getMediumImage() {
         assert urlImage != null;
