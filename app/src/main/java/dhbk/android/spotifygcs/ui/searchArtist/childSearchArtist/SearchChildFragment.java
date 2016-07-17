@@ -11,6 +11,7 @@ import android.graphics.drawable.AnimatedVectorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.InputType;
@@ -282,10 +283,10 @@ public class SearchChildFragment extends BaseFragment implements SearchChildCont
     // setup recyclerview
     @Override
     public void setupRecyclerView() {
-//        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), NUMBER_OF_COLUMN_LIST, LinearLayoutManager.VERTICAL, false);
-//        mRecyclerviewSearchArtist.setLayoutManager(gridLayoutManager);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), NUMBER_OF_COLUMN_LIST, LinearLayoutManager.VERTICAL, false);
+        mRecyclerviewSearchArtist.setLayoutManager(gridLayoutManager);
 
-        mRecyclerviewSearchArtist.setLayoutManager(new LinearLayoutManager(getContext()));
+//        mRecyclerviewSearchArtist.setLayoutManager(new LinearLayoutManager(getContext()));
     }
 
     // setup adatper to add to recyclerview

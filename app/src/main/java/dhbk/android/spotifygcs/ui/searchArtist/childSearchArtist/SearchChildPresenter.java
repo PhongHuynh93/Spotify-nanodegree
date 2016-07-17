@@ -31,7 +31,9 @@ public class SearchChildPresenter implements SearchChildContract.Presenter, Arti
         // start search bar anim in view and setup searchbar
         setupSearchBar();
         // setup recyclerview and setup adapter
-        setupList();
+//        setupList();
+        mSearchChildView.setupAdapter();
+        mSearchChildView.setupRecyclerView();
     }
 
     // close views
