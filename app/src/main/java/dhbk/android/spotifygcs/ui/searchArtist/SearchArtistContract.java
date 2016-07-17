@@ -1,4 +1,4 @@
-package dhbk.android.spotifygcs.searchArtist;
+package dhbk.android.spotifygcs.ui.searchArtist;
 
 import dhbk.android.spotifygcs.BasePresenter;
 import dhbk.android.spotifygcs.BaseView;

@@ -1,39 +1,64 @@
-package dhbk.android.spotifygcs.searchArtist.childSearchArtist;
+package dhbk.android.spotifygcs.ui.searchArtist.childSearchArtist;
 
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.app.SearchManager;
 import android.graphics.Color;
 import android.graphics.drawable.AnimatedVectorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.text.InputType;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.view.inputmethod.EditorInfo;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.SearchView;
 
+import java.util.ArrayList;
+
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import dhbk.android.spotifygcs.BaseFragment;
+import dhbk.android.spotifygcs.BasePresenter;
+import dhbk.android.spotifygcs.MVPApp;
 import dhbk.android.spotifygcs.R;
+import dhbk.android.spotifygcs.component.SpotifyStreamerComponent;
+import dhbk.android.spotifygcs.domain.Artist;
+import dhbk.android.spotifygcs.interactor.ArtistSearchInteractor;
+import dhbk.android.spotifygcs.module.ArtistSearchModule;
 import dhbk.android.spotifygcs.util.AnimUtils;
 import dhbk.android.spotifygcs.util.ImeUtils;
 import dhbk.android.spotifygcs.util.ViewUtils;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-// TODO: 7/15/2016 listen on search bar when click
-public class SearchChildFragment extends Fragment implements SearchChildContract.View {
+public class SearchChildFragment extends BaseFragment implements SearchChildContract.View {
     private static final String ARG_SEARCH_BACK_DISTANCE_X = "searchBackDistanceX";
     private static final String ARG_SEARCH_ICON_CENTER_X = "searchIconCenterX";
+    private static final int NUMBER_OF_COLUMN_LIST = 2;
+
+    // get adapter components
+    @Inject
+    SearchResultsAdapter mSearchResultsAdapter;
+
+    @Inject
+    ArtistSearchInteractor mArtistSearchInteractor;
+
     @BindView(R.id.scrim)
     View mScrim;
     @BindView(R.id.search_background)
@@ -48,6 +73,8 @@ public class SearchChildFragment extends Fragment implements SearchChildContract
     FrameLayout mSearchToolbar;
     @BindView(R.id.container)
     FrameLayout mContainer;
+    @BindView(R.id.recyclerview_search_artist)
+    RecyclerView mRecyclerviewSearchArtist;
 
     private boolean dismissing = false;
     // location of the search icon
@@ -76,18 +103,40 @@ public class SearchChildFragment extends Fragment implements SearchChildContract
         }
     }
 
+    ////////////////////////////////////////////////////////////////////////////
+    // implement parent class
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_search_child, container, false);
-        ButterKnife.bind(this, v);
-        // anim the searchbar, move it from left to right when open its.
-        mPresenter.animTheSearchBar();
-        return v;
+    public int getLayout() {
+        return R.layout.fragment_search_child;
     }
 
+    // inject component, by passing parent component
+    // DaggerArtistSearchComponent contains adapter for this fragment to use to show a list of artists
+    @Override
+    public void setUpComponent(SpotifyStreamerComponent appComponent) {
+//        DaggerArtistSearchComponent.builder()
+//                .spotifyStreamerComponent(appComponent)
+//                .artistSearchModule(new ArtistSearchModule(this))
+//                .build()
+//                .inject(this);
+        ((MVPApp) getActivity().getApplication()).getSpotifyStreamerComponent()
+        .artistSearchComponent(new ArtistSearchModule(this)).inject(this);
+//        ((MVPApp) getActivity().getApplication()).getSpotifyStreamerComponent().inject(this);
+    }
 
+    @Override
+    protected BasePresenter getPresenter() {
+        return mPresenter;
+    }
+
+    @Override
+    public ArtistSearchInteractor getArtistSearchInteractor() {
+        checkNotNull(mArtistSearchInteractor, "ArtistSearchInteractor cannot be null");
+        return mArtistSearchInteractor;
+    }
+
+    ////////////////////////////////////////////////////////////////////////////
+    // implement interface
     // anim the search icon when open this activity
     @Override
     public void animSearchView() {
@@ -231,8 +280,86 @@ public class SearchChildFragment extends Fragment implements SearchChildContract
         return isAdded();
     }
 
+    // setup recyclerview
+    @Override
+    public void setupRecyclerView() {
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), NUMBER_OF_COLUMN_LIST, LinearLayoutManager.VERTICAL, false);
+        mRecyclerviewSearchArtist.setLayoutManager(gridLayoutManager);
+
+//        mRecyclerviewSearchArtist.setLayoutManager(new LinearLayoutManager(getContext()));
+    }
+
+    // setup adatper to add to recyclerview
+    @Override
+    public void setupAdapter() {
+        checkNotNull(mSearchResultsAdapter, "adapter not be null before set to list");
+        mRecyclerviewSearchArtist.setAdapter(mSearchResultsAdapter);
+    }
+
+    // setup searchbar
+    @Override
+    public void setupSearchBar() {
+        SearchManager searchManager = (SearchManager) getContext().getSystemService(getContext().SEARCH_SERVICE);
+        mSearchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
+        // hint, inputType & ime options seem to be ignored from XML! Set in code
+        mSearchView.setQueryHint(getString(R.string.search_artist_child_text));
+        mSearchView.setInputType(InputType.TYPE_TEXT_FLAG_CAP_WORDS);
+        mSearchView.setImeOptions(mSearchView.getImeOptions() | EditorInfo.IME_ACTION_SEARCH |
+                EditorInfo.IME_FLAG_NO_EXTRACT_UI | EditorInfo.IME_FLAG_NO_FULLSCREEN);
+        mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                searchFor(query);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String query) {
+                if (TextUtils.isEmpty(query)) {
+                    // when remove everytext from search view, remove results
+                    clearResults();
+                }
+                return true;
+            }
+        });
+    }
+
     @Override
     public void setPresenter(SearchChildContract.Presenter presenter) {
         mPresenter = checkNotNull(presenter);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        ButterKnife.bind(this, rootView);
+        return rootView;
+    }
+
+    // callback when query the spotify api, if found the artists
+    @Override
+    public void displaySearchArtists(ArrayList<Artist> artists) {
+        // TODO: 7/17/16 add to recyclerview
+        // change data to adapter
+        mSearchResultsAdapter.replaceAnotherData(artists);
+    }
+
+
+    // search artists with a query
+    private void searchFor(String query) {
+        // when user wait for connection, so a progress
+//        clearResults();
+//        progress.setVisibility(View.VISIBLE);
+//        ImeUtils.hideIme(searchView);
+//        searchView.clearFocus();
+
+//        dataManager.searchFor(query);
+
+        // connect to network and search
+        mPresenter.searchArtists(query);
+    }
+
+    private void clearResults() {
+
     }
 }

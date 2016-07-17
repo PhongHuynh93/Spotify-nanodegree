@@ -57,4 +57,50 @@
         </FrameLayout>
     </FrameLayout>
 
+    <!--content-->
+    <FrameLayout
+        android:id="@+id/results_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="?android:actionBarSize"
+        android:background="@color/grey_dark2"
+        android:elevation="@dimen/z_app_bar">
+
+        <!--progress bar when connect to server -->
+        <ProgressBar
+            android:id="@android:id/empty"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:indeterminateTint="?android:colorAccent"
+            android:indeterminateTintMode="src_in"
+            android:paddingBottom="@dimen/spacing_huge"
+            android:paddingTop="@dimen/spacing_huge"
+            android:visibility="gone"/>
+
+        <!--show a view when no result found-->
+        <ViewStub
+            android:id="@+id/stub_no_search_results"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout="@layout/layout_no_search_results"/>
+
+        <!--define a vertical scrollbar with a list-->
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerview_search_artist"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="?android:actionBarSize"
+            android:scrollbars="vertical"
+            android:scrollbarStyle="outsideOverlay"
+            android:clipToPadding="false"/>
+
+        <!--background of view, make it grey and opacity-->
+        <View
+            android:id="@+id/results_scrim"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/grey_opa"
+            android:visibility="gone" />
+    </FrameLayout>
 </FrameLayout>

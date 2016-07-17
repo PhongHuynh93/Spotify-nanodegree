@@ -64,4 +64,7 @@ dependencies {
     compile "io.reactivex:rxjava:$rootProject.rxjavaVersion"
     compile "io.reactivex:rxandroid:$rootProject.rxandroidVersion"
     compile "com.squareup.retrofit2:adapter-rxjava:$rootProject.adapterRxjavaVersion"
+
+//    picasso
+    compile "com.squareup.picasso:picasso:$rootProject.picassoVersion"
 }

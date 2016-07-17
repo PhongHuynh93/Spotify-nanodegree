@@ -1,4 +1,4 @@
-package dhbk.android.spotifygcs.searchArtist.childSearchArtist;
+package dhbk.android.spotifygcs.ui.searchArtist.childSearchArtist;
 
 import android.content.Context;
 import android.content.Intent;

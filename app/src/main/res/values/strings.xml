@@ -31,6 +31,7 @@
         ]]>
     </string>
 
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!--search artist child-->
+    <string name="search_artist_child_text">Search Artists</string>
 
 </resources>

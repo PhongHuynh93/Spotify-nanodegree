@@ -1,4 +1,4 @@
-package dhbk.android.spotifygcs.searchArtist;
+package dhbk.android.spotifygcs.ui.searchArtist;
 
 import android.app.ActivityOptions;
 import android.content.Intent;
@@ -15,7 +15,7 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import dhbk.android.spotifygcs.R;
-import dhbk.android.spotifygcs.searchArtist.childSearchArtist.SearchChildActivity;
+import dhbk.android.spotifygcs.ui.searchArtist.childSearchArtist.SearchChildActivity;
 import dhbk.android.spotifygcs.util.HelpUtil;
 
 import static com.google.common.base.Preconditions.checkNotNull;
