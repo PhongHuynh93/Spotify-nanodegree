@@ -336,6 +336,7 @@ public class SearchChildFragment extends BaseFragment implements SearchChildCont
     // callback when query the spotify api, if found the artists
     @Override
     public void displaySearchArtists(ArrayList<Artist> artists) {
+        // TODO: 7/17/16 add to recyclerview
 
     }
 

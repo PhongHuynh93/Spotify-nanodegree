@@ -7,17 +7,24 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import java.util.ArrayList;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import dhbk.android.spotifygcs.R;
+import dhbk.android.spotifygcs.domain.Artist;
 
 /**
  * Created by huynhducthanhphong on 7/16/16.
  * // TODO: 7/16/16 extend recycler view adapter
  */
 public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdapter.ArtistViewHolder> {
-    public SearchResultsAdapter(Context context) {
+    private final ArrayList<Artist> mArtists;
+    private final Context mContext;
 
+    public SearchResultsAdapter(Context context) {
+        mContext = context;
+        mArtists = new ArrayList<>(); // create an empty list
     }
 
     @Override
