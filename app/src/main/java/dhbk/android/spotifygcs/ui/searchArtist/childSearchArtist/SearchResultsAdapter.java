@@ -20,8 +20,8 @@ import dhbk.android.spotifygcs.domain.Artist;
  * Created by huynhducthanhphong on 7/16/16.
  */
 public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdapter.ArtistViewHolder> {
-    private final ArrayList<Artist> mArtists;
-    private final Context mContext;
+    private ArrayList<Artist> mArtists;
+    private Context mContext;
 
     public SearchResultsAdapter(Context context) {
         mContext = context;
@@ -51,6 +51,12 @@ public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdap
     @Override
     public int getItemCount() {
         return mArtists.isEmpty() ? 0 : mArtists.size();
+    }
+
+    // replace artists data and notify change
+    public void replaceAnotherData(ArrayList<Artist> artists) {
+        mArtists = artists;
+        notifyItemRangeInserted(0, mArtists.size());
     }
 
 

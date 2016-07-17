@@ -337,7 +337,8 @@ public class SearchChildFragment extends BaseFragment implements SearchChildCont
     @Override
     public void displaySearchArtists(ArrayList<Artist> artists) {
         // TODO: 7/17/16 add to recyclerview
-
+        // change data to adapter
+        mSearchResultsAdapter.replaceAnotherData(artists);
     }
 
 
