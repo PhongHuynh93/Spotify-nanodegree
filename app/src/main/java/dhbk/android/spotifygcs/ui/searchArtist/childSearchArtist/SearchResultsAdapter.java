@@ -56,7 +56,7 @@ public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdap
     // replace artists data and notify change
     public void replaceAnotherData(ArrayList<Artist> artists) {
         mArtists = artists;
-        notifyItemRangeInserted(0, mArtists.size());
+        notifyDataSetChanged();
     }
 
 

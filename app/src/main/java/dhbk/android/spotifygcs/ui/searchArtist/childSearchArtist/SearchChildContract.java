@@ -37,7 +37,7 @@ public interface SearchChildContract {
         void dismissView();
 
         // anim search bar of views
-        void animTheSearchBar();
+        void setupSearchBar();
 
         // setup recyclerview and setup adapter
         void setupList();

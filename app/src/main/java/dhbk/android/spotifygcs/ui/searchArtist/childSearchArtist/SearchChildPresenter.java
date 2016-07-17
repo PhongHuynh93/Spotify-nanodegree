@@ -28,8 +28,8 @@ public class SearchChildPresenter implements SearchChildContract.Presenter, Arti
     public void start() {
         // get the ArtistSearchInteractor for connect to the internet
         mArtistSearchInteractor = mSearchChildView.getArtistSearchInteractor();
-        // start search bar anim in view
-        animTheSearchBar();
+        // start search bar anim in view and setup searchbar
+        setupSearchBar();
         // setup recyclerview and setup adapter
         setupList();
     }
@@ -40,17 +40,18 @@ public class SearchChildPresenter implements SearchChildContract.Presenter, Arti
         mSearchChildView.dismiss();
     }
 
-    // animation the searchbar
+    // animation the searchbar and setup it.
     @Override
-    public void animTheSearchBar() {
+    public void setupSearchBar() {
         mSearchChildView.animSearchView();
+        mSearchChildView.setupSearchBar();
     }
 
     // setup recyclerview and adapter of a list
     @Override
     public void setupList() {
-        mSearchChildView.setupRecyclerView();
         mSearchChildView.setupAdapter();
+        mSearchChildView.setupRecyclerView();
     }
 
     // search artist with string para
