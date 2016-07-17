@@ -285,7 +285,7 @@ public class SearchChildFragment extends BaseFragment implements SearchChildCont
     public void setupRecyclerView() {
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), NUMBER_OF_COLUMN_LIST, LinearLayoutManager.VERTICAL, false);
         mRecyclerviewSearchArtist.setLayoutManager(gridLayoutManager);
-
+        mRecyclerviewSearchArtist.setHasFixedSize(true);
 //        mRecyclerviewSearchArtist.setLayoutManager(new LinearLayoutManager(getContext()));
     }
 
