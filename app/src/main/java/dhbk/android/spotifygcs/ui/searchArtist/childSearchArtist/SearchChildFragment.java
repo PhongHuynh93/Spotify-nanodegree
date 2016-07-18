@@ -154,7 +154,7 @@ public class SearchChildFragment extends BaseFragment implements SearchChildCont
         return false;
     }
 
-    // declare to transaction when nav to this view or go out
+    // declare to transaction whenmPresenter nav to this view or go out
     @Override
     protected void initView() {
         startTransition();
