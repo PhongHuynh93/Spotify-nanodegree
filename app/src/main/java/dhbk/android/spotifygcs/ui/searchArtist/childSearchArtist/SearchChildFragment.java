@@ -10,6 +10,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.AnimatedVectorDrawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
@@ -23,6 +24,7 @@ import android.text.style.StyleSpan;
 import android.transition.Transition;
 import android.transition.TransitionInflater;
 import android.transition.TransitionManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewAnimationUtils;
@@ -425,31 +427,34 @@ public class SearchChildFragment extends BaseFragment implements SearchChildCont
 
     // show empty artists layout
     private void setNoResultsVisibility(int visibility) {
-        if (visibility == View.VISIBLE) {
-            // will be null for the first time
-            if (noResults == null) {
-                // remove text from search view and show keyboard
-                noResults = (BaselineGridTextView) ((ViewStub)
-                        getActivity().findViewById(R.id.stub_no_search_results)).inflate();
-                noResults.setOnClickListener(v -> {
-                    mSearchView.setQuery("", false);
-                    mSearchView.requestFocus();
-                    ImeUtils.showIme(mSearchView);
-                });
+        new Handler(getContext().getMainLooper()).post(() -> {
+            if (visibility == View.VISIBLE) {
+                // will be null for the first time
+                if (noResults == null) {
+                    // remove text from search view and show keyboard
+                    Log.d("ddddd", "setNoResultsVisibility: ");
+                    noResults = (BaselineGridTextView) ((ViewStub)
+                            getActivity().findViewById(R.id.stub_no_search_results)).inflate();
+                    noResults.setOnClickListener(v -> {
+                        mSearchView.setQuery("", false);
+                        mSearchView.requestFocus();
+                        ImeUtils.showIme(mSearchView);
+                    });
+                }
+                // show info to user depends on their search
+                String message = String.format(getString(R
+                        .string.no_search_results), mSearchView.getQuery().toString());
+                SpannableStringBuilder ssb = new SpannableStringBuilder(message);
+                ssb.setSpan(new StyleSpan(Typeface.ITALIC),
+                        message.indexOf('“') + 1,
+                        message.length() - 1,
+                        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                noResults.setText(ssb);
             }
-            // show info to user depends on their search
-            String message = String.format(getString(R
-                    .string.no_search_results), mSearchView.getQuery().toString());
-            SpannableStringBuilder ssb = new SpannableStringBuilder(message);
-            ssb.setSpan(new StyleSpan(Typeface.ITALIC),
-                    message.indexOf('“') + 1,
-                    message.length() - 1,
-                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-            noResults.setText(ssb);
-        }
-        if (noResults != null) {
-            noResults.setVisibility(visibility);
-        }
+            if (noResults != null) {
+                noResults.setVisibility(visibility);
+            }
+        });
     }
 
 }

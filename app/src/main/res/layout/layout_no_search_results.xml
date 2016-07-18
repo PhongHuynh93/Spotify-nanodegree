@@ -16,7 +16,7 @@
   -->
 
 <!--when search did not find any artists on the internet, show this layout-->
-<io.plaidapp.ui.widget.BaselineGridTextView
+<dhbk.android.spotifygcs.ui.widget.BaselineGridTextView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/no_search_results"
     android:layout_width="match_parent"
