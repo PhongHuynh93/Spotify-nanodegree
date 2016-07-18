@@ -33,6 +33,6 @@
 
     <!--search artist child-->
     <string name="search_artist_child_text">Search Artists</string>
-    <string name="no_search_results">No results for\\n“%1$s”</string>
+    <string name="no_search_results">No results for\n“%1$s”</string>
 
 </resources>
