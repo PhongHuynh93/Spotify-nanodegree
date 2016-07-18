@@ -24,7 +24,6 @@ import android.text.style.StyleSpan;
 import android.transition.Transition;
 import android.transition.TransitionInflater;
 import android.transition.TransitionManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewAnimationUtils;
@@ -400,20 +399,26 @@ public class SearchChildFragment extends BaseFragment implements SearchChildCont
 
     // search artists with a query
     private void searchFor(String query) {
-        // when user wait for connection, so a progress
-//        clearResults();
-//        progress.setVisibility(View.VISIBLE);
-//        ImeUtils.hideIme(searchView);
-//        searchView.clearFocus();
-
-//        dataManager.searchFor(query);
-
+        // when user wait for connection, so a progress will show, clear the old results
+        clearResults();
+        mProgressBar.setVisibility(View.VISIBLE);
+        ImeUtils.hideIme(mSearchView);
+        mSearchView.clearFocus();
         // connect to network and search
         mPresenter.searchArtists(query);
     }
 
+    // clear the old results
     private void clearResults() {
-
+        mSearchResultsAdapter.clear();
+//        dataManager.clear();
+        TransitionManager.beginDelayedTransition(mContainer, mAutoTransition);
+        mRecyclerviewSearchArtist.setVisibility(View.GONE);
+        mProgressBar.setVisibility(View.GONE);
+//        fab.setVisibility(View.GONE);
+//        confirmSaveContainer.setVisibility(View.GONE);
+        mResultsScrim.setVisibility(View.GONE);
+        setNoResultsVisibility(View.GONE);
     }
 
 
@@ -432,7 +437,6 @@ public class SearchChildFragment extends BaseFragment implements SearchChildCont
                 // will be null for the first time
                 if (noResults == null) {
                     // remove text from search view and show keyboard
-                    Log.d("ddddd", "setNoResultsVisibility: ");
                     noResults = (BaselineGridTextView) ((ViewStub)
                             getActivity().findViewById(R.id.stub_no_search_results)).inflate();
                     noResults.setOnClickListener(v -> {

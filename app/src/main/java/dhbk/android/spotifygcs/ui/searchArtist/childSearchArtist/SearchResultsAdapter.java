@@ -59,6 +59,12 @@ public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdap
         notifyDataSetChanged();
     }
 
+    // clear the recyclerview
+    public void clear() {
+        mArtists.clear();
+        notifyDataSetChanged();
+    }
+
 
     public class ArtistViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.imageview_item_search_artist)
