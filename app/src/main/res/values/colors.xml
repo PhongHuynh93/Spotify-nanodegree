@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">@color/pink_red</color>
     <color name="colorPrimaryDark">@color/pink_red_dark</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#69F0AE</color>
 
     <!--Name syntax: where_description-->
     <color name="color_ic_search">@color/white_solid</color>
