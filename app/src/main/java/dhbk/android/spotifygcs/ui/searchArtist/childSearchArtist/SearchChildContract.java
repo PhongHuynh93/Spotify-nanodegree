@@ -17,7 +17,7 @@ public interface SearchChildContract {
         void animSearchView();
         // close this view
         void dismiss();
-        // declare whether view is live or not.
+        // declare whether view is add or not.
         boolean isActive();
         // setup recyclerview
         void setupRecyclerView();

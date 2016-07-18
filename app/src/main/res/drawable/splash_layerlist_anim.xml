@@ -2,7 +2,7 @@
 <!--drawn in the order-->
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android"
             android:opacity="opaque">
-    <item style="@style/PinkRedBackground"/>
+    <item style="@style/ColorPrimaryBackground"/>
     <!--draw image after draw bg-->
     <item>
         <bitmap

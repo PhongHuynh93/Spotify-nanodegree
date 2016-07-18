@@ -47,6 +47,7 @@
             android:background="@android:color/transparent"
             android:paddingStart="4dp">
 
+            <!--icon back for users to nav back to previous activity-->
             <ImageButton
                 android:id="@+id/searchback"
                 android:layout_width="wrap_content"
@@ -79,6 +80,7 @@
             android:visibility="gone"/>
 
         <!--show a view when no result found-->
+        <!--viewstub is invisible until inflate-->
         <ViewStub
             android:id="@+id/stub_no_search_results"
             android:layout_width="match_parent"

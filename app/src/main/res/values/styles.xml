@@ -11,21 +11,20 @@
         <item name="android:windowBackground">@null</item>
         <!--custom font-->
         <item name="android:textViewStyle">@style/FontCustom</item>
+        <!--make sure Activity Transitions work:-->
+        <item name="android:windowAllowEnterTransitionOverlap">true</item>
+        <item name="android:windowAllowReturnTransitionOverlap">true</item>
+        <item name="android:windowSharedElementsUseOverlay">false</item>
     </style>
 
-    <!--<style name="AppTheme.NoActionBar">-->
-        <!--<item name="windowActionBar">false</item>-->
-        <!--<item name="windowNoTitle">true</item>-->
-    <!--</style>-->
-
-
+    <!--style for apbar with dark overlay-->
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 
-    <!--custome style-->
-    <style name="PinkRedBackground">
-        <item name="android:background">@color/pink_red</item>
+    <!--style for view want to background is color primary-->
+    <style name="ColorPrimaryBackground">
+        <item name="android:background">@color/colorPrimary</item>
     </style>
 
     <!--style with no actionbar-->
@@ -44,48 +43,87 @@
         <item name="fontPath">fonts/Montserrat-Light.otf</item>
     </style>
 
-    <!--style for search bar-->
-    <style name="PlaidDarkOverlay" parent="@android:style/ThemeOverlay.Material.Dark.ActionBar">
-        <!-- Used to theme dark elements in light themed screens.
-             Extend the material dark Action Bar overlay as this contains text styling. -->
+    <!--search view style-->
+    <style name="SearchViewTheme" parent="AppTheme.AppBarOverlay">
+        <!--style for activated (ex. checked, switch on) state.-->
+        <item name="colorControlActivated">?android:colorAccent</item>
+        <item name="android:searchViewStyle">@style/Widget.AppThemeNoActionBar.SearchView</item>
     </style>
 
-    <style name="SearchViewTheme" parent="PlaidDarkOverlay">
-        <item name="colorControlActivated">?android:colorAccent</item>
-        <item name="android:searchViewStyle">@style/Widget.Plaid.SearchView</item>
-    </style>
+    <!--style for widge-->
+    <!--<style name="Widget.Plaid" parent="android:Widget" />-->
 
     <!--style for search view-->
-    <style name="Widget.Plaid.SearchView" parent="android:style/Widget.Material.SearchView">
+    <!--<style name="Widget.Plaid.SearchView" parent="android:style/Widget.Material.SearchView">-->
+        <!--<item name="android:searchIcon">@null</item>-->
+        <!--<item name="android:searchHintIcon">@null</item>-->
+        <!--&lt;!&ndash; Background for the search query section (e.g. EditText) &ndash;&gt;-->
+        <!--&lt;!&ndash;transparent means edittext depends on the background of the views containing it.&ndash;&gt;-->
+        <!--<item name="android:queryBackground">@android:color/transparent</item>-->
+        <!--<item name="android:submitBackground">@android:color/transparent</item>-->
+    <!--</style>-->
+
+    <!--&lt;!&ndash;custome plaid&ndash;&gt;-->
+    <!--<style name="Plaid" parent="AppThemeNoActionBar">-->
+        <!--&lt;!&ndash;<item name="android:navigationBarColor">@color/primary_super_dark</item>&ndash;&gt;-->
+        <!--&lt;!&ndash;<item name="android:statusBarColor">@color/background_super_dark</item>&ndash;&gt;-->
+        <!--&lt;!&ndash;<item name="android:textColorHint">@color/hint_disabled_dark</item>&ndash;&gt;-->
+        <!--&lt;!&ndash;<item name="android:windowBackground">@color/background_light</item>&ndash;&gt;-->
+        <!--<item name="android:windowAllowEnterTransitionOverlap">true</item>-->
+        <!--<item name="android:windowAllowReturnTransitionOverlap">true</item>-->
+        <!--<item name="android:windowSharedElementsUseOverlay">false</item>-->
+    <!--</style>-->
+
+    <style name="Widget.AppThemeNoActionBar" parent="android:Widget" />
+
+    <style name="Widget.AppThemeNoActionBar.SearchView" parent="android:style/Widget.Material.SearchView">
         <item name="android:searchIcon">@null</item>
         <item name="android:searchHintIcon">@null</item>
+        <!-- Background for the search query section (e.g. EditText) -->
+        <!--transparent means edittext depends on the background of the views containing it.-->
         <item name="android:queryBackground">@android:color/transparent</item>
         <item name="android:submitBackground">@android:color/transparent</item>
     </style>
-
-    <!--custome plaid-->
-
-    <style name="Plaid" parent="AppThemeNoActionBar">
-        <!--<item name="android:navigationBarColor">@color/primary_super_dark</item>-->
-        <!--<item name="android:statusBarColor">@color/background_super_dark</item>-->
-        <!--<item name="android:textColorHint">@color/hint_disabled_dark</item>-->
-        <!--<item name="android:windowBackground">@color/background_light</item>-->
-        <item name="android:windowAllowEnterTransitionOverlap">true</item>
-        <item name="android:windowAllowReturnTransitionOverlap">true</item>
-        <item name="android:windowSharedElementsUseOverlay">false</item>
-    </style>
-
-    <style name="Widget.Plaid" parent="android:Widget" />
 
     <style name="TextAppearance.DialogContent" parent="@android:style/TextAppearance.Material.Subhead">
         <item name="android:textColor">@color/text_secondary_dark</item>
         <item name="android:fontFamily">sans-serif-medium</item>
         <item name="android:letterSpacing">0.01</item>
     </style>
+
     <!--style for emtpy search view-->
-    <style name="Widget.Plaid.EmptyText">
+    <style name="Widget.AppThemeNoActionBar.EmptyText">
         <item name="android:textAppearance">@style/TextAppearance.DialogContent</item>
         <item name="lineHeightHint">24sp</item>
         <item name="android:textColor">@color/text_primary_light</item>
+    </style>
+
+    <!--make activity demi transparent-->
+    <style name="AppThemeNoActionBar.Translucent">
+        <!-- using a semi-transparent window background for the drag-back gesture -->
+        <!--use color that have opacity so we can see other views under the top views. -->
+        <item name="android:windowBackground">@color/grey_opa</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowIsFloating">false</item>
+        <!--this make the top views translution-->
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+    </style>
+
+    <style name="AppThemeNoActionBar.Translucent.Search">
+        <item name="android:windowAnimationStyle">@style/SearchWindowAnimations</item>
+        <item name="android:statusBarColor">@color/background_super_dark</item>
+        <item name="android:navigationBarColor">@color/background_super_dark</item>
+        <item name="android:windowEnterTransition">@transition/search_enter</item>
+        <item name="shotLoadingPlaceholderColors">@array/loading_placeholders_dark</item>
+        <item name="initialBadgeColor">@color/gif_badge_dark_image</item>
+    </style>
+
+    <!--style for search child artist, we want this view is translution, so we can see the under views-->
+    <style name="SearchWindowAnimations">
+        <item name="android:windowEnterAnimation">@null</item>
+        <item name="android:windowExitAnimation">@anim/fade_out_rapidly</item>
     </style>
 </resources>

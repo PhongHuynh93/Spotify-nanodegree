@@ -26,4 +26,4 @@
     android:textAlignment="center"
     android:drawableTop="@drawable/all_ic_search_24dp"
     android:drawablePadding="@dimen/spacing_micro"
-    style="@style/Widget.Plaid.EmptyText" />
+    style="@style/Widget.AppThemeNoActionBar.EmptyText" />

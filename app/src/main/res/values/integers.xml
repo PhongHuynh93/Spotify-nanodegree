@@ -8,4 +8,5 @@
     <integer name="main_anim_scale_duration">500</integer>
     <integer name="main_anim_delay_button">400</integer>
     <integer name="main_anim_full_reveal">1</integer>
+    <integer name="rapid_animation">120</integer>
 </resources>

@@ -22,6 +22,10 @@ public abstract class BaseFragment extends Fragment {
         View v = inflater.inflate(getLayout(), container, false);
         injectViews(v);
         injectDependencies();
+        if (hasToolbar()) {
+            setHasOptionsMenu(true);
+        }
+        initView();
         return v;
     }
 
@@ -43,6 +47,12 @@ public abstract class BaseFragment extends Fragment {
      * @return The presenter attached to the fragment. This must extends from {@link BasePresenter}
      * */
     protected abstract BasePresenter getPresenter();
+
+    // check a view has toolbar or not
+    protected abstract boolean hasToolbar();
+
+    // init view object in view
+    protected abstract void initView();
 
     /**
      * Setup the object graph and inject the dependencies needed on this fragment.

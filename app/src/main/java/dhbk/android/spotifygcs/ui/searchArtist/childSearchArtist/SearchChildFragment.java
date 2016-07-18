@@ -11,6 +11,7 @@ import android.graphics.Typeface;
 import android.graphics.drawable.AnimatedVectorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
@@ -106,6 +107,7 @@ public class SearchChildFragment extends BaseFragment implements SearchChildCont
     public SearchChildFragment() {
     }
 
+    // get the location of search icon to make an anim
     public static SearchChildFragment newInstance(int searchBackDistanceX, int searchIconCenterX) {
         SearchChildFragment searchChildFragment = new SearchChildFragment();
         Bundle arg = new Bundle();
@@ -124,37 +126,38 @@ public class SearchChildFragment extends BaseFragment implements SearchChildCont
         }
     }
 
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        startTransition();
-    }
-
-
     ////////////////////////////////////////////////////////////////////////////
     // implement parent class
+
     @Override
     public int getLayout() {
         return R.layout.fragment_search_child;
     }
 
-    // inject component, by passing parent component
-    // DaggerArtistSearchComponent contains adapter for this fragment to use to show a list of artists
+    // inject component
     @Override
     public void setUpComponent(SpotifyStreamerComponent appComponent) {
-//        DaggerArtistSearchComponent.builder()
-//                .spotifyStreamerComponent(appComponent)
-//                .artistSearchModule(new ArtistSearchModule(this))
-//                .build()
-//                .inject(this);
-        ((MVPApp) getActivity().getApplication()).getSpotifyStreamerComponent()
-                .artistSearchComponent(new ArtistSearchModule(this)).inject(this);
-//        ((MVPApp) getActivity().getApplication()).getSpotifyStreamerComponent().inject(this);
+        // inject ArtistSearchComponent in this view
+        MVPApp.getApp(getContext())
+                .getSpotifyStreamerComponent()
+                .artistSearchComponent(new ArtistSearchModule(this))
+                .inject(this);
     }
 
     @Override
     protected BasePresenter getPresenter() {
         return mPresenter;
+    }
+
+    @Override
+    protected boolean hasToolbar() {
+        return false;
+    }
+
+    // declare to transaction when nav to this view or go out
+    @Override
+    protected void initView() {
+        startTransition();
     }
 
     @Override
@@ -182,13 +185,8 @@ public class SearchChildFragment extends BaseFragment implements SearchChildCont
         // for some reason the animation doesn't always finish (leaving a part arrow!?) so after
         // the animation set a static drawable. Also animation callbacks weren't added until API23
         // so using post delayed :(
-        mSearchback.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                mSearchback.setImageDrawable(ContextCompat.getDrawable(getContext(),
-                        R.drawable.ic_arrow_back_padded));
-            }
-        }, 600L);
+        mSearchback.postDelayed(() -> mSearchback.setImageDrawable(ContextCompat.getDrawable(getContext(),
+                R.drawable.ic_arrow_back_padded)), 600L);
 
         // fade in the other search chrome
         mSearchBackground.animate()
@@ -210,6 +208,7 @@ public class SearchChildFragment extends BaseFragment implements SearchChildCont
                 });
 
         // animate in a scrim over the content behind
+        // Register a callback to be invoked when the view tree is about to be drawn
         mScrim.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
             @Override
             public boolean onPreDraw() {
@@ -421,7 +420,6 @@ public class SearchChildFragment extends BaseFragment implements SearchChildCont
         setNoResultsVisibility(View.GONE);
     }
 
-
     private void startTransition() {
         mAutoTransition = TransitionInflater.from(getContext()).inflateTransition(R.transition.auto);
     }
@@ -432,7 +430,7 @@ public class SearchChildFragment extends BaseFragment implements SearchChildCont
 
     // show empty artists layout
     private void setNoResultsVisibility(int visibility) {
-        new Handler(getContext().getMainLooper()).post(() -> {
+        new Handler(Looper.getMainLooper()).post(() -> {
             if (visibility == View.VISIBLE) {
                 // will be null for the first time
                 if (noResults == null) {

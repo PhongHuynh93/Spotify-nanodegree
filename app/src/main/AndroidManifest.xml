@@ -29,9 +29,11 @@
             android:theme="@style/AppThemeNoActionBar">
         </activity>
 
+        <!--not make another activity when this activity is in the top-->
         <activity
             android:name=".ui.searchArtist.childSearchArtist.SearchChildActivity"
-            android:theme="@style/AppThemeNoActionBar">
+            android:launchMode="singleTop"
+            android:theme="@style/AppThemeNoActionBar.Translucent.Search">
         </activity>
     </application>
 
