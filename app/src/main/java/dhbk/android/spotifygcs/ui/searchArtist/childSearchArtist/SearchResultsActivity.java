@@ -9,6 +9,7 @@ import android.util.TypedValue;
 import dhbk.android.spotifygcs.R;
 import dhbk.android.spotifygcs.util.ActivityUtils;
 import dhbk.android.spotifygcs.util.Constant;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class SearchResultsActivity extends AppCompatActivity {
     public static final String EXTRA_MENU_LEFT = "EXTRA_MENU_LEFT";
@@ -51,6 +52,11 @@ public class SearchResultsActivity extends AppCompatActivity {
     public void onBackPressed() {
         mSearchChildPresenter.dismissView();
 //        super.onBackPressed(); // default action is finish the activity
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
     @Override
