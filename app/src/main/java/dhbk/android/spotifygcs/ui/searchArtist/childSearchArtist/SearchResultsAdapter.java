@@ -78,10 +78,9 @@ public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdap
         // we have url of image, so download it by picasso and cache it, so the other time, not download it again but get in cache
         // resize image depend on width height of viewholder
         public void setArtistImage(String urlImage) {
-            int imageWidth = mImageviewItemSearchArtist.getWidth();
-            int imageHeight = mImageviewItemSearchArtist.getHeight();
             Picasso.with(mContext)
                     .load(urlImage)
+                    .fit()
                     .placeholder(R.drawable.face)
                     .into(mImageviewItemSearchArtist);
         }
@@ -90,6 +89,7 @@ public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdap
         public void setPlaceholderImage() {
             Picasso.with(mContext)
                     .load(R.drawable.face)
+                    .fit()
                     .into(mImageviewItemSearchArtist);
         }
     }
