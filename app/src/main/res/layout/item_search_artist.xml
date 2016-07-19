@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:layout_margin="@dimen/size_margin_artist_image"
     tools:ignore="MissingPrefix">
 
     <ImageView
@@ -14,10 +15,11 @@
         android:scaleType="fitXY"/>
 
     <TextView
+        android:id="@+id/textview_item_search_artist_name"
         fontPath="fonts/Roboto-Regular.ttf"
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_search_artist_textview"
-        android:fontFamily=""
+        android:layout_marginTop="@dimen/size_margin_artist_image"
         android:textColor="@color/black_light"
         android:textSize="16sp"/>
 </RelativeLayout>
