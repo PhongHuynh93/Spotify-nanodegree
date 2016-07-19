@@ -1,13 +1,99 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             tools:context="dhbk.android.spotifygcs.ui.searchArtist.childSearchArtist.TestTranslucentFragment">
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <View
+        android:id="@+id/scrim"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment"/>
+        android:background="@color/grey_opa"/>
+
+    <!--search bar-->
+    <FrameLayout
+        android:id="@+id/search_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?android:actionBarSize"
+        android:elevation="@dimen/z_app_bar"
+        android:outlineProvider="bounds"
+        android:theme="@style/SearchViewTheme">
+
+        <View
+            android:id="@+id/search_background"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0"
+            android:background="@color/grey_dark2"/>
+
+        <SearchView
+            android:id="@+id/search_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="@dimen/padding_normal"
+            android:alpha="0"
+            android:iconifiedByDefault="false"/>
+
+        <!-- wrapping layout needed for the touch ripple -->
+        <FrameLayout
+            android:id="@+id/searchback_container"
+            android:layout_width="96dp"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:paddingStart="4dp">
+
+            <ImageButton
+                android:id="@+id/searchback"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="?android:selectableItemBackgroundBorderless"
+                android:gravity="start|center_vertical"
+                android:src="@drawable/all_ic_search_24dp"/>
+        </FrameLayout>
+    </FrameLayout>
+
+
+    <!--content-->
+    <FrameLayout
+        android:id="@+id/results_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="?android:actionBarSize"
+        android:background="@color/grey_dark2"
+        android:elevation="@dimen/z_app_bar">
+
+        <ProgressBar
+            android:id="@android:id/empty"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:indeterminateTint="?android:colorAccent"
+            android:indeterminateTintMode="src_in"
+            android:paddingBottom="@dimen/spacing_huge"
+            android:paddingTop="@dimen/spacing_huge"
+            android:visibility="gone"/>
+
+        <ViewStub
+            android:id="@+id/stub_no_search_results"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout="@layout/layout_no_search_results"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/search_results"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:scrollbarStyle="outsideOverlay"
+            android:scrollbars="vertical"
+            android:visibility="gone"/>
+
+        <View
+            android:id="@+id/results_scrim"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/grey_opa"
+            android:visibility="gone"/>
+    </FrameLayout>
 
 </FrameLayout>
