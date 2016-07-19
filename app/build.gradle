@@ -67,4 +67,5 @@ dependencies {
 
 //    picasso
     compile "com.squareup.picasso:picasso:$rootProject.picassoVersion"
+    compile 'com.android.support:support-v4:24.0.0'
 }

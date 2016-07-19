@@ -16,4 +16,5 @@ public class Constant {
     public static final String HEIGHT = "height";
     public static final String URL = "url";
 
+    public static final String TAG_FRAGMENT_TEST_CHILD_SEARCH_ARTISTS = "test";
 }

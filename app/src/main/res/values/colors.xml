@@ -23,7 +23,9 @@
     <color name="white_yellow">#F9F8EE</color>
     <color name="grey_dark">#994A4A4A</color>
     <color name="grey_light">#664A4A4A</color>
+    <!--grey opa-->
     <color name="grey_opa">#99323232</color>
+    <!--background dark-->
     <color name="grey_dark2">#ff333333</color>
 
 

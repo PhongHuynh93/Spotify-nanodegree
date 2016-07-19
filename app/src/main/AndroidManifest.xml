@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="dhbk.android.spotifygcs">
 
-    <!--use this permision for app to connect to internet-->
-    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- use this permision for app to connect to internet -->
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:name=".MVPApp"
@@ -22,17 +22,20 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-
         <activity
             android:name=".ui.searchArtist.SearchArtistActiviy"
             android:label="@string/title_activity_search_artist_activiy"
             android:theme="@style/AppThemeNoActionBar">
         </activity>
 
-        <!--not make another activity when this activity is in the top-->
+        <!-- not make another activity when this activity is in the top -->
         <activity
             android:name=".ui.searchArtist.childSearchArtist.SearchChildActivity"
             android:launchMode="singleTop"
+            android:theme="@style/AppThemeNoActionBar.Translucent.Search">
+        </activity>
+        <activity
+            android:name=".ui.searchArtist.childSearchArtist.TestTranslucentActivity"
             android:theme="@style/AppThemeNoActionBar.Translucent.Search">
         </activity>
     </application>

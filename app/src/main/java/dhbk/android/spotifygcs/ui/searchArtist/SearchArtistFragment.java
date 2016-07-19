@@ -13,7 +13,7 @@ import dhbk.android.spotifygcs.BaseFragment;
 import dhbk.android.spotifygcs.BasePresenter;
 import dhbk.android.spotifygcs.R;
 import dhbk.android.spotifygcs.component.SpotifyStreamerComponent;
-import dhbk.android.spotifygcs.ui.searchArtist.childSearchArtist.SearchChildActivity;
+import dhbk.android.spotifygcs.ui.searchArtist.childSearchArtist.TestTranslucentActivity;
 import dhbk.android.spotifygcs.util.HelpUtil;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -93,8 +93,13 @@ public class SearchArtistFragment extends BaseFragment implements SearchArtistCo
         int[] loc = new int[2];
         searchMenuView.getLocationOnScreen(loc);
 
+//        startActivityForResult(
+//                SearchChildActivity.createStartIntent(getContext(), loc[0], loc[0] + (searchMenuView.getWidth() / 2)),
+//                RC_SEARCH,
+//                ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
+
         startActivityForResult(
-                SearchChildActivity.createStartIntent(getContext(), loc[0], loc[0] + (searchMenuView.getWidth() / 2)),
+                TestTranslucentActivity.createStartIntent(getContext(), loc[0], loc[0] + (searchMenuView.getWidth() / 2)),
                 RC_SEARCH,
                 ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
         searchMenuView.setAlpha(0f);
