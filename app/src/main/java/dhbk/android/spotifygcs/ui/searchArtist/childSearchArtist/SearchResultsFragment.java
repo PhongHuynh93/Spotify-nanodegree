@@ -52,6 +52,7 @@ import dhbk.android.spotifygcs.component.SpotifyStreamerComponent;
 import dhbk.android.spotifygcs.domain.Artist;
 import dhbk.android.spotifygcs.interactor.ArtistSearchInteractor;
 import dhbk.android.spotifygcs.module.ArtistSearchModule;
+import dhbk.android.spotifygcs.ui.recyclerview.ArtisttemListener;
 import dhbk.android.spotifygcs.ui.recyclerview.SlideInItemAnimator;
 import dhbk.android.spotifygcs.ui.widget.BaselineGridTextView;
 import dhbk.android.spotifygcs.util.AnimUtils;
@@ -61,7 +62,9 @@ import dhbk.android.spotifygcs.util.ViewUtils;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 // TODO: 7/19/2016 implement onNewIntent()
-public class SearchResultsFragment extends BaseFragment implements SearchChildContract.View {
+public class SearchResultsFragment extends BaseFragment implements
+        SearchChildContract.View,
+        ArtisttemListener{
     private static final String ARG_SEARCH_BACK_DISTANCE_X = "searchBackDistanceX";
     private static final String ARG_SEARCH_ICON_CENTER_X = "searchIconCenterX";
 
@@ -493,5 +496,12 @@ public class SearchResultsFragment extends BaseFragment implements SearchChildCo
                 noResults.setVisibility(visibility);
             }
         });
+    }
+
+    // called when click an artist in this view
+    @Override
+    public void onArtistClick(Artist clickedTask) {
+        // TODO: 7/20/16 implement this
+
     }
 }

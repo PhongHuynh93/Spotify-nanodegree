@@ -13,8 +13,5 @@ import dhbk.android.spotifygcs.ui.searchArtist.childSearchArtist.SearchResultsFr
 @Subcomponent(modules={ArtistSearchModule.class })
 @ActivityScope
 public interface ArtistSearchComponent {
-//    void inject(SearchChildFragment searchFragment);
     void inject(SearchResultsFragment searchFragment);
-//    SearchResultsAdapter getAdapter();
-//    ArtistSearchInteractor getArtistSearchInteractor();
 }
