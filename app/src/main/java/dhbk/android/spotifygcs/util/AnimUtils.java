@@ -44,7 +44,7 @@ public class AnimUtils {
 
 
     /**
-     * An implementation of {@link android.util.Property} to be used specifically with fields of
+     * An implementation of {@link Property} to be used specifically with fields of
      * type
      * <code>int</code>. This type-specific subclass enables performance benefit by allowing
      * calls to a {@link #set(Object, Integer) set()} function that takes the primitive
