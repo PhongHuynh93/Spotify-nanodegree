@@ -27,7 +27,8 @@
     <color name="grey_opa">#99323232</color>
     <!--background dark-->
     <color name="grey_dark2">#ff333333</color>
+    <color name="grey_dark3">#262833</color>
     <color name="black_light">#555555</color>
-
+    262833
 
 </resources>
