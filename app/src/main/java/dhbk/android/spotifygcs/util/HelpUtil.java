@@ -27,4 +27,11 @@ public class HelpUtil {
         }
         return formattedText;
     }
+
+    // translate milisecond to format minute:second
+    public static String transformMilisecond(int millis) {
+        int minutes = (millis / 1000)  / 60;
+        int seconds = (millis / 1000) % 60;
+        return minutes + ":" + seconds;
+    }
 }

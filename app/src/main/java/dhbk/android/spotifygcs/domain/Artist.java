@@ -21,6 +21,9 @@ public class Artist {
     @SerializedName(Constant.NAME_ARTIST)
     String nameArtist;
 
+    @SerializedName(Constant.ID_ARTIST)
+    String idArtist;
+
     // if on artist have many image, image at position 1 is medium 300 x 300 pixel (other is large or small)
     @Nullable
     public SpotifyImage getMediumImage() {
@@ -31,6 +34,19 @@ public class Artist {
             return urlImage[0];
         }
         return null;
+    }
+
+    // large image in  urlImage[0], we want to get the url of this image
+    @Nullable
+    public String getUrlLargeImage() {
+        if (urlImage.length >= 1) {
+            return urlImage[0].getUrl();
+        }
+        return null;
+    }
+
+    public String getIdArtist() {
+        return idArtist;
     }
 
     public String getNameArtist() {

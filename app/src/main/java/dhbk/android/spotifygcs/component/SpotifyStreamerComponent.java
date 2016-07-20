@@ -6,6 +6,7 @@ import dagger.Component;
 import dhbk.android.spotifygcs.module.ArtistSearchModule;
 import dhbk.android.spotifygcs.module.InteractorModule;
 import dhbk.android.spotifygcs.module.SpotifyStreamerModule;
+import dhbk.android.spotifygcs.module.TopTrackModule;
 
 /**
  * Created by phongdth.ky on 7/15/2016.
@@ -24,5 +25,5 @@ public interface SpotifyStreamerComponent {
     // method that child component can use
 //    Context getContext();
     ArtistSearchComponent artistSearchComponent(ArtistSearchModule artistSearchModule);
-
+    TopTrackComponent topTrackComponent(TopTrackModule topTrackModule);
 }
