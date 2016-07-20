@@ -22,6 +22,10 @@ public abstract class BaseFragment extends Fragment {
         View v = inflater.inflate(getLayout(), container, false);
         injectViews(v);
         injectDependencies();
+        if (hasToolbar()) {
+            setHasOptionsMenu(true);
+        }
+        initView();
         return v;
     }
 
@@ -31,6 +35,24 @@ public abstract class BaseFragment extends Fragment {
         super.onStart();
         getPresenter().start();
     }
+
+    @Override
+    public void onPause() {
+        doThingWhenPauseApp();
+        super.onPause();
+    }
+
+    @Override
+    public void onDestroy() {
+        doThingWhenDestroyApp();
+        super.onDestroy();
+    }
+
+    // when app is on pause state, do something to release resources.
+    protected abstract void doThingWhenPauseApp();
+
+    // when app is on destroy state, stop network.
+    protected abstract void doThingWhenDestroyApp();
 
     // return layout for fragment
     public abstract int getLayout();
@@ -43,6 +65,12 @@ public abstract class BaseFragment extends Fragment {
      * @return The presenter attached to the fragment. This must extends from {@link BasePresenter}
      * */
     protected abstract BasePresenter getPresenter();
+
+    // check a view has toolbar or not
+    protected abstract boolean hasToolbar();
+
+    // init view object in view
+    protected abstract void initView();
 
     /**
      * Setup the object graph and inject the dependencies needed on this fragment.

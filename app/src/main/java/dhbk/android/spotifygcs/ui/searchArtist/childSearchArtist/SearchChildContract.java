@@ -17,7 +17,7 @@ public interface SearchChildContract {
         void animSearchView();
         // close this view
         void dismiss();
-        // declare whether view is live or not.
+        // declare whether view is add or not.
         boolean isActive();
         // setup recyclerview
         void setupRecyclerView();
@@ -29,6 +29,11 @@ public interface SearchChildContract {
         ArtistSearchInteractor getArtistSearchInteractor();
         // display artists in recyclerview
         void displaySearchArtists(ArrayList<Artist> artists);
+        // remove the progress bar
+        // set the rcv to visible
+        void showtoRcv();
+        // if we dont have data to show, info the user
+        void showEmptyArtistsLayout();
     }
 
     // method presenter search artist must override
@@ -44,5 +49,11 @@ public interface SearchChildContract {
 
         // search artist with string para
         void searchArtists(String query);
+
+        // do other things to views before showing the data to views.
+        void doOtherThingToShowResults();
+
+        // if we dont have data to show, info the user
+        void infoUsersNotHaveData();
     }
 }

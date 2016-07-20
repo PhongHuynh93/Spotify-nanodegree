@@ -31,9 +31,7 @@ public class SearchChildPresenter implements SearchChildContract.Presenter, Arti
         // start search bar anim in view and setup searchbar
         setupSearchBar();
         // setup recyclerview and setup adapter
-//        setupList();
-        mSearchChildView.setupAdapter();
-        mSearchChildView.setupRecyclerView();
+        setupList();
     }
 
     // close views
@@ -62,6 +60,19 @@ public class SearchChildPresenter implements SearchChildContract.Presenter, Arti
         mArtistSearchInteractor.performSearch(query, this);
     }
 
+    // do other things to views before showing the data to views.
+    // like show the list, dismiss the progress
+    @Override
+    public void doOtherThingToShowResults() {
+        mSearchChildView.showtoRcv();
+    }
+
+    // if we dont have data to show, info the user
+    @Override
+    public void infoUsersNotHaveData() {
+        mSearchChildView.showEmptyArtistsLayout();
+    }
+
     // callback when query the spotify api, if found the artists
     @Override
     public void onArtistsFound(ArrayList<Artist> artists) {
@@ -71,6 +82,6 @@ public class SearchChildPresenter implements SearchChildContract.Presenter, Arti
     // callback when query the spotify api, if not found the artists
     @Override
     public void onFailedSearch() {
-        // TODO: 7/16/16 look at plaid to see if not found artist
+        infoUsersNotHaveData();
     }
 }

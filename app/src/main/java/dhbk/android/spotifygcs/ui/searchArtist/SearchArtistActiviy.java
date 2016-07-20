@@ -7,7 +7,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -23,7 +22,6 @@ public class SearchArtistActiviy extends AppCompatActivity {
     NavigationView mNavView;
     @BindView(R.id.drawer_layout)
     DrawerLayout mDrawerLayout;
-    private SearchArtistPresenter mSearchArtistPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,9 +52,8 @@ public class SearchArtistActiviy extends AppCompatActivity {
                     getSupportFragmentManager(), searchArtistFragment, R.id.contentFrame_searchartist);
         }
 
-
         // Create the presenter
-        mSearchArtistPresenter = new SearchArtistPresenter(searchArtistFragment);
+        SearchArtistPresenter mSearchArtistPresenter = new SearchArtistPresenter(searchArtistFragment);
     }
 
     // use this method for an activity to change font of text
@@ -65,13 +62,12 @@ public class SearchArtistActiviy extends AppCompatActivity {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
+    // TODO: 7/18/2016 set up navigation drawer
     // Set up the navigation drawer.
     private void setupDrawerContent(NavigationView navigationView) {
         navigationView.setNavigationItemSelectedListener(
-                new NavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(MenuItem menuItem) {
-                        switch (menuItem.getItemId()) {
+                menuItem -> {
+                    switch (menuItem.getItemId()) {
 //                            case R.id.list_navigation_menu_item:
 //                                // Do nothing, we're already on that screen
 //                                break;
@@ -82,14 +78,13 @@ public class SearchArtistActiviy extends AppCompatActivity {
 //                                        | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 //                                startActivity(intent);
 //                                break;
-                            default:
-                                break;
-                        }
-                        // Close the navigation drawer when an item is selected.
-                        menuItem.setChecked(true);
-                        mDrawerLayout.closeDrawers();
-                        return true;
+                        default:
+                            break;
                     }
+                    // Close the navigation drawer when an item is selected.
+                    menuItem.setChecked(true);
+                    mDrawerLayout.closeDrawers();
+                    return true;
                 });
     }
 

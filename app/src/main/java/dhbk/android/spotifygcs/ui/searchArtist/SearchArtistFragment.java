@@ -2,20 +2,18 @@ package dhbk.android.spotifygcs.ui.searchArtist;
 
 import android.app.ActivityOptions;
 import android.content.Intent;
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
+import dhbk.android.spotifygcs.BaseFragment;
+import dhbk.android.spotifygcs.BasePresenter;
 import dhbk.android.spotifygcs.R;
-import dhbk.android.spotifygcs.ui.searchArtist.childSearchArtist.SearchChildActivity;
+import dhbk.android.spotifygcs.component.SpotifyStreamerComponent;
+import dhbk.android.spotifygcs.ui.searchArtist.childSearchArtist.SearchResultsActivity;
 import dhbk.android.spotifygcs.util.HelpUtil;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -23,7 +21,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class SearchArtistFragment extends Fragment implements SearchArtistContract.View {
+public class SearchArtistFragment extends BaseFragment implements SearchArtistContract.View {
     private static final int RC_SEARCH = 0;
 
     @BindView(R.id.textview_empty_search_artist_help_info)
@@ -38,20 +36,38 @@ public class SearchArtistFragment extends Fragment implements SearchArtistContra
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_search_artist_emtpy, container, false);
-        ButterKnife.bind(this, view);
-        initView();
-        setHasOptionsMenu(true);
-        return view;
+    protected void doThingWhenPauseApp() {
+
     }
 
-    // start to run the presenter, example such as load the db
     @Override
-    public void onResume() {
-        super.onResume();
-        mPresenter.start();
+    protected void doThingWhenDestroyApp() {
+
+    }
+
+    @Override
+    public int getLayout() {
+        return R.layout.fragment_search_artist_emtpy;
+    }
+
+    // this view dont need components
+    @Override
+    public void setUpComponent(SpotifyStreamerComponent appComponent) {
+    }
+
+    @Override
+    protected BasePresenter getPresenter() {
+        return mPresenter;
+    }
+
+    @Override
+    protected boolean hasToolbar() {
+        return true;
+    }
+
+    @Override
+    protected void initView() {
+        mTextviewEmptySearchArtistHelpInfo.setText(HelpUtil.getSpannedText(getContext(), R.string.search_artist_emtpy_help_text));
     }
 
     //    menu toolbar
@@ -73,7 +89,6 @@ public class SearchArtistFragment extends Fragment implements SearchArtistContra
         return true;
     }
 
-
     // set presenter for this view
     @Override
     public void setPresenter(SearchArtistContract.Presenter presenter) {
@@ -88,17 +103,25 @@ public class SearchArtistFragment extends Fragment implements SearchArtistContra
         int[] loc = new int[2];
         searchMenuView.getLocationOnScreen(loc);
 
-        startActivityForResult(SearchChildActivity.createStartIntent(getContext(),
-                loc[0], loc[0] + (searchMenuView.getWidth() / 2)), RC_SEARCH,
+//        startActivityForResult(
+//                SearchChildActivity.createStartIntent(getContext(), loc[0], loc[0] + (searchMenuView.getWidth() / 2)),
+//                RC_SEARCH,
+//                ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
+
+        startActivityForResult(
+                SearchResultsActivity.createStartIntent(getContext(), loc[0], loc[0] + (searchMenuView.getWidth() / 2)),
+                RC_SEARCH,
                 ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
         searchMenuView.setAlpha(0f);
     }
 
+    // TODO: 7/18/2016 implement this method, if we find an artist, what to do next
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
             case RC_SEARCH:
+                // Make sure the request was successful
                 // reset the search icon which we hid
                 View searchMenuView = getActivity().findViewById(R.id.menu_search);
                 if (searchMenuView != null) {
@@ -106,9 +129,4 @@ public class SearchArtistFragment extends Fragment implements SearchArtistContra
                 }
         }
     }
-
-    private void initView() {
-        mTextviewEmptySearchArtistHelpInfo.setText(HelpUtil.getSpannedText(getContext(), R.string.search_artist_emtpy_help_text));
-    }
-
 }
