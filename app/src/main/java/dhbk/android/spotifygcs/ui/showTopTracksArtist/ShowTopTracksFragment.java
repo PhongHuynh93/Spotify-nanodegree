@@ -3,9 +3,16 @@ package dhbk.android.spotifygcs.ui.showTopTracksArtist;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import javax.inject.Inject;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import dhbk.android.spotifygcs.BaseFragment;
 import dhbk.android.spotifygcs.BasePresenter;
 import dhbk.android.spotifygcs.MVPApp;
@@ -13,6 +20,7 @@ import dhbk.android.spotifygcs.R;
 import dhbk.android.spotifygcs.component.SpotifyStreamerComponent;
 import dhbk.android.spotifygcs.interactor.ArtistSearchInteractor;
 import dhbk.android.spotifygcs.module.TopTrackModule;
+import dhbk.android.spotifygcs.util.ViewUtils;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -20,11 +28,14 @@ import static com.google.common.base.Preconditions.checkNotNull;
  * A simple {@link Fragment} subclass.
  */
 public class ShowTopTracksFragment extends BaseFragment implements
-        ShowTopTracksContract.View{
+        ShowTopTracksContract.View {
     private static final String ARG_ARTIST_ID = "artist_id";
     private static final String ARG_URL_IMAGE = "url_name";
+    @BindView(R.id.imageview_show_artist)
+    ImageView mImageviewShowArtist;
+    @BindView(R.id.recyclerview_show_top_track)
+    RecyclerView mRecyclerviewShowTopTrack;
     private String mArtistId;
-    private String mUrlImage;
     private ShowTopTracksContract.Presenter mPresenter;
 
     @Inject
@@ -80,8 +91,12 @@ public class ShowTopTracksFragment extends BaseFragment implements
     protected void initView() {
         if (getArguments() != null) {
             mArtistId = getArguments().getString(ARG_ARTIST_ID);
-            mUrlImage = getArguments().getString(ARG_URL_IMAGE);
+            String urlImage = getArguments().getString(ARG_URL_IMAGE);
+            // set image
+            ViewUtils.setImagePicasso(getContext(), urlImage, mImageviewShowArtist);
         }
+
+
     }
 
     @Override
@@ -93,5 +108,13 @@ public class ShowTopTracksFragment extends BaseFragment implements
     public ArtistSearchInteractor getArtistSearchInteractor() {
         checkNotNull(mArtistSearchInteractor, "ArtistSearchInteractor cannot be null");
         return mArtistSearchInteractor;
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // TODO: inflate a fragment view
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        ButterKnife.bind(this, rootView);
+        return rootView;
     }
 }
