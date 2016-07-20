@@ -82,6 +82,6 @@ public class SearchChildPresenter implements SearchChildContract.Presenter, Arti
     // callback when query the spotify api, if not found the artists
     @Override
     public void onFailedSearch() {
-        // TODO: 7/16/16 look at plaid to see if not found artist
+        infoUsersNotHaveData();
     }
 }

@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
@@ -40,12 +41,13 @@ public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdap
 //
 //        holder.setArtistName(currentArtist.getName());
 
-        if(currentArtist.getMediumImage() != null) {
+        if (currentArtist.getMediumImage() != null) {
             holder.setArtistImage(currentArtist.getMediumImage().getUrl());
-        }
-        else {
+        } else {
             holder.setPlaceholderImage();
         }
+
+        holder.mTextViewNameArtist.setText(currentArtist.getNameArtist());
     }
 
     @Override
@@ -69,6 +71,9 @@ public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdap
     public class ArtistViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.imageview_item_search_artist)
         ImageView mImageviewItemSearchArtist;
+        @BindView(R.id.textview_item_search_artist_name)
+        TextView mTextViewNameArtist;
+
 
         ArtistViewHolder(View view) {
             super(view);
@@ -78,19 +83,16 @@ public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdap
         // we have url of image, so download it by picasso and cache it, so the other time, not download it again but get in cache
         // resize image depend on width height of viewholder
         public void setArtistImage(String urlImage) {
-            int imageWidth = mImageviewItemSearchArtist.getWidth();
-            int imageHeight = mImageviewItemSearchArtist.getHeight();
             Picasso.with(mContext)
                     .load(urlImage)
-                    .placeholder(R.drawable.face)
+                    .fit()
+                    .placeholder(R.drawable.no_artist)
                     .into(mImageviewItemSearchArtist);
         }
 
         // if not found, add a place holder for artist
         public void setPlaceholderImage() {
-            Picasso.with(mContext)
-                    .load(R.drawable.face)
-                    .into(mImageviewItemSearchArtist);
+            mImageviewItemSearchArtist.setImageDrawable(mContext.getResources().getDrawable(R.drawable.no_artist));
         }
     }
 }

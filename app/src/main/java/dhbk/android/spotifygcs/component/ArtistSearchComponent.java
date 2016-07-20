@@ -3,7 +3,7 @@ package dhbk.android.spotifygcs.component;
 import dagger.Subcomponent;
 import dhbk.android.spotifygcs.ActivityScope;
 import dhbk.android.spotifygcs.module.ArtistSearchModule;
-import dhbk.android.spotifygcs.ui.searchArtist.childSearchArtist.SearchChildFragment;
+import dhbk.android.spotifygcs.ui.searchArtist.childSearchArtist.SearchResultsFragment;
 
 /**
  * Created by huynhducthanhphong on 7/16/16.
@@ -13,7 +13,8 @@ import dhbk.android.spotifygcs.ui.searchArtist.childSearchArtist.SearchChildFrag
 @Subcomponent(modules={ArtistSearchModule.class })
 @ActivityScope
 public interface ArtistSearchComponent {
-    void inject(SearchChildFragment searchFragment);
+//    void inject(SearchChildFragment searchFragment);
+    void inject(SearchResultsFragment searchFragment);
 //    SearchResultsAdapter getAdapter();
 //    ArtistSearchInteractor getArtistSearchInteractor();
 }

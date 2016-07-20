@@ -30,12 +30,8 @@
 
         <!-- not make another activity when this activity is in the top -->
         <activity
-            android:name=".ui.searchArtist.childSearchArtist.SearchChildActivity"
+            android:name=".ui.searchArtist.childSearchArtist.SearchResultsActivity"
             android:launchMode="singleTop"
-            android:theme="@style/AppThemeNoActionBar.Translucent.Search">
-        </activity>
-        <activity
-            android:name=".ui.searchArtist.childSearchArtist.TestTranslucentActivity"
             android:theme="@style/AppThemeNoActionBar.Translucent.Search">
         </activity>
     </application>

@@ -10,6 +10,7 @@ public class Constant {
 
     // spotify artists items key https://api.spotify.com/v1/search?q=hari&type=artist
     public static final String IMAGES = "images";
+    public static final String NAME_ARTIST = "name";
     public static final String ARTISTS = "artists";
     public static final String ARTIST_LISTS = "items";
     public static final String WIDTH = "width";

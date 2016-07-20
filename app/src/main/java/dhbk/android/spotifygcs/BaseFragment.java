@@ -36,6 +36,24 @@ public abstract class BaseFragment extends Fragment {
         getPresenter().start();
     }
 
+    @Override
+    public void onPause() {
+        doThingWhenPauseApp();
+        super.onPause();
+    }
+
+    @Override
+    public void onDestroy() {
+        doThingWhenDestroyApp();
+        super.onDestroy();
+    }
+
+    // when app is on pause state, do something to release resources.
+    protected abstract void doThingWhenPauseApp();
+
+    // when app is on destroy state, stop network.
+    protected abstract void doThingWhenDestroyApp();
+
     // return layout for fragment
     public abstract int getLayout();
 
