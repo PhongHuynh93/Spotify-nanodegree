@@ -34,6 +34,8 @@
             android:launchMode="singleTop"
             android:theme="@style/AppThemeNoActionBar.Translucent.Search">
         </activity>
+        <activity android:name=".ui.showTopTracksArtist.ShowTopTracksActivity">
+        </activity>
     </application>
 
 </manifest>

@@ -40,8 +40,6 @@ public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdap
     @Override
     public void onBindViewHolder(ArtistViewHolder holder, int position) {
         Artist currentArtist = mArtists.get(position);
-//
-//        holder.setArtistName(currentArtist.getName());
 
         if (currentArtist.getMediumImage() != null) {
             holder.setArtistImage(currentArtist.getMediumImage().getUrl());
@@ -50,6 +48,9 @@ public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdap
         }
 
         holder.mTextViewNameArtist.setText(currentArtist.getNameArtist());
+
+        holder.containerView.setOnClickListener(v ->
+                mClickListener.onArtistClick(currentArtist));
     }
 
     @Override
@@ -79,6 +80,8 @@ public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdap
         ImageView mImageviewItemSearchArtist;
         @BindView(R.id.textview_item_search_artist_name)
         TextView mTextViewNameArtist;
+        @BindView(R.id.viewgroup_container)
+        View containerView;
 
 
         ArtistViewHolder(View view) {

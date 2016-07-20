@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.app.SearchManager;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.AnimatedVectorDrawable;
@@ -54,6 +55,7 @@ import dhbk.android.spotifygcs.interactor.ArtistSearchInteractor;
 import dhbk.android.spotifygcs.module.ArtistSearchModule;
 import dhbk.android.spotifygcs.ui.recyclerview.ArtistItemListener;
 import dhbk.android.spotifygcs.ui.recyclerview.SlideInItemAnimator;
+import dhbk.android.spotifygcs.ui.showTopTracksArtist.ShowTopTracksActivity;
 import dhbk.android.spotifygcs.ui.widget.BaselineGridTextView;
 import dhbk.android.spotifygcs.util.AnimUtils;
 import dhbk.android.spotifygcs.util.ImeUtils;
@@ -506,9 +508,11 @@ public class SearchResultsFragment extends BaseFragment implements
     }
 
     // called when click an artist in this view
+    // go to show detail top tracks of artist
     @Override
     public void onArtistClick(Artist clickedTask) {
-        // TODO: 7/20/16 implement this
-
+        // TODO: 7/20/16 implement this, pass artist to the second activity
+        Intent showArtistDetailIntent = new Intent(getActivity(), ShowTopTracksActivity.class);
+        startActivity(showArtistDetailIntent);
     }
 }
