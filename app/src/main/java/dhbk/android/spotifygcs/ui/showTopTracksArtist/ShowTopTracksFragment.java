@@ -3,6 +3,7 @@ package dhbk.android.spotifygcs.ui.showTopTracksArtist;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +21,7 @@ import dhbk.android.spotifygcs.R;
 import dhbk.android.spotifygcs.component.SpotifyStreamerComponent;
 import dhbk.android.spotifygcs.interactor.ArtistSearchInteractor;
 import dhbk.android.spotifygcs.module.TopTrackModule;
+import dhbk.android.spotifygcs.ui.recyclerview.SlideInItemAnimator;
 import dhbk.android.spotifygcs.util.ViewUtils;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -40,6 +42,9 @@ public class ShowTopTracksFragment extends BaseFragment implements
 
     @Inject
     ArtistSearchInteractor mArtistSearchInteractor;
+
+    @Inject
+    TopTrackAdapter mTopTrackAdapter;
 
     public ShowTopTracksFragment() {
     }
@@ -111,8 +116,26 @@ public class ShowTopTracksFragment extends BaseFragment implements
     }
 
     @Override
+    public void setupRecyclerView() {
+        mRecyclerviewShowTopTrack.setLayoutManager(new LinearLayoutManager(getContext()));
+        mRecyclerviewShowTopTrack.setHasFixedSize(true);
+    }
+
+    @Override
+    public void setupAdapter() {
+        checkNotNull(mTopTrackAdapter, "adapter not be null before set to list");
+        mRecyclerviewShowTopTrack.setAdapter(mTopTrackAdapter);
+        setClickListener();
+        mRecyclerviewShowTopTrack.setItemAnimator(new SlideInItemAnimator());
+    }
+
+    // TODO: 7/20/16 implement this
+    private void setClickListener() {
+
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // TODO: inflate a fragment view
         View rootView = super.onCreateView(inflater, container, savedInstanceState);
         ButterKnife.bind(this, rootView);
         return rootView;
