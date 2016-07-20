@@ -25,7 +25,7 @@ public class SpotifyApiConstants {
     private static final String SEARCH_TOP_TRACK_PATH = "/artists";
     public static final String ID_ARTIST = "id";
     private static final String TOP_TRACK = "/top-tracks";
-    private static final String TYPE_QUERY_COUNTRY = "country";
+    private static final String TYPE_QUERY_COUNTRY = "?country";
     private static final String COUNTRY = "US";
 
     public static final String TOP_TRACK_SEARCH_URL = VERSION_PATH + SEARCH_TOP_TRACK_PATH + "/{" + ID_ARTIST + "}" + TOP_TRACK
