@@ -22,6 +22,7 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
         <activity
             android:name=".ui.searchArtist.SearchArtistActiviy"
             android:label="@string/title_activity_search_artist_activiy"
@@ -34,7 +35,10 @@
             android:launchMode="singleTop"
             android:theme="@style/AppThemeNoActionBar.Translucent.Search">
         </activity>
-        <activity android:name=".ui.showTopTracksArtist.ShowTopTracksActivity">
+
+        <activity
+            android:name=".ui.showTopTracksArtist.ShowTopTracksActivity"
+            android:theme="@style/AppThemeNoActionBar.Translucent.Search">
         </activity>
     </application>
 

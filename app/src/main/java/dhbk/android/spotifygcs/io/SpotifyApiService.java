@@ -1,7 +1,9 @@
 package dhbk.android.spotifygcs.io;
 
 import dhbk.android.spotifygcs.io.model.ArtistSearchResponse;
+import dhbk.android.spotifygcs.io.model.TopTrackSearchResponse;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 import rx.Observable;
 
@@ -14,4 +16,9 @@ public interface SpotifyApiService {
     // require query is the keyword for searching
     @GET(SpotifyApiConstants.ARTIST_SEARCH_URL)
     Observable<ArtistSearchResponse> searchArtist(@Query(SpotifyApiConstants.QUERY_TO_SEARCH) String query);
+
+    //    get a top track of an artist
+    @GET(SpotifyApiConstants.TOP_TRACK_SEARCH_URL)
+    Observable<TopTrackSearchResponse> searchTopTrack(@Path(SpotifyApiConstants.ID_ARTIST) String idArtist);
+
 }

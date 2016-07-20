@@ -4,6 +4,7 @@ import dagger.Subcomponent;
 import dhbk.android.spotifygcs.ActivityScope;
 import dhbk.android.spotifygcs.module.ArtistSearchModule;
 import dhbk.android.spotifygcs.ui.searchArtist.childSearchArtist.SearchResultsFragment;
+import dhbk.android.spotifygcs.ui.showTopTracksArtist.ShowTopTracksFragment;
 
 /**
  * Created by huynhducthanhphong on 7/16/16.
@@ -13,5 +14,5 @@ import dhbk.android.spotifygcs.ui.searchArtist.childSearchArtist.SearchResultsFr
 @Subcomponent(modules={ArtistSearchModule.class })
 @ActivityScope
 public interface ArtistSearchComponent {
-    void inject(SearchResultsFragment searchFragment);
+    void inject(SearchResultsFragment frag);
 }

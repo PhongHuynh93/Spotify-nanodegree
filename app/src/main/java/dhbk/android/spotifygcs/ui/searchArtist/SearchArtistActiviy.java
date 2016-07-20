@@ -1,21 +1,16 @@
 package dhbk.android.spotifygcs.ui.searchArtist;
 
-import android.content.Context;
-import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
+import dhbk.android.spotifygcs.BaseActivity;
 import dhbk.android.spotifygcs.R;
 import dhbk.android.spotifygcs.util.ActivityUtils;
 import dhbk.android.spotifygcs.util.Constant;
-import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-public class SearchArtistActiviy extends AppCompatActivity {
+public class SearchArtistActiviy extends BaseActivity {
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
     @BindView(R.id.nav_view)
@@ -24,18 +19,17 @@ public class SearchArtistActiviy extends AppCompatActivity {
     DrawerLayout mDrawerLayout;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search_artists);
-        ButterKnife.bind(this);
+    public int getLayout() {
+        return R.layout.activity_search_artists;
+    }
 
-        // Set up the toolbar.
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        ActionBar ab = getSupportActionBar();
-//        ab.setHomeAsUpIndicator(R.drawable.ic_menu);
-        ab.setDisplayHomeAsUpEnabled(true); // set the left arrow in toolbar
+    @Override
+    protected boolean hasToolbar() {
+        return true;
+    }
 
+    @Override
+    protected void initView() {
         // Set up the navigation drawer.
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerLayout.setStatusBarBackground(R.color.colorPrimaryDark);
@@ -56,10 +50,10 @@ public class SearchArtistActiviy extends AppCompatActivity {
         SearchArtistPresenter mSearchArtistPresenter = new SearchArtistPresenter(searchArtistFragment);
     }
 
-    // use this method for an activity to change font of text
+    // this activity want to use custom font
     @Override
-    protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    protected boolean hasUseCustomeFont() {
+        return true;
     }
 
     // TODO: 7/18/2016 set up navigation drawer

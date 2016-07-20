@@ -5,7 +5,6 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.app.SearchManager;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.AnimatedVectorDrawable;
@@ -510,9 +509,8 @@ public class SearchResultsFragment extends BaseFragment implements
     // called when click an artist in this view
     // go to show detail top tracks of artist
     @Override
-    public void onArtistClick(Artist clickedTask) {
-        // TODO: 7/20/16 implement this, pass artist to the second activity
-        Intent showArtistDetailIntent = new Intent(getActivity(), ShowTopTracksActivity.class);
-        startActivity(showArtistDetailIntent);
+    public void onArtistClick(Artist artist) {
+        // pass id of a artist to second activity
+        startActivity(ShowTopTracksActivity.createStartIntent(getContext(), artist.getIdArtist(), artist.getUrlLargeImage()));
     }
 }

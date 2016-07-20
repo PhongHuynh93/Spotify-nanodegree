@@ -2,16 +2,14 @@ package dhbk.android.spotifygcs.ui.searchArtist.childSearchArtist;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.TypedValue;
 
+import dhbk.android.spotifygcs.BaseActivity;
 import dhbk.android.spotifygcs.R;
 import dhbk.android.spotifygcs.util.ActivityUtils;
 import dhbk.android.spotifygcs.util.Constant;
-import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-public class SearchResultsActivity extends AppCompatActivity {
+public class SearchResultsActivity extends BaseActivity {
     public static final String EXTRA_MENU_LEFT = "EXTRA_MENU_LEFT";
     public static final String EXTRA_MENU_CENTER_X = "EXTRA_MENU_CENTER_X";
     private SearchChildPresenter mSearchChildPresenter;
@@ -24,11 +22,30 @@ public class SearchResultsActivity extends AppCompatActivity {
         return starter;
     }
 
+    // when press back press, call view to anim and finish activity.
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_test_translucent);
+    public void onBackPressed() {
+        mSearchChildPresenter.dismissView();
+//        super.onBackPressed(); // default action is finish the activity
+    }
 
+    @Override
+    protected boolean hasUseCustomeFont() {
+        return true;
+    }
+
+    @Override
+    public int getLayout() {
+        return R.layout.activity_content_frame;
+    }
+
+    @Override
+    protected boolean hasToolbar() {
+        return false;
+    }
+
+    @Override
+    protected void initView() {
         // extract the search icon's location passed from the launching activity, minus 4dp to
         // compensate for different paddings in the views
         final int searchBackDistanceX = getIntent().getIntExtra(EXTRA_MENU_LEFT, 0) - (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 4, getResources().getDisplayMetrics());
@@ -47,20 +64,4 @@ public class SearchResultsActivity extends AppCompatActivity {
         mSearchChildPresenter = new SearchChildPresenter(searchChildFragment);
     }
 
-    // when press back press, call view to anim and finish activity.
-    @Override
-    public void onBackPressed() {
-        mSearchChildPresenter.dismissView();
-//        super.onBackPressed(); // default action is finish the activity
-    }
-
-    @Override
-    protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }
 }
