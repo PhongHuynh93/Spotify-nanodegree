@@ -31,7 +31,7 @@ public class ShowTopTracksActivity extends BaseActivity {
 
     @Override
     protected boolean hasToolbar() {
-        return true;
+        return false;
     }
 
     @Override
