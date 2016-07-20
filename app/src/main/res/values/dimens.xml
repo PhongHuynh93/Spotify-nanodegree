@@ -43,4 +43,9 @@
     <dimen name="spacing_huge">64dp</dimen>
     <dimen name="spacing_micro">4dp</dimen>
     <dimen name="height_search_artist_textview">20dp</dimen>
+
+    <!--show top track view-->
+    <dimen name="height_show_top_track_image">323dp</dimen>
+    <dimen name="width_show_top_track_lis">320dp</dimen>
+    <dimen name="height_show_top_track_list">150dp</dimen>
 </resources>
