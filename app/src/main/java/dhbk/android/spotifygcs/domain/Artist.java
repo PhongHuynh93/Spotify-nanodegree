@@ -19,7 +19,6 @@ public class Artist {
     SpotifyImage[] urlImage;
 
     @SerializedName(Constant.NAME_ARTIST)
-    @Nullable
     String nameArtist;
 
     // if on artist have many image, image at position 1 is medium 300 x 300 pixel (other is large or small)
@@ -28,11 +27,12 @@ public class Artist {
         assert urlImage != null;
         if (urlImage.length >= 2) {
             return urlImage[1];
+        } else if (urlImage.length == 1) {
+            return urlImage[0];
         }
         return null;
     }
 
-    @Nullable
     public String getNameArtist() {
         return nameArtist;
     }

@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
@@ -40,12 +41,13 @@ public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdap
 //
 //        holder.setArtistName(currentArtist.getName());
 
-        if(currentArtist.getMediumImage() != null) {
+        if (currentArtist.getMediumImage() != null) {
             holder.setArtistImage(currentArtist.getMediumImage().getUrl());
-        }
-        else {
+        } else {
             holder.setPlaceholderImage();
         }
+
+        holder.mTextViewNameArtist.setText(currentArtist.getNameArtist());
     }
 
     @Override
@@ -69,6 +71,9 @@ public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdap
     public class ArtistViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.imageview_item_search_artist)
         ImageView mImageviewItemSearchArtist;
+        @BindView(R.id.textview_item_search_artist_name)
+        TextView mTextViewNameArtist;
+
 
         ArtistViewHolder(View view) {
             super(view);
@@ -81,16 +86,13 @@ public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdap
             Picasso.with(mContext)
                     .load(urlImage)
                     .fit()
-                    .placeholder(R.drawable.face)
+                    .placeholder(R.drawable.no_artist)
                     .into(mImageviewItemSearchArtist);
         }
 
         // if not found, add a place holder for artist
         public void setPlaceholderImage() {
-            Picasso.with(mContext)
-                    .load(R.drawable.face)
-                    .fit()
-                    .into(mImageviewItemSearchArtist);
+            mImageviewItemSearchArtist.setImageDrawable(mContext.getResources().getDrawable(R.drawable.no_artist));
         }
     }
 }
