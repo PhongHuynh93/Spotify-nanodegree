@@ -16,11 +16,13 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import dhbk.android.spotifygcs.R;
 import dhbk.android.spotifygcs.domain.Artist;
+import dhbk.android.spotifygcs.ui.recyclerview.ArtistItemListener;
 
 /**
  * Created by huynhducthanhphong on 7/16/16.
  */
 public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdapter.ArtistViewHolder> {
+    private ArtistItemListener mClickListener;
     private ArrayList<Artist> mArtists;
     private Context mContext;
 
@@ -65,6 +67,10 @@ public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdap
     public void clear() {
         mArtists.clear();
         notifyDataSetChanged();
+    }
+
+    public void setClickListenerInterface(ArtistItemListener clickListener) {
+        mClickListener = clickListener;
     }
 
 
