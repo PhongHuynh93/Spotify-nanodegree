@@ -2,6 +2,7 @@ package dhbk.android.spotifygcs;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -43,6 +44,7 @@ public abstract class BaseActivity extends AppCompatActivity{
     protected abstract boolean hasUseCustomeFont();
 
     // return layout for activity
+    @LayoutRes
     public abstract int getLayout();
 
     // check a view has toolbar or not
