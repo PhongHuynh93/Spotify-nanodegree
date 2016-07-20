@@ -48,4 +48,8 @@
     <dimen name="height_show_top_track_image">323dp</dimen>
     <dimen name="width_show_top_track_lis">320dp</dimen>
     <dimen name="height_show_top_track_list">150dp</dimen>
+    <dimen name="size_margin_show_top_track">12dp</dimen>
+    <dimen name="margin_left_show_top_track_number">26dp</dimen>
+    <dimen name="margin_left_show_top_track_name_song">47dp</dimen>
+    <dimen name="margin_left_show_top_track_length_song">284dp</dimen>
 </resources>
