@@ -18,6 +18,10 @@ public class Artist {
     @Nullable
     SpotifyImage[] urlImage;
 
+    @SerializedName(Constant.NAME_ARTIST)
+    @Nullable
+    String nameArtist;
+
     // if on artist have many image, image at position 1 is medium 300 x 300 pixel (other is large or small)
     @Nullable
     public SpotifyImage getMediumImage() {
@@ -26,5 +30,10 @@ public class Artist {
             return urlImage[1];
         }
         return null;
+    }
+
+    @Nullable
+    public String getNameArtist() {
+        return nameArtist;
     }
 }
