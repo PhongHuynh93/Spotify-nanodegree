@@ -8,8 +8,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
-
 import java.util.ArrayList;
 
 import butterknife.BindView;
@@ -17,6 +15,7 @@ import butterknife.ButterKnife;
 import dhbk.android.spotifygcs.R;
 import dhbk.android.spotifygcs.domain.Artist;
 import dhbk.android.spotifygcs.ui.recyclerview.ArtistItemListener;
+import dhbk.android.spotifygcs.util.ViewUtils;
 
 /**
  * Created by huynhducthanhphong on 7/16/16.
@@ -92,11 +91,12 @@ public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdap
         // we have url of image, so download it by picasso and cache it, so the other time, not download it again but get in cache
         // resize image depend on width height of viewholder
         public void setArtistImage(String urlImage) {
-            Picasso.with(mContext)
-                    .load(urlImage)
-                    .fit()
-                    .placeholder(R.drawable.no_artist)
-                    .into(mImageviewItemSearchArtist);
+//            Picasso.with(mContext)
+//                    .load(urlImage)
+//                    .fit()
+//                    .placeholder(R.drawable.no_artist)
+//                    .into(mImageviewItemSearchArtist);
+            ViewUtils.setImagePicasso(mContext, urlImage, mImageviewItemSearchArtist);
         }
 
         // if not found, add a place holder for artist

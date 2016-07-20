@@ -12,8 +12,14 @@ public interface ShowTopTracksContract {
     interface View extends BaseView<Presenter> {
         // get the ArtistSearchInteractor for connect to the internet
         ArtistSearchInteractor getArtistSearchInteractor();
+        // setup recyclerview
+        void setupRecyclerView();
+        // setup adatper to add to recyclerview
+        void setupAdapter();
     }
 
     interface Presenter extends BasePresenter {
+        // setup recyclerview and setup adapter
+        void setupList();
     }
 }
