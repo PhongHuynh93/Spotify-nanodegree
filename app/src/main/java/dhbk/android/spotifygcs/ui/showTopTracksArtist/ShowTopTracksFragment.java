@@ -45,7 +45,7 @@ public class ShowTopTracksFragment extends BaseFragment implements
         ShowTopTracksContract.View,
         TrackItemListener{
     private static final String ARG_ARTIST_ID = "artist_id";
-    private static final String ARG_URL_IMAGE = "url_name";
+    private static final String ARG_ARTIST_NAME = "artist_name";
 
     @BindView(R.id.imageview_show_artist)
     ParallaxScrimageView mImageviewShowArtist;
@@ -59,6 +59,8 @@ public class ShowTopTracksFragment extends BaseFragment implements
     ElasticDragDismissFrameLayout mDraggableFrame;
 
     private String mArtistId;
+    private String mArtistName;
+
     private ShowTopTracksContract.Presenter mPresenter;
 
     @Inject
@@ -70,13 +72,20 @@ public class ShowTopTracksFragment extends BaseFragment implements
     public ShowTopTracksFragment() {
     }
 
-    public static ShowTopTracksFragment newInstance(String artistId, String urlLargeImage) {
+    public static ShowTopTracksFragment newInstance(String artistId, String artistName) {
         ShowTopTracksFragment showTopTracksFragment = new ShowTopTracksFragment();
         Bundle args = new Bundle();
         args.putString(ARG_ARTIST_ID, artistId);
-        args.putString(ARG_URL_IMAGE, urlLargeImage);
+        args.putString(ARG_ARTIST_NAME, artistName);
         showTopTracksFragment.setArguments(args);
         return showTopTracksFragment;
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        ButterKnife.bind(this, rootView);
+        return rootView;
     }
 
     @Override
@@ -115,13 +124,12 @@ public class ShowTopTracksFragment extends BaseFragment implements
 
     @Override
     protected void initView() {
-        // set image
-//        if (getArguments() != null) {
-//            mArtistId = getArguments().getString(ARG_ARTIST_ID);
-//            String urlImage = getArguments().getString(ARG_URL_IMAGE);
-//            // set image
-//            ViewUtils.setImagePicasso(getContext(), urlImage, mImageviewShowArtist);
-//        }
+        // getting the argument
+        if (getArguments() != null) {
+            mArtistId = getArguments().getString(ARG_ARTIST_ID);
+            mArtistName = getArguments().getString(ARG_ARTIST_NAME);
+        }
+
         mImageviewShowArtist.setImageDrawable(SearchResultsFragment.sDrawable);
         SearchResultsFragment.sDrawable = null; // after set image, set it to null to recycle
         mBack.setOnClickListener(v -> expandImageAndFinish());
@@ -217,13 +225,6 @@ public class ShowTopTracksFragment extends BaseFragment implements
     // TODO: 7/20/16 implement this
     private void setClickListener() {
         mTopTrackAdapter.setClickListenerInterface(this);
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        ButterKnife.bind(this, rootView);
-        return rootView;
     }
 
     // a callback with results is the toptrack which was clicked.

@@ -97,7 +97,6 @@
             android:overScrollFooter="@android:color/transparent"
             android:overScrollMode="never"
             android:paddingBottom="@dimen/padding_normal"/> <!-- http://stackoverflow.com/a/24394230 -->
-
     </FrameLayout>
 
 </dhbk.android.spotifygcs.ui.widget.ElasticDragDismissFrameLayout>
