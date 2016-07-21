@@ -1,0 +1,103 @@
+<!--<?xml version="1.0" encoding="utf-8"?>-->
+<!--<LinearLayout-->
+<!--xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--xmlns:tools="http://schemas.android.com/tools"-->
+<!--android:layout_width="match_parent"-->
+<!--android:layout_height="match_parent"-->
+<!--android:orientation="vertical"-->
+<!--tools:context="dhbk.android.spotifygcs.ui.showTopTracksArtist.ShowTopTracksActivity">-->
+
+<!--&lt;!&ndash;image is all space remain&ndash;&gt;-->
+<!--<ImageView-->
+<!--android:id="@+id/imageview_show_artist"-->
+<!--android:layout_width="match_parent"-->
+<!--android:layout_height="0dp"-->
+<!--android:layout_weight="1"-->
+<!--android:background="@color/white_yellow"-->
+<!--android:scaleType="centerCrop"-->
+<!--android:src="@drawable/mainpic"/>-->
+
+<!--&lt;!&ndash;show a list of track, and later transform to play music machine&ndash;&gt;-->
+<!--<android.support.v7.widget.RecyclerView-->
+<!--android:id="@+id/recyclerview_show_top_track"-->
+<!--android:layout_width="match_parent"-->
+<!--android:layout_height="@dimen/height_show_top_track_list"/>-->
+<!--</LinearLayout>-->
+
+<dhbk.android.spotifygcs.ui.widget.ElasticDragDismissFrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/draggable_frame"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:dragDismissDistance="@dimen/drag_dismiss_distance"
+    app:dragDismissScale="0.95"
+    tools:context=".ui.showTopTracksArtist.ShowTopTracksActivity">
+
+    <FrameLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background_light"
+        android:transitionGroup="false"
+        android:transitionName="@string/transition_shot_background">
+
+        <!--android:id="@+id/shot"-->
+        <dhbk.android.spotifygcs.ui.widget.ParallaxScrimageView
+            android:id="@+id/imageview_show_artist"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:background="@color/light_grey"
+            android:foreground="@drawable/mid_grey_ripple"
+            android:minHeight="@dimen/shot_collapsed_app_bar_height"
+            android:scaleType="fitXY"
+            android:stateListAnimator="@animator/app_bar_pin"
+            android:transitionName="@string/transition_shot"
+            app:maxScrimAlpha="0.4"
+            app:parallaxFactor="-0.5"
+            app:scrimAlpha="0"
+            app:scrimColor="@color/grey_opa"/>
+
+        <!-- We're 'faking' a toolbar here as we just want a back button.
+             This approach lets the borderless ripple extend beyond the back button's bounds,
+             toolbar clips it. Wrapping layout needed for the ripple. -->
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:elevation="@dimen/z_fab_over_touchable_app_bar">
+
+            <!-- animate alpha in DribbleShot#enterAnimation
+                 margins push out parent for the borderless ripple -->
+            <ImageButton
+                android:id="@+id/back"
+                android:layout_width="?android:actionBarSize"
+                android:layout_height="?android:actionBarSize"
+                android:layout_marginBottom="@dimen/padding_normal"
+                android:layout_marginEnd="@dimen/padding_normal"
+                android:alpha="0"
+                android:background="@drawable/mid_grey_ripple"
+                android:src="@drawable/ic_arrow_back"/>
+        </FrameLayout>
+
+        <!--android:id="@+id/dribbble_comments"-->
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerview_show_top_track"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:divider="@null"
+            android:dividerHeight="@dimen/divider_height"
+            android:footerDividersEnabled="true"
+            android:headerDividersEnabled="false"
+            android:listSelector="@android:color/transparent"
+            android:nestedScrollingEnabled="true"
+            android:overScrollFooter="@android:color/transparent"
+            android:overScrollMode="never"
+            android:paddingBottom="@dimen/padding_normal"/> <!-- http://stackoverflow.com/a/24394230 -->
+
+    </FrameLayout>
+
+</dhbk.android.spotifygcs.ui.widget.ElasticDragDismissFrameLayout>

@@ -8,19 +8,20 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
-
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import dhbk.android.spotifygcs.R;
 import dhbk.android.spotifygcs.domain.Artist;
+import dhbk.android.spotifygcs.ui.recyclerview.ArtistItemListener;
+import dhbk.android.spotifygcs.util.ViewUtils;
 
 /**
  * Created by huynhducthanhphong on 7/16/16.
  */
 public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdapter.ArtistViewHolder> {
+    private ArtistItemListener mClickListener;
     private ArrayList<Artist> mArtists;
     private Context mContext;
 
@@ -38,8 +39,6 @@ public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdap
     @Override
     public void onBindViewHolder(ArtistViewHolder holder, int position) {
         Artist currentArtist = mArtists.get(position);
-//
-//        holder.setArtistName(currentArtist.getName());
 
         if (currentArtist.getMediumImage() != null) {
             holder.setArtistImage(currentArtist.getMediumImage().getUrl());
@@ -48,6 +47,8 @@ public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdap
         }
 
         holder.mTextViewNameArtist.setText(currentArtist.getNameArtist());
+        holder.containerView.setOnClickListener(v -> mClickListener.onArtistClick(currentArtist, holder.mImageviewItemSearchArtist));
+        holder.containerView.setOnTouchListener((view, motionEvent) -> mClickListener.onArtistTouch(holder.mImageviewItemSearchArtist, motionEvent));
     }
 
     @Override
@@ -67,12 +68,17 @@ public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdap
         notifyDataSetChanged();
     }
 
+    public void setClickListenerInterface(ArtistItemListener clickListener) {
+        mClickListener = clickListener;
+    }
 
     public class ArtistViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.imageview_item_search_artist)
         ImageView mImageviewItemSearchArtist;
         @BindView(R.id.textview_item_search_artist_name)
         TextView mTextViewNameArtist;
+        @BindView(R.id.viewgroup_container)
+        View containerView;
 
 
         ArtistViewHolder(View view) {
@@ -83,11 +89,7 @@ public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdap
         // we have url of image, so download it by picasso and cache it, so the other time, not download it again but get in cache
         // resize image depend on width height of viewholder
         public void setArtistImage(String urlImage) {
-            Picasso.with(mContext)
-                    .load(urlImage)
-                    .fit()
-                    .placeholder(R.drawable.no_artist)
-                    .into(mImageviewItemSearchArtist);
+            ViewUtils.setImagePicasso(mContext, urlImage, mImageviewItemSearchArtist);
         }
 
         // if not found, add a place holder for artist

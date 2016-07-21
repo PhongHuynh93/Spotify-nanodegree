@@ -4,6 +4,7 @@
 
     <!-- use this permision for app to connect to internet -->
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
         android:name=".MVPApp"
@@ -34,6 +35,16 @@
             android:launchMode="singleTop"
             android:theme="@style/AppThemeNoActionBar.Translucent.Search">
         </activity>
+        <activity
+            android:name=".ui.showTopTracksArtist.ShowTopTracksActivity"
+            android:theme="@style/AppThemeNoActionBar.Translucent.Search">
+        </activity>
+
+        <service
+            android:name=".ui.showTopTracksArtist.SpotifyPlayerService"
+            android:enabled="true"
+            android:exported="true">
+        </service>
     </application>
 
 </manifest>

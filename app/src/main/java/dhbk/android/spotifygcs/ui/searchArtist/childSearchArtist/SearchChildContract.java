@@ -34,6 +34,8 @@ public interface SearchChildContract {
         void showtoRcv();
         // if we dont have data to show, info the user
         void showEmptyArtistsLayout();
+        // set click lister for view with recyclerview
+        void setClickListener();
     }
 
     // method presenter search artist must override

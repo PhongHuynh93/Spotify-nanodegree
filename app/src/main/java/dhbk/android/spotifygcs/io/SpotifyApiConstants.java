@@ -18,4 +18,18 @@ public class SpotifyApiConstants {
     private static final String ARTIST = "artist";
     // depend on link above, the way to search the artists is GET /v1/search?type=artist
     public static final String ARTIST_SEARCH_URL = VERSION_PATH + SEARCH_PATH + "?"+ TYPE_QUERY + "=" + ARTIST;
+
+
+    // a path to get a top track from an artist
+//    GET https://api.spotify.com/v1/artists/{id}/top-tracks
+    private static final String SEARCH_TOP_TRACK_PATH = "/artists";
+    public static final String ID_ARTIST = "id";
+    private static final String TOP_TRACK = "/top-tracks";
+    private static final String TYPE_QUERY_COUNTRY = "?country";
+    private static final String COUNTRY = "US";
+
+    public static final String TOP_TRACK_SEARCH_URL = VERSION_PATH + SEARCH_TOP_TRACK_PATH + "/{" + ID_ARTIST + "}" + TOP_TRACK
+            + TYPE_QUERY_COUNTRY + "=" + COUNTRY;
+
+
 }

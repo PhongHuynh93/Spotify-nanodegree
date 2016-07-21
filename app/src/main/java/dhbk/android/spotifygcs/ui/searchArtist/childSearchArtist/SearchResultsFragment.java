@@ -4,10 +4,13 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.app.ActivityOptions;
 import android.app.SearchManager;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.AnimatedVectorDrawable;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.TransitionDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -24,8 +27,10 @@ import android.text.style.StyleSpan;
 import android.transition.Transition;
 import android.transition.TransitionInflater;
 import android.transition.TransitionManager;
+import android.util.Pair;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
@@ -33,8 +38,11 @@ import android.view.ViewStub;
 import android.view.ViewTreeObserver;
 import android.view.inputmethod.EditorInfo;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.SearchView;
+
+import com.bumptech.glide.load.resource.gif.GifDrawable;
 
 import java.util.ArrayList;
 
@@ -52,7 +60,9 @@ import dhbk.android.spotifygcs.component.SpotifyStreamerComponent;
 import dhbk.android.spotifygcs.domain.Artist;
 import dhbk.android.spotifygcs.interactor.ArtistSearchInteractor;
 import dhbk.android.spotifygcs.module.ArtistSearchModule;
+import dhbk.android.spotifygcs.ui.recyclerview.ArtistItemListener;
 import dhbk.android.spotifygcs.ui.recyclerview.SlideInItemAnimator;
+import dhbk.android.spotifygcs.ui.showTopTracksArtist.ShowTopTracksActivity;
 import dhbk.android.spotifygcs.ui.widget.BaselineGridTextView;
 import dhbk.android.spotifygcs.util.AnimUtils;
 import dhbk.android.spotifygcs.util.ImeUtils;
@@ -61,12 +71,15 @@ import dhbk.android.spotifygcs.util.ViewUtils;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 // TODO: 7/19/2016 implement onNewIntent()
-public class SearchResultsFragment extends BaseFragment implements SearchChildContract.View {
+public class SearchResultsFragment extends BaseFragment implements
+        SearchChildContract.View,
+        ArtistItemListener {
     private static final String ARG_SEARCH_BACK_DISTANCE_X = "searchBackDistanceX";
     private static final String ARG_SEARCH_ICON_CENTER_X = "searchIconCenterX";
 
     public static final String EXTRA_MENU_LEFT = "EXTRA_MENU_LEFT";
     public static final String EXTRA_MENU_CENTER_X = "EXTRA_MENU_CENTER_X";
+    private static final int REQUEST_CODE_VIEW_SHOT = 5407;
 
     @BindView(R.id.searchback)
     ImageButton searchBack;
@@ -88,7 +101,8 @@ public class SearchResultsFragment extends BaseFragment implements SearchChildCo
     ViewGroup resultsContainer;
     @BindView(R.id.search_results)
     RecyclerView results;
-    @BindInt(R.integer.num_col) int NUMBER_OF_COLUMN_LIST;
+    @BindInt(R.integer.num_col)
+    int NUMBER_OF_COLUMN_LIST;
 
     //     get adapter components
     @Inject
@@ -106,6 +120,7 @@ public class SearchResultsFragment extends BaseFragment implements SearchChildCo
     private Transition mAutoTransition;
     private BaselineGridTextView noResults;
     private Transition auto;
+    public static Drawable sDrawable;
 
     public SearchResultsFragment() {
         // Required empty public constructor
@@ -336,8 +351,15 @@ public class SearchResultsFragment extends BaseFragment implements SearchChildCo
     public void setupAdapter() {
         checkNotNull(mSearchResultsAdapter, "adapter not be null before set to list");
         results.setAdapter(mSearchResultsAdapter);
+        setClickListener();
         results.setItemAnimator(new SlideInItemAnimator());
     }
+
+    @Override
+    public void setClickListener() {
+        mSearchResultsAdapter.setClickListenerInterface(this);
+    }
+
 
     @Override
     public void setupSearchBar() {
@@ -430,6 +452,7 @@ public class SearchResultsFragment extends BaseFragment implements SearchChildCo
     // when app is on destroy state, stop network.
     @Override
     protected void doThingWhenDestroyApp() {
+        sDrawable = null;
         // TODO: 7/19/2016 stop loading network anymore.
     }
 
@@ -494,4 +517,90 @@ public class SearchResultsFragment extends BaseFragment implements SearchChildCo
             }
         });
     }
+
+    // called when click an artist in this view
+    // go to show detail top tracks of artist
+    @Override
+    public void onArtistClick(Artist artist, View image) {
+        // anim when open second activity
+//        setGridItemContentTransitions(image);
+        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(
+                getActivity(),
+                Pair.create(image, getActivity().getString(R.string.transition_shot)),
+                Pair.create(image, getActivity().getString(R.string.transition_shot_background)));
+
+        sDrawable = ((ImageView)image).getDrawable();
+
+        // pass id of a artist to second activity
+        startActivityForResult(ShowTopTracksActivity.createStartIntent(getContext(), artist.getIdArtist(), artist.getUrlLargeImage()), REQUEST_CODE_VIEW_SHOT, options.toBundle());
+//        startActivity(ShowTopTracksActivity.createStartIntent(getContext(), artist.getIdArtist(), artist.getUrlLargeImage()));
+    }
+
+    @Override
+    public boolean onArtistTouch(View view, MotionEvent event) {
+        // check if it's an event we care about, else bail fast
+        final int action = event.getAction();
+        if (!(action == MotionEvent.ACTION_DOWN
+                || action == MotionEvent.ACTION_UP
+                || action == MotionEvent.ACTION_CANCEL)) return false;
+
+        // get the image and check if it's an animated GIF
+        final Drawable drawable = ((ImageView)view).getDrawable();
+        if (drawable == null) return false;
+        GifDrawable gif = null;
+        if (drawable instanceof GifDrawable) {
+            gif = (GifDrawable) drawable;
+        } else if (drawable instanceof TransitionDrawable) {
+            // we fade in images on load which uses a TransitionDrawable; check its layers
+            TransitionDrawable fadingIn = (TransitionDrawable) drawable;
+            for (int i = 0; i < fadingIn.getNumberOfLayers(); i++) {
+                if (fadingIn.getDrawable(i) instanceof GifDrawable) {
+                    gif = (GifDrawable) fadingIn.getDrawable(i);
+                    break;
+                }
+            }
+        }
+        if (gif == null) return false;
+        // GIF found, start/stop it on press/lift
+        switch (action) {
+            case MotionEvent.ACTION_DOWN:
+                gif.start();
+                break;
+            case MotionEvent.ACTION_UP:
+            case MotionEvent.ACTION_CANCEL:
+                gif.stop();
+                break;
+        }
+        return false;
+    }
+
+
+    /**
+     * The shared element transition to dribbble shots & dn stories can intersect with the FAB.
+     * This can cause a strange layers-passing-through-each-other effect. On return hide the FAB
+     * and animate it back in after the transition.
+     */
+//    private void setGridItemContentTransitions(View gridItem) {
+////        final View fab = getActivity().findViewById(R.id.fab);
+////        if (!ViewUtils.viewsIntersect(gridItem, fab)) return;
+////
+////        final Transition reenter = TransitionInflater.from(getActivity())
+////                .inflateTransition(R.transition.home_content_item_reenter);
+//        // we only want these content transitions in certain cases so clear out when done.
+//        reenter.addListener(new AnimUtils.TransitionListenerAdapter() {
+//            @Override
+//            public void onTransitionStart(Transition transition) {
+////                fab.setAlpha(0f);
+////                fab.setScaleX(0f);
+////                fab.setScaleY(0f);
+//            }
+//
+//            @Override
+//            public void onTransitionEnd(Transition transition) {
+//                getActivity().getWindow().setReenterTransition(null);
+//            }
+//        });
+//        getActivity().getWindow().setReenterTransition(reenter);
+//    }
+
 }

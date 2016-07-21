@@ -34,4 +34,8 @@
     <!--search artist child-->
     <string name="search_artist_child_text">Search Artists</string>
     <string name="no_search_results">No results for\n“%1$s”</string>
+
+    <!-- transition shared elements -->
+    <string name="transition_shot" translatable="false">shot</string>
+    <string name="transition_shot_background" translatable="false">shot_background</string>
 </resources>

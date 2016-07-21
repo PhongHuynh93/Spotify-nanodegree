@@ -2,6 +2,7 @@ package dhbk.android.spotifygcs.interactor;
 
 import dhbk.android.spotifygcs.io.SpotifyApiService;
 import dhbk.android.spotifygcs.io.callback.ArtistSearchServerCallback;
+import dhbk.android.spotifygcs.io.callback.TopTrackSearchServerCallback;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -16,8 +17,7 @@ public class ArtistSearchInteractor {
         mApiService = apiService;
     }
 
-
-    // use api service to perform a network call to api using rxjava and lambda expression
+    // search a list of artist which equals to query
     public void performSearch(String query, ArtistSearchServerCallback callback) {
         mApiService.searchArtist(query)
                 .subscribeOn(Schedulers.newThread())
@@ -29,4 +29,19 @@ public class ArtistSearchInteractor {
                             callback.onFailedSearch();
                         });
     }
+
+    // search a list of tracks of an artist
+    public void performTopTrackSearch(String idArtist, TopTrackSearchServerCallback callback) {
+        mApiService.searchTopTrack(idArtist)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(artistSearchResponse -> {
+                            callback.onTopTracksFound(artistSearchResponse.getTopTracksOfArtist());
+                        }
+                        , throwable -> {
+                            callback.onFailedSearch();
+                        });
+    }
+
+
 }
