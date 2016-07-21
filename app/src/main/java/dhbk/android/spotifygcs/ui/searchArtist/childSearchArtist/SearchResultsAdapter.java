@@ -72,7 +72,6 @@ public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdap
         mClickListener = clickListener;
     }
 
-
     public class ArtistViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.imageview_item_search_artist)
         ImageView mImageviewItemSearchArtist;

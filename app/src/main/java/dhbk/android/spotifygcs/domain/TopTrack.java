@@ -18,6 +18,10 @@ public class TopTrack {
     @SerializedName(Constant.DURATION_OF_TRACKS)
     int mDurationOfTrack;
 
+    // the url that play track for 30s
+    @SerializedName(Constant.TRACK_REVIEW_URL)
+    String trackUrl;
+
     // a array of artists which sings this track
     @SerializedName(Constant.ARTISTS_OF_TRACKS)
     ArrayList<Artist> mArtistsOfTrack;
@@ -39,5 +43,9 @@ public class TopTrack {
         }
 
         return allArtistsInTrack;
+    }
+
+    public String getTrackUrl() {
+        return trackUrl;
     }
 }

@@ -24,7 +24,8 @@ import android.util.AttributeSet;
 import android.view.ViewOutlineProvider;
 import android.widget.ImageView;
 
-import io.plaidapp.R;
+import dhbk.android.spotifygcs.R;
+
 
 /**
  * An extension to {@link ImageView} which has a foreground drawable.

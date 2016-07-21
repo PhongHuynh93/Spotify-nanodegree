@@ -27,10 +27,10 @@ import android.widget.FrameLayout;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.plaidapp.R;
-import io.plaidapp.util.AnimUtils;
-import io.plaidapp.util.ColorUtils;
-import io.plaidapp.util.ViewUtils;
+import dhbk.android.spotifygcs.R;
+import dhbk.android.spotifygcs.util.AnimUtils;
+import dhbk.android.spotifygcs.util.ColorUtils;
+import dhbk.android.spotifygcs.util.ViewUtils;
 
 /**
  * A {@link FrameLayout} which responds to nested scrolls to create drag-dismissable layouts.

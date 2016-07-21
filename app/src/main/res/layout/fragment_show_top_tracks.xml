@@ -56,7 +56,7 @@
             app:maxScrimAlpha="0.4"
             app:parallaxFactor="-0.5"
             app:scrimAlpha="0"
-            app:scrimColor="@color/scrim"/>
+            app:scrimColor="@color/grey_opa"/>
 
         <!-- We're 'faking' a toolbar here as we just want a back button.
              This approach lets the borderless ripple extend beyond the back button's bounds,

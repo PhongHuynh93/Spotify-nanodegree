@@ -32,6 +32,7 @@
     <color name="black_light">#555555</color>
     <color name="background_light">#fafafa</color>
     <color name="light_grey">#fff5f5f5</color>
+    <color name="mid_grey">#40808080</color>
     262833
 
 </resources>

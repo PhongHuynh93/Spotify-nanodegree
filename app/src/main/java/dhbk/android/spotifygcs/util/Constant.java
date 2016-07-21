@@ -19,6 +19,7 @@ public class Constant {
     public static final String HEIGHT = "height";
     public static final String URL = "url";
     public static final String TRACKS = "tracks";
+    public static final String TRACK_REVIEW_URL = "preview_url";
 
     // spotify artists top track
     public static final String NAME_OF_TRACKS = "name";

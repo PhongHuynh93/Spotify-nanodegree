@@ -11,9 +11,5 @@ import dhbk.android.spotifygcs.domain.Artist;
  */
 public interface ArtistItemListener {
     void onArtistClick(Artist clickedTask, View v);
-    boolean onArtistTouch (View view, MotionEvent motionEvent);
-//
-//    void onCompleteTaskClick(Task completedTask);
-//
-//    void onActivateTaskClick(Task activatedTask);
+    boolean onArtistTouch(View view, MotionEvent motionEvent);
 }

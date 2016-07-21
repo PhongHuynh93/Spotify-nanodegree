@@ -10,18 +10,20 @@ import butterknife.ButterKnife;
 import dhbk.android.spotifygcs.BaseAdapter;
 import dhbk.android.spotifygcs.R;
 import dhbk.android.spotifygcs.domain.TopTrack;
+import dhbk.android.spotifygcs.ui.recyclerview.TrackItemListener;
 
 /**
  * Created by phongdth.ky on 7/20/2016.
- * TODO: implement top track interface
  */
 public class TopTrackAdapter extends BaseAdapter<TopTrack, TopTrackAdapter.View_Holder> {
     private final Context mContext;
+    private TrackItemListener mView;
 
     public TopTrackAdapter(Context context) {
         mContext = context;
         setOnClickListener(topTrack -> {
-            // when click one view, return a top track
+            //  when click one view, return a top track model
+            mView.onTrackClick(topTrack);
         });
     }
 
@@ -47,13 +49,6 @@ public class TopTrackAdapter extends BaseAdapter<TopTrack, TopTrackAdapter.View_
         return mContext;
     }
 
-//
-//    public class View_Holder extends RecyclerView.ViewHolder {
-//        public View_Holder(View itemView) {
-//            super(itemView);
-//        }
-//    }
-
     static class View_Holder extends RecyclerView.ViewHolder {
         @BindView(R.id.textview_number_of_track)
         TextView mTextviewNumberOfTrack;
@@ -68,5 +63,9 @@ public class TopTrackAdapter extends BaseAdapter<TopTrack, TopTrackAdapter.View_
             super(view);
             ButterKnife.bind(this, view);
         }
+    }
+
+    public void setClickListenerInterface(TrackItemListener clickListener) {
+        mView = clickListener;
     }
 }

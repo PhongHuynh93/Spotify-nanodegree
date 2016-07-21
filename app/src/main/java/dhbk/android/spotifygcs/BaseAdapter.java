@@ -3,6 +3,7 @@ package dhbk.android.spotifygcs;
 import android.content.Context;
 import android.support.annotation.LayoutRes;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,7 +28,7 @@ public abstract class BaseAdapter<T, V extends RecyclerView.ViewHolder> extends 
         if (holder.itemView != null && onClickListener != null) {
             holder.itemView.setOnClickListener(v -> onClickListener.onClick(item));
         } else if (holder.itemView == null) {
-            //Log.e("BaseAdapter","ViewHolder's itemView is null");
+            Log.e("BaseAdapter","ViewHolder's itemView is null");
         }
 
         onBindViewHolder(holder, item);
@@ -66,6 +67,7 @@ public abstract class BaseAdapter<T, V extends RecyclerView.ViewHolder> extends 
         this.onClickListener = onClickListener;
     }
 
+    // interface fire when click a row in list
     public interface OnClickListener<T> {
         void onClick(T t);
     }

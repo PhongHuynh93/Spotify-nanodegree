@@ -30,6 +30,7 @@ import dhbk.android.spotifygcs.domain.TopTrack;
 import dhbk.android.spotifygcs.interactor.ArtistSearchInteractor;
 import dhbk.android.spotifygcs.module.TopTrackModule;
 import dhbk.android.spotifygcs.ui.recyclerview.SlideInItemAnimator;
+import dhbk.android.spotifygcs.ui.recyclerview.TrackItemListener;
 import dhbk.android.spotifygcs.ui.widget.ElasticDragDismissFrameLayout;
 import dhbk.android.spotifygcs.ui.widget.ParallaxScrimageView;
 import dhbk.android.spotifygcs.util.AnimUtils;
@@ -41,7 +42,8 @@ import static com.google.common.base.Preconditions.checkNotNull;
  * A simple {@link Fragment} subclass.
  */
 public class ShowTopTracksFragment extends BaseFragment implements
-        ShowTopTracksContract.View {
+        ShowTopTracksContract.View,
+        TrackItemListener{
     private static final String ARG_ARTIST_ID = "artist_id";
     private static final String ARG_URL_IMAGE = "url_name";
 
@@ -56,10 +58,6 @@ public class ShowTopTracksFragment extends BaseFragment implements
     @BindView(R.id.draggable_frame)
     ElasticDragDismissFrameLayout mDraggableFrame;
 
-    //    @BindView(R.id.imageview_show_artist)
-//    ImageView mImageviewShowArtist;
-//    @BindView(R.id.recyclerview_show_top_track)
-//    RecyclerView mRecyclerviewShowTopTrack;
     private String mArtistId;
     private ShowTopTracksContract.Presenter mPresenter;
 
@@ -215,14 +213,36 @@ public class ShowTopTracksFragment extends BaseFragment implements
 
     // TODO: 7/20/16 implement this
     private void setClickListener() {
-
+        mTopTrackAdapter.setClickListenerInterface(this);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // TODO: inflate a fragment view
         View rootView = super.onCreateView(inflater, container, savedInstanceState);
         ButterKnife.bind(this, rootView);
         return rootView;
+    }
+
+    // a callback with results is the toptrack which was clicked.
+    @Override
+    public void onTrackClick(TopTrack topTrack) {
+        // TODO: 7/21/2016 when click a track, show a play button depend on plaid
+//        // start playing music, pass the toptrack url to a service
+//        Intent spotifyServiceIntent = new Intent(getActivity(), SpotifyPlayerService.class);
+//        spotifyServiceIntent.putExtra(Constant.TRACK_REVIEW_URL, topTrack.getTrackUrl());
+
+
+//        if (Utils.isServiceRunning(SpotifyPlayerService.class, getActivity()) && !isPlayerPlaying) {
+//            trackCurrentPosition = 0;
+//            getActivity().getApplicationContext().stopService(spotifyServiceIntent);
+//            getActivity().getApplicationContext().startService(spotifyServiceIntent);
+//        } else if (!Utils.isServiceRunning(SpotifyPlayerService.class, getActivity())) {
+//            trackCurrentPosition = 0;
+//            getActivity().getApplicationContext().startService(spotifyServiceIntent);
+//        }
+//        if (spotifyPlayerService == null) {
+//            Log.d(SpotifyPlayerFragment.class.getSimpleName(), "" + isServiceBounded);
+//            getActivity().getApplicationContext().bindService(spotifyServiceIntent, serviceConnection, Context.BIND_AUTO_CREATE);
+//        }
     }
 }
