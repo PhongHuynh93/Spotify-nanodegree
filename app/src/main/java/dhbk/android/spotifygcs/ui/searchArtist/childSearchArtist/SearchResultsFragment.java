@@ -120,6 +120,7 @@ public class SearchResultsFragment extends BaseFragment implements
     private Transition mAutoTransition;
     private BaselineGridTextView noResults;
     private Transition auto;
+    public static Drawable sDrawable;
 
     public SearchResultsFragment() {
         // Required empty public constructor
@@ -451,6 +452,7 @@ public class SearchResultsFragment extends BaseFragment implements
     // when app is on destroy state, stop network.
     @Override
     protected void doThingWhenDestroyApp() {
+        sDrawable = null;
         // TODO: 7/19/2016 stop loading network anymore.
     }
 
@@ -526,6 +528,8 @@ public class SearchResultsFragment extends BaseFragment implements
                 getActivity(),
                 Pair.create(image, getActivity().getString(R.string.transition_shot)),
                 Pair.create(image, getActivity().getString(R.string.transition_shot_background)));
+
+        sDrawable = ((ImageView)image).getDrawable();
 
         // pass id of a artist to second activity
         startActivityForResult(ShowTopTracksActivity.createStartIntent(getContext(), artist.getIdArtist(), artist.getUrlLargeImage()), REQUEST_CODE_VIEW_SHOT, options.toBundle());

@@ -31,10 +31,10 @@ import dhbk.android.spotifygcs.interactor.ArtistSearchInteractor;
 import dhbk.android.spotifygcs.module.TopTrackModule;
 import dhbk.android.spotifygcs.ui.recyclerview.SlideInItemAnimator;
 import dhbk.android.spotifygcs.ui.recyclerview.TrackItemListener;
+import dhbk.android.spotifygcs.ui.searchArtist.childSearchArtist.SearchResultsFragment;
 import dhbk.android.spotifygcs.ui.widget.ElasticDragDismissFrameLayout;
 import dhbk.android.spotifygcs.ui.widget.ParallaxScrimageView;
 import dhbk.android.spotifygcs.util.AnimUtils;
-import dhbk.android.spotifygcs.util.ViewUtils;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -116,12 +116,14 @@ public class ShowTopTracksFragment extends BaseFragment implements
     @Override
     protected void initView() {
         // set image
-        if (getArguments() != null) {
-            mArtistId = getArguments().getString(ARG_ARTIST_ID);
-            String urlImage = getArguments().getString(ARG_URL_IMAGE);
-            // set image
-            ViewUtils.setImagePicasso(getContext(), urlImage, mImageviewShowArtist);
-        }
+//        if (getArguments() != null) {
+//            mArtistId = getArguments().getString(ARG_ARTIST_ID);
+//            String urlImage = getArguments().getString(ARG_URL_IMAGE);
+//            // set image
+//            ViewUtils.setImagePicasso(getContext(), urlImage, mImageviewShowArtist);
+//        }
+        mImageviewShowArtist.setImageDrawable(SearchResultsFragment.sDrawable);
+        SearchResultsFragment.sDrawable = null; // after set image, set it to null to recycle
         mBack.setOnClickListener(v -> expandImageAndFinish());
 
         // anim
