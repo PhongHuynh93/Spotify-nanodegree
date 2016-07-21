@@ -3,7 +3,7 @@ package dhbk.android.spotifygcs;
 import android.app.Application;
 import android.content.Context;
 
-import com.squareup.picasso.OkHttpDownloader;
+import com.jakewharton.picasso.OkHttp3Downloader;
 import com.squareup.picasso.Picasso;
 
 import dhbk.android.spotifygcs.component.DaggerSpotifyStreamerComponent;
@@ -28,7 +28,8 @@ public class MVPApp extends Application {
     // enable cache picasso
     private void setupPicassoCache() {
         Picasso.Builder builder = new Picasso.Builder(this);
-        builder.downloader(new OkHttpDownloader(this,Integer.MAX_VALUE));
+        builder.downloader(new OkHttp3Downloader(this, Integer.MAX_VALUE));
+//        builder.downloader(new OkHttpDownloader(this, Integer.MAX_VALUE));
         Picasso built = builder.build();
         built.setIndicatorsEnabled(true);
         built.setLoggingEnabled(true);
