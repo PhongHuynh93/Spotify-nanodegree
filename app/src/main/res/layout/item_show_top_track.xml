@@ -24,6 +24,8 @@
         android:id="@+id/textview_name_of_song"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/white_solid"
+        android:textSize="@dimen/textsize_small_12"
         android:layout_alignBaseline="@id/textview_number_of_track"
         android:layout_marginStart="@dimen/margin_left_show_top_track_name_song"/>
 
@@ -32,6 +34,8 @@
         android:id="@+id/textview_name_of_artist"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/grey_light2"
+        android:textSize="@dimen/textsize_small_8"
         android:layout_alignStart="@id/textview_name_of_song"
         android:layout_below="@id/textview_name_of_song"/>
 
@@ -39,6 +43,8 @@
     <TextView
         android:id="@+id/textview_length_of_song"
         android:layout_width="wrap_content"
+        android:textColor="@color/white_solid"
+        android:textSize="@dimen/textsize_small_7"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_marginStart="@dimen/margin_left_show_top_track_length_song"/>
