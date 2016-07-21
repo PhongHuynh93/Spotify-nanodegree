@@ -3,6 +3,9 @@ package dhbk.android.spotifygcs;
 import android.app.Application;
 import android.content.Context;
 
+import com.squareup.picasso.OkHttpDownloader;
+import com.squareup.picasso.Picasso;
+
 import dhbk.android.spotifygcs.component.DaggerSpotifyStreamerComponent;
 import dhbk.android.spotifygcs.component.SpotifyStreamerComponent;
 import dhbk.android.spotifygcs.module.SpotifyStreamerModule;
@@ -19,6 +22,17 @@ public class MVPApp extends Application {
         super.onCreate();
         setupFont();
         setupGraph();
+        setupPicassoCache();
+    }
+
+    // enable cache picasso
+    private void setupPicassoCache() {
+        Picasso.Builder builder = new Picasso.Builder(this);
+        builder.downloader(new OkHttpDownloader(this,Integer.MAX_VALUE));
+        Picasso built = builder.build();
+        built.setIndicatorsEnabled(true);
+        built.setLoggingEnabled(true);
+        Picasso.setSingletonInstance(built);
     }
 
     // contains dependency use to inject into class

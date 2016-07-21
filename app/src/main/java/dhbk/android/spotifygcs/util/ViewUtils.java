@@ -12,6 +12,7 @@ import android.util.Property;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import dhbk.android.spotifygcs.R;
@@ -45,6 +46,7 @@ public class ViewUtils {
     public static void setImagePicasso(Context context, String urlImage, ImageView imageView) {
         Picasso.with(context)
                 .load(urlImage)
+                .networkPolicy(NetworkPolicy.OFFLINE)
                 .fit()
                 .placeholder(R.drawable.no_artist)
                 .into(imageView);

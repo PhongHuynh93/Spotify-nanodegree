@@ -67,6 +67,8 @@ dependencies {
 
 //    picasso
     compile "com.squareup.picasso:picasso:$rootProject.picassoVersion"
+    compile 'com.squareup.okhttp3:okhttp:3.4.1'
+
     compile 'com.android.support:support-v4:24.0.0'
 
 //    glide
