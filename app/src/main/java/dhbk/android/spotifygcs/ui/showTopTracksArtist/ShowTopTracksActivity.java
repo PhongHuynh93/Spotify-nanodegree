@@ -10,12 +10,19 @@ import dhbk.android.spotifygcs.util.Constant;
 
 public class ShowTopTracksActivity extends BaseActivity {
     private ShowTopTracksPresenter mShowTopTracksPresenter;
+    private ShowTopTracksFragment mShowTopTrackView;
 
     public static Intent createStartIntent(Context context, String artistId, String urlLargeImage) {
         Intent starter = new Intent(context, ShowTopTracksActivity.class);
         starter.putExtra(Constant.ID_ARTIST, artistId);
         starter.putExtra(Constant.URL, urlLargeImage);
         return starter;
+    }
+
+    // anim view before close
+    @Override
+    protected void doWhenPressBackButton() {
+        mShowTopTrackView.expandImageAndFinish();
     }
 
     // want to use custome font
@@ -39,18 +46,19 @@ public class ShowTopTracksActivity extends BaseActivity {
         final String artistId = getIntent().getStringExtra(Constant.ID_ARTIST);
         final String urlLargeImage = getIntent().getStringExtra(Constant.URL);
 
-
-        ShowTopTracksFragment showTopTracksFragment =
+        // create view
+        mShowTopTrackView =
                 (ShowTopTracksFragment) getSupportFragmentManager().findFragmentByTag(Constant.TAG_FRAGMENT_SHOW_TOP_TRACKS);
-        if (showTopTracksFragment == null) {
+        if (mShowTopTrackView == null) {
             // Create the fragment
-            showTopTracksFragment = ShowTopTracksFragment.newInstance(artistId, urlLargeImage);
+            mShowTopTrackView = ShowTopTracksFragment.newInstance(artistId, urlLargeImage);
             ActivityUtils.addFragmentToActivity(
-                    getSupportFragmentManager(), showTopTracksFragment, R.id.contentFrame);
+                    getSupportFragmentManager(), mShowTopTrackView, R.id.contentFrame);
         }
 
         // Create the presenter
-        mShowTopTracksPresenter = new ShowTopTracksPresenter(showTopTracksFragment);
+        mShowTopTracksPresenter = new ShowTopTracksPresenter(mShowTopTrackView);
     }
+
 
 }

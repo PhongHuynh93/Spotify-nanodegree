@@ -1,5 +1,8 @@
 package dhbk.android.spotifygcs.ui.recyclerview;
 
+import android.view.MotionEvent;
+import android.view.View;
+
 import dhbk.android.spotifygcs.domain.Artist;
 
 /**
@@ -7,9 +10,6 @@ import dhbk.android.spotifygcs.domain.Artist;
  * A simple interface to be configured in a SearchResultsActivity
  */
 public interface ArtistItemListener {
-    void onArtistClick(Artist clickedTask);
-//
-//    void onCompleteTaskClick(Task completedTask);
-//
-//    void onActivateTaskClick(Task activatedTask);
+    void onArtistClick(Artist clickedTask, View v);
+    boolean onArtistTouch(View view, MotionEvent motionEvent);
 }

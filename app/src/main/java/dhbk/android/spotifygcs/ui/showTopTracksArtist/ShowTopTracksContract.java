@@ -23,6 +23,8 @@ public interface ShowTopTracksContract {
         String getIdArtist();
         // show a top of tracks in recyclerview
         void showTrackOnList(ArrayList<TopTrack> topTracks);
+        // anim before close view
+        void expandImageAndFinish();
     }
 
     interface Presenter extends BasePresenter {

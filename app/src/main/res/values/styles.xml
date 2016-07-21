@@ -43,36 +43,17 @@
         <item name="fontPath">fonts/Montserrat-Light.otf</item>
     </style>
 
+    <!--font-face: ProximaNova-Regular-->
+    <style name="FontCustomNova">
+        <item name="fontPath">fonts/ProximaNova-Regular.otf</item>
+    </style>
+
     <!--search view style-->
     <style name="SearchViewTheme" parent="AppTheme.AppBarOverlay">
         <!--style for activated (ex. checked, switch on) state.-->
         <item name="colorControlActivated">?android:colorAccent</item>
         <item name="android:searchViewStyle">@style/Widget.AppThemeNoActionBar.SearchView</item>
     </style>
-
-    <!--style for widge-->
-    <!--<style name="Widget.Plaid" parent="android:Widget" />-->
-
-    <!--style for search view-->
-    <!--<style name="Widget.Plaid.SearchView" parent="android:style/Widget.Material.SearchView">-->
-        <!--<item name="android:searchIcon">@null</item>-->
-        <!--<item name="android:searchHintIcon">@null</item>-->
-        <!--&lt;!&ndash; Background for the search query section (e.g. EditText) &ndash;&gt;-->
-        <!--&lt;!&ndash;transparent means edittext depends on the background of the views containing it.&ndash;&gt;-->
-        <!--<item name="android:queryBackground">@android:color/transparent</item>-->
-        <!--<item name="android:submitBackground">@android:color/transparent</item>-->
-    <!--</style>-->
-
-    <!--&lt;!&ndash;custome plaid&ndash;&gt;-->
-    <!--<style name="Plaid" parent="AppThemeNoActionBar">-->
-        <!--&lt;!&ndash;<item name="android:navigationBarColor">@color/primary_super_dark</item>&ndash;&gt;-->
-        <!--&lt;!&ndash;<item name="android:statusBarColor">@color/background_super_dark</item>&ndash;&gt;-->
-        <!--&lt;!&ndash;<item name="android:textColorHint">@color/hint_disabled_dark</item>&ndash;&gt;-->
-        <!--&lt;!&ndash;<item name="android:windowBackground">@color/background_light</item>&ndash;&gt;-->
-        <!--<item name="android:windowAllowEnterTransitionOverlap">true</item>-->
-        <!--<item name="android:windowAllowReturnTransitionOverlap">true</item>-->
-        <!--<item name="android:windowSharedElementsUseOverlay">false</item>-->
-    <!--</style>-->
 
     <style name="Widget.AppThemeNoActionBar" parent="android:Widget" />
 

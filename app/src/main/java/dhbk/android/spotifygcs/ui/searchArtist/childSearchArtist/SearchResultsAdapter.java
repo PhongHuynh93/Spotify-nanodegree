@@ -47,9 +47,8 @@ public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdap
         }
 
         holder.mTextViewNameArtist.setText(currentArtist.getNameArtist());
-
-        holder.containerView.setOnClickListener(v ->
-                mClickListener.onArtistClick(currentArtist));
+        holder.containerView.setOnClickListener(v -> mClickListener.onArtistClick(currentArtist, holder.mImageviewItemSearchArtist));
+        holder.containerView.setOnTouchListener((view, motionEvent) -> mClickListener.onArtistTouch(holder.mImageviewItemSearchArtist, motionEvent));
     }
 
     @Override
@@ -73,7 +72,6 @@ public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdap
         mClickListener = clickListener;
     }
 
-
     public class ArtistViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.imageview_item_search_artist)
         ImageView mImageviewItemSearchArtist;
@@ -91,11 +89,6 @@ public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdap
         // we have url of image, so download it by picasso and cache it, so the other time, not download it again but get in cache
         // resize image depend on width height of viewholder
         public void setArtistImage(String urlImage) {
-//            Picasso.with(mContext)
-//                    .load(urlImage)
-//                    .fit()
-//                    .placeholder(R.drawable.no_artist)
-//                    .into(mImageviewItemSearchArtist);
             ViewUtils.setImagePicasso(mContext, urlImage, mImageviewItemSearchArtist);
         }
 
