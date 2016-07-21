@@ -1,7 +1,10 @@
 package dhbk.android.spotifygcs.ui.showTopTracksArtist;
 
+import java.util.ArrayList;
+
 import dhbk.android.spotifygcs.BasePresenter;
 import dhbk.android.spotifygcs.BaseView;
+import dhbk.android.spotifygcs.domain.TopTrack;
 import dhbk.android.spotifygcs.interactor.ArtistSearchInteractor;
 
 /**
@@ -16,10 +19,16 @@ public interface ShowTopTracksContract {
         void setupRecyclerView();
         // setup adatper to add to recyclerview
         void setupAdapter();
+        // get id of artist
+        String getIdArtist();
+        // show a top of tracks in recyclerview
+        void showTrackOnList(ArrayList<TopTrack> topTracks);
     }
 
     interface Presenter extends BasePresenter {
         // setup recyclerview and setup adapter
         void setupList();
+        // connect to spotify to download top ten track
+        void getTopTenTracks();
     }
 }

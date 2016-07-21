@@ -3,43 +3,70 @@ package dhbk.android.spotifygcs.ui.showTopTracksArtist;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.view.ViewGroup;
+import android.widget.TextView;
 
-import java.util.ArrayList;
-
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import dhbk.android.spotifygcs.BaseAdapter;
+import dhbk.android.spotifygcs.R;
 import dhbk.android.spotifygcs.domain.TopTrack;
 
 /**
  * Created by phongdth.ky on 7/20/2016.
  * TODO: implement top track interface
  */
-public class TopTrackAdapter extends RecyclerView.Adapter<TopTrackAdapter.View_Holder>{
+public class TopTrackAdapter extends BaseAdapter<TopTrack, TopTrackAdapter.View_Holder> {
     private final Context mContext;
-    private final ArrayList<TopTrack> mTopTracks;
 
     public TopTrackAdapter(Context context) {
         mContext = context;
-        mTopTracks = new ArrayList<>(); // create an empty list
+        setOnClickListener(topTrack -> {
+            // when click one view, return a top track
+        });
     }
 
     @Override
-    public View_Holder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return null;
+    public void onBindViewHolder(View_Holder holder, TopTrack item) {
+        holder.mTextviewLengthOfSong.setText(item.getDurationOfTrack());
+        holder.mTextviewNameOfArtist.setText(item.getArtistsOfTrack());
+        holder.mTextviewNameOfSong.setText(item.getNameOfTrack());
     }
 
     @Override
-    public void onBindViewHolder(View_Holder holder, int position) {
-
+    protected View_Holder makeViewHolderFromView(View v) {
+        return new View_Holder(v);
     }
 
     @Override
-    public int getItemCount() {
-        return 0;
+    protected int getLayout() {
+        return R.layout.item_show_top_track;
     }
 
-    public class View_Holder extends RecyclerView.ViewHolder {
-        public View_Holder(View itemView) {
-            super(itemView);
+    @Override
+    protected Context getContext() {
+        return mContext;
+    }
+
+//
+//    public class View_Holder extends RecyclerView.ViewHolder {
+//        public View_Holder(View itemView) {
+//            super(itemView);
+//        }
+//    }
+
+    static class View_Holder extends RecyclerView.ViewHolder {
+        @BindView(R.id.textview_number_of_track)
+        TextView mTextviewNumberOfTrack;
+        @BindView(R.id.textview_name_of_song)
+        TextView mTextviewNameOfSong;
+        @BindView(R.id.textview_name_of_artist)
+        TextView mTextviewNameOfArtist;
+        @BindView(R.id.textview_length_of_song)
+        TextView mTextviewLengthOfSong;
+
+        View_Holder(View view) {
+            super(view);
+            ButterKnife.bind(this, view);
         }
     }
 }
