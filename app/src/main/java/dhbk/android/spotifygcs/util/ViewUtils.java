@@ -41,7 +41,13 @@ public class ViewUtils {
 
     // load image from url
     public static void setImagePicasso(Context context, String urlImage, ImageView imageView) {
-        PicassoBigCache.INSTANCE.getPicassoBigCache(context).load(urlImage).fit().placeholder(R.drawable.no_artist).into(imageView);
+        PicassoBigCache
+                .INSTANCE
+                .getPicassoBigCache(context)
+                .load(urlImage)
+                .fit()
+                .placeholder(R.drawable.no_artist)
+                .into(imageView);
 
 //        Picasso.with(context)
 //                .load(urlImage)
