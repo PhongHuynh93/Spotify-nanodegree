@@ -50,6 +50,11 @@ public class SearchArtistActiviy extends BaseActivity {
         SearchArtistPresenter mSearchArtistPresenter = new SearchArtistPresenter(searchArtistFragment);
     }
 
+    @Override
+    protected void doWhenPressBackButton() {
+
+    }
+
     // this activity want to use custom font
     @Override
     protected boolean hasUseCustomeFont() {

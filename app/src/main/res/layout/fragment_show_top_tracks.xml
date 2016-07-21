@@ -1,33 +1,33 @@
 <!--<?xml version="1.0" encoding="utf-8"?>-->
 <!--<LinearLayout-->
-    <!--xmlns:android="http://schemas.android.com/apk/res/android"-->
-    <!--xmlns:tools="http://schemas.android.com/tools"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent"-->
-    <!--android:orientation="vertical"-->
-    <!--tools:context="dhbk.android.spotifygcs.ui.showTopTracksArtist.ShowTopTracksActivity">-->
+<!--xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--xmlns:tools="http://schemas.android.com/tools"-->
+<!--android:layout_width="match_parent"-->
+<!--android:layout_height="match_parent"-->
+<!--android:orientation="vertical"-->
+<!--tools:context="dhbk.android.spotifygcs.ui.showTopTracksArtist.ShowTopTracksActivity">-->
 
-    <!--&lt;!&ndash;image is all space remain&ndash;&gt;-->
-    <!--<ImageView-->
-        <!--android:id="@+id/imageview_show_artist"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="0dp"-->
-        <!--android:layout_weight="1"-->
-        <!--android:background="@color/white_yellow"-->
-        <!--android:scaleType="centerCrop"-->
-        <!--android:src="@drawable/mainpic"/>-->
+<!--&lt;!&ndash;image is all space remain&ndash;&gt;-->
+<!--<ImageView-->
+<!--android:id="@+id/imageview_show_artist"-->
+<!--android:layout_width="match_parent"-->
+<!--android:layout_height="0dp"-->
+<!--android:layout_weight="1"-->
+<!--android:background="@color/white_yellow"-->
+<!--android:scaleType="centerCrop"-->
+<!--android:src="@drawable/mainpic"/>-->
 
-    <!--&lt;!&ndash;show a list of track, and later transform to play music machine&ndash;&gt;-->
-    <!--<android.support.v7.widget.RecyclerView-->
-        <!--android:id="@+id/recyclerview_show_top_track"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="@dimen/height_show_top_track_list"/>-->
+<!--&lt;!&ndash;show a list of track, and later transform to play music machine&ndash;&gt;-->
+<!--<android.support.v7.widget.RecyclerView-->
+<!--android:id="@+id/recyclerview_show_top_track"-->
+<!--android:layout_width="match_parent"-->
+<!--android:layout_height="@dimen/height_show_top_track_list"/>-->
 <!--</LinearLayout>-->
 
 <dhbk.android.spotifygcs.ui.widget.ElasticDragDismissFrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/draggable_frame"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -35,27 +35,28 @@
     app:dragDismissScale="0.95"
     tools:context=".ui.showTopTracksArtist.ShowTopTracksActivity">
 
-    <!--android:background="@color/background_light"-->
     <FrameLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:transitionName="@string/transition_shot_background"
-        android:transitionGroup="false">
+        android:background="@color/background_light"
+        android:transitionGroup="false"
+        android:transitionName="@string/transition_shot_background">
 
-        <io.plaidapp.ui.widget.ParallaxScrimageView
-            android:id="@+id/shot"
+        <!--android:id="@+id/shot"-->
+        <dhbk.android.spotifygcs.ui.widget.ParallaxScrimageView
+            android:id="@+id/imageview_show_artist"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:minHeight="@dimen/shot_collapsed_app_bar_height"
+            android:background="@color/light_grey"
             android:foreground="@drawable/mid_grey_ripple"
+            android:minHeight="@dimen/shot_collapsed_app_bar_height"
             android:stateListAnimator="@animator/app_bar_pin"
             android:transitionName="@string/transition_shot"
-            android:background="@color/light_grey"
-            app:scrimColor="@color/scrim"
-            app:scrimAlpha="0"
             app:maxScrimAlpha="0.4"
-            app:parallaxFactor="-0.5"/>
+            app:parallaxFactor="-0.5"
+            app:scrimAlpha="0"
+            app:scrimColor="@color/scrim"/>
 
         <!-- We're 'faking' a toolbar here as we just want a back button.
              This approach lets the borderless ripple extend beyond the back button's bounds,
@@ -72,40 +73,28 @@
                 android:id="@+id/back"
                 android:layout_width="?android:actionBarSize"
                 android:layout_height="?android:actionBarSize"
-                android:layout_marginEnd="@dimen/padding_normal"
                 android:layout_marginBottom="@dimen/padding_normal"
-                android:src="@drawable/ic_arrow_back"
+                android:layout_marginEnd="@dimen/padding_normal"
                 android:alpha="0"
-                android:background="@drawable/mid_grey_ripple" />
-
+                android:background="@drawable/mid_grey_ripple"
+                android:src="@drawable/ic_arrow_back"/>
         </FrameLayout>
 
-        <ListView
-            android:id="@+id/dribbble_comments"
+        <!--android:id="@+id/dribbble_comments"-->
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerview_show_top_track"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingBottom="@dimen/padding_normal"
             android:clipToPadding="false"
-            android:listSelector="@android:color/transparent"
             android:divider="@null"
             android:dividerHeight="@dimen/divider_height"
-            android:headerDividersEnabled="false"
             android:footerDividersEnabled="true"
+            android:headerDividersEnabled="false"
+            android:listSelector="@android:color/transparent"
             android:nestedScrollingEnabled="true"
+            android:overScrollFooter="@android:color/transparent"
             android:overScrollMode="never"
-            android:overScrollFooter="@android:color/transparent" /> <!-- http://stackoverflow.com/a/24394230 -->
-
-        <io.plaidapp.ui.widget.FABToggle
-            android:id="@+id/fab_heart"
-            android:layout_width="@dimen/fab_size"
-            android:layout_height="@dimen/fab_size"
-            android:elevation="@dimen/z_fab_over_touchable_app_bar"
-            android:background="@drawable/fab_dribbble_fav"
-            android:layout_gravity="end"
-            android:layout_marginEnd="@dimen/padding_normal"
-            android:stateListAnimator="@animator/raise"
-            android:src="@drawable/fab_heart"
-            android:alpha="0" />
+            android:paddingBottom="@dimen/padding_normal"/> <!-- http://stackoverflow.com/a/24394230 -->
 
     </FrameLayout>
 
