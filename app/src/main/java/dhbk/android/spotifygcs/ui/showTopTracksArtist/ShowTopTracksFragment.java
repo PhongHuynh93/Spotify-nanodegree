@@ -122,6 +122,7 @@ public class ShowTopTracksFragment extends BaseFragment implements
             // set image
             ViewUtils.setImagePicasso(getContext(), urlImage, mImageviewShowArtist);
         }
+        mBack.setOnClickListener(v -> expandImageAndFinish());
 
         // anim
         getActivity().getWindow().getSharedElementReturnTransition().addListener(shotReturnHomeListener);
