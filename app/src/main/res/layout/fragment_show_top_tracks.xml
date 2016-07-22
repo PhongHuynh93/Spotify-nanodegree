@@ -45,7 +45,7 @@
 
         <!--android:id="@+id/shot"-->
         <dhbk.android.spotifygcs.ui.widget.ParallaxScrimageView
-            android:id="@+id/imageview_show_artist"
+            android:id="@+id/shot"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
@@ -97,6 +97,17 @@
             android:overScrollFooter="@android:color/transparent"
             android:overScrollMode="never"
             android:paddingBottom="@dimen/padding_normal"/> <!-- http://stackoverflow.com/a/24394230 -->
+
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab_heart"
+            android:layout_width="@dimen/fab_size"
+            android:layout_height="@dimen/fab_size"
+            android:elevation="@dimen/z_fab_over_touchable_app_bar"
+            android:layout_gravity="end"
+            android:layout_marginEnd="@dimen/padding_normal"
+            android:alpha="0" />
+
     </FrameLayout>
 
 </dhbk.android.spotifygcs.ui.widget.ElasticDragDismissFrameLayout>
