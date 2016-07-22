@@ -2,6 +2,7 @@ package dhbk.android.spotifygcs.ui.searchArtist;
 
 import android.app.ActivityOptions;
 import android.content.Intent;
+import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -91,8 +92,13 @@ public class SearchArtistFragment extends BaseFragment implements SearchArtistCo
                 break;
             case R.id.menu_about:
                 mPresenter.loadAboutSetting();
+                break;
             case android.R.id.home:
-                ((SearchArtistActiviy)getActivity()).doWhenPressBackButton();
+                NavUtils.navigateUpFromSameTask(getActivity());
+                break;
+            default:
+                break;
+//                ((SearchArtistActiviy)getActivity()).doWhenPressBackButton();
         }
         return true;
     }

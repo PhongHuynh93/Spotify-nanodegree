@@ -22,15 +22,8 @@ public class SearchResultsActivity extends BaseActivity {
         return starter;
     }
 
-    // when press back press, call view to anim and finish activity.
-//    @Override
-//    public void onBackPressed() {
-//        mSearchChildPresenter.dismissView();
-////        super.onBackPressed(); // default action is finish the activity
-//    }
-
     @Override
-    protected void doWhenPressBackButton() {
+    public void onBackPressed() {
         mSearchChildPresenter.dismissView();
     }
 

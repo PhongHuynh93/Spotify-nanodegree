@@ -21,7 +21,7 @@ public class ShowTopTracksActivity extends BaseActivity {
 
     // anim view before close
     @Override
-    protected void doWhenPressBackButton() {
+    public void onBackPressed() {
         mShowTopTrackView.expandImageAndFinish();
     }
 

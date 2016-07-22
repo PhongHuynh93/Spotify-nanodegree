@@ -25,7 +25,7 @@
         <activity
             android:name=".ui.searchArtist.SearchArtistActiviy"
             android:label="@string/title_activity_search_artist_activiy"
-            android:theme="@style/AppThemeNoActionBar.Translucent">
+            android:theme="@style/AppThemeNoActionBar">
         </activity>
 
         <!-- not make another activity when this activity is in the top -->

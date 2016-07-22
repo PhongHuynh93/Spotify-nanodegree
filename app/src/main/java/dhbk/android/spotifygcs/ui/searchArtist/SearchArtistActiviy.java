@@ -58,11 +58,6 @@ public class SearchArtistActiviy extends BaseActivity {
     }
 
     @Override
-    protected void doWhenPressBackButton() {
-        super.onBackPressed();
-    }
-
-    @Override
     protected boolean hasUseCustomeFont() {
         return true;
     }

@@ -495,31 +495,34 @@ public class SearchResultsFragment extends BaseFragment implements
     // show empty artists layout
     private void setNoResultsVisibility(int visibility) {
         new Handler(Looper.getMainLooper()).post(() -> {
-            if (visibility == View.VISIBLE) {
-                // will be null for the first time
-                if (noResults == null) {
-                    // remove text from search view and show keyboard
-                    noResults = (BaselineGridTextView) ((ViewStub)
-                            getActivity().findViewById(R.id.stub_no_search_results)).inflate();
-                    noResults.setOnClickListener(v -> {
-                        searchView.setQuery("", false);
-                        searchView.requestFocus();
-                        ImeUtils.showIme(searchView);
-                    });
+            if (getActivity() != null) {
+                if (visibility == View.VISIBLE) {
+                    // will be null for the first time
+                    if (noResults == null) {
+                        // remove text from search view and show keyboard
+                        noResults = (BaselineGridTextView) ((ViewStub)
+                                getActivity().findViewById(R.id.stub_no_search_results)).inflate();
+                        noResults.setOnClickListener(v -> {
+                            searchView.setQuery("", false);
+                            searchView.requestFocus();
+                            ImeUtils.showIme(searchView);
+                        });
+                    }
+                    // show info to user depends on their search
+                    String message = String.format(getString(R
+                            .string.no_search_results), searchView.getQuery().toString());
+                    SpannableStringBuilder ssb = new SpannableStringBuilder(message);
+                    ssb.setSpan(new StyleSpan(Typeface.ITALIC),
+                            message.indexOf('“') + 1,
+                            message.length() - 1,
+                            Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    noResults.setText(ssb);
                 }
-                // show info to user depends on their search
-                String message = String.format(getString(R
-                        .string.no_search_results), searchView.getQuery().toString());
-                SpannableStringBuilder ssb = new SpannableStringBuilder(message);
-                ssb.setSpan(new StyleSpan(Typeface.ITALIC),
-                        message.indexOf('“') + 1,
-                        message.length() - 1,
-                        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-                noResults.setText(ssb);
+                if (noResults != null) {
+                    noResults.setVisibility(visibility);
+                }
             }
-            if (noResults != null) {
-                noResults.setVisibility(visibility);
-            }
+
         });
     }
 
@@ -534,7 +537,7 @@ public class SearchResultsFragment extends BaseFragment implements
                 Pair.create(image, getActivity().getString(R.string.transition_shot)),
                 Pair.create(image, getActivity().getString(R.string.transition_shot_background)));
 
-        sDrawable = ((ImageView)image).getDrawable();
+        sDrawable = ((ImageView) image).getDrawable();
 
         // pass id of a artist to second activity
         startActivityForResult(ShowTopTracksActivity.createStartIntent(getContext(), artist.getIdArtist(), artist.getNameArtist()), REQUEST_CODE_VIEW_SHOT, options.toBundle());
@@ -550,7 +553,7 @@ public class SearchResultsFragment extends BaseFragment implements
                 || action == MotionEvent.ACTION_CANCEL)) return false;
 
         // get the image and check if it's an animated GIF
-        final Drawable drawable = ((ImageView)view).getDrawable();
+        final Drawable drawable = ((ImageView) view).getDrawable();
         if (drawable == null) return false;
         GifDrawable gif = null;
         if (drawable instanceof GifDrawable) {
