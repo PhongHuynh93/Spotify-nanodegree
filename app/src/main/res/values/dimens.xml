@@ -61,4 +61,5 @@
     <dimen name="touched_app_bar">8dp</dimen>
     <dimen name="touch_raise">6dp</dimen>
     <dimen name="drag_dismiss_distance">112dp</dimen>
+    y<dimen name="fab_size">56dp</dimen>
 </resources>

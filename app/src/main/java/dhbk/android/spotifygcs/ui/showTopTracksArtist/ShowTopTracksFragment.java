@@ -47,7 +47,7 @@ public class ShowTopTracksFragment extends BaseFragment implements
     private static final String ARG_ARTIST_ID = "artist_id";
     private static final String ARG_ARTIST_NAME = "artist_name";
 
-    @BindView(R.id.imageview_show_artist)
+    @BindView(R.id.shot)
     ParallaxScrimageView mImageviewShowArtist;
     @BindView(R.id.back)
     ImageButton mBack;
@@ -68,6 +68,7 @@ public class ShowTopTracksFragment extends BaseFragment implements
 
     @Inject
     TopTrackAdapter mTopTrackAdapter;
+    private ElasticDragDismissFrameLayout.SystemChromeFader chromeFader;
 
     public ShowTopTracksFragment() {
     }
@@ -89,8 +90,13 @@ public class ShowTopTracksFragment extends BaseFragment implements
     }
 
     @Override
-    protected void doThingWhenPauseApp() {
+    protected void doThingWhenResumeApp() {
+        mDraggableFrame.addListener(chromeFader);
+    }
 
+    @Override
+    protected void doThingWhenPauseApp() {
+        mDraggableFrame.removeListener(chromeFader);
     }
 
     @Override
@@ -136,6 +142,14 @@ public class ShowTopTracksFragment extends BaseFragment implements
 
         // anim
         getActivity().getWindow().getSharedElementReturnTransition().addListener(shotReturnHomeListener);
+
+        // when drag image, close views
+        chromeFader = new ElasticDragDismissFrameLayout.SystemChromeFader(getActivity()) {
+            @Override
+            public void onDragDismissed() {
+                expandImageAndFinish();
+            }
+        };
     }
 
 
