@@ -36,6 +36,11 @@ public class SearchArtistFragment extends BaseFragment implements SearchArtistCo
     }
 
     @Override
+    protected void doThingWhenResumeApp() {
+
+    }
+
+    @Override
     protected void doThingWhenPauseApp() {
 
     }

@@ -442,6 +442,11 @@ public class SearchResultsFragment extends BaseFragment implements
         return rootView;
     }
 
+    @Override
+    protected void doThingWhenResumeApp() {
+
+    }
+
     // when app is on pause state, do something to release resources.
     @Override
     protected void doThingWhenPauseApp() {
