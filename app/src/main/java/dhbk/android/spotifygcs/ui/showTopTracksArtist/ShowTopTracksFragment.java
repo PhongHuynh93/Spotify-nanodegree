@@ -12,7 +12,6 @@ import android.transition.Transition;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.ImageButton;
 
 import java.util.ArrayList;
@@ -53,8 +52,6 @@ public class ShowTopTracksFragment extends BaseFragment implements
     ImageButton mBack;
     @BindView(R.id.recyclerview_show_top_track)
     RecyclerView mRecyclerviewShowTopTrack;
-    @BindView(R.id.container)
-    FrameLayout mContainer;
     @BindView(R.id.draggable_frame)
     ElasticDragDismissFrameLayout mDraggableFrame;
 

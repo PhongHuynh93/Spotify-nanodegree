@@ -39,6 +39,7 @@
     <!--size for all layout in my project-->
     <dimen name="z_app_bar">4dp</dimen>
     <dimen name="padding_normal">16dp</dimen>
+    <dimen name="padding_small">4dp</dimen>
 
     <!--size for search artist list-->
     <dimen name="size_artist_image">168dp</dimen>
