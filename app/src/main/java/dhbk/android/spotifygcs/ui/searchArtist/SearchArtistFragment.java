@@ -113,6 +113,7 @@ public class SearchArtistFragment extends BaseFragment implements SearchArtistCo
         int[] loc = new int[2];
         searchMenuView.getLocationOnScreen(loc);
 
+        // not define  transition
         startActivityForResult(
                 SearchResultsActivity.createStartIntent(getContext(), loc[0], loc[0] + (searchMenuView.getWidth() / 2)),
                 RC_SEARCH,
