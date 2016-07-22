@@ -43,7 +43,7 @@
         android:transitionGroup="false"
         android:transitionName="@string/transition_shot_background">
 
-        <!--android:id="@+id/shot"-->
+        <!--main image-->
         <dhbk.android.spotifygcs.ui.widget.ParallaxScrimageView
             android:id="@+id/shot"
             android:layout_width="match_parent"

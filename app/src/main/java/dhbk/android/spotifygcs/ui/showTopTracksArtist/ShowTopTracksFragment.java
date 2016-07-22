@@ -5,6 +5,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,6 +13,7 @@ import android.transition.Transition;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 
@@ -43,7 +45,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
  */
 public class ShowTopTracksFragment extends BaseFragment implements
         ShowTopTracksContract.View,
-        TrackItemListener{
+        TrackItemListener {
     private static final String ARG_ARTIST_ID = "artist_id";
     private static final String ARG_ARTIST_NAME = "artist_name";
 
@@ -57,6 +59,8 @@ public class ShowTopTracksFragment extends BaseFragment implements
     FrameLayout mContainer;
     @BindView(R.id.draggable_frame)
     ElasticDragDismissFrameLayout mDraggableFrame;
+    @BindView(R.id.fab_heart)
+    FloatingActionButton mFabHeart;
 
     private String mArtistId;
     private String mArtistName;
@@ -191,6 +195,27 @@ public class ShowTopTracksFragment extends BaseFragment implements
     public void setupRecyclerView() {
         mRecyclerviewShowTopTrack.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerviewShowTopTrack.setHasFixedSize(true);
+        mRecyclerviewShowTopTrack.setOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                if (mRecyclerviewShowTopTrack.computeVerticalScrollRange() > 0) {
+                    final int listScroll = recyclerView.getChildAt(0).getTop();
+                    mImageviewShowArtist.setOffset(listScroll);
+//                    mFabHeart.setOffset(fabOffset + listScroll);
+                }
+            }
+
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                // as we animate the main image's elevation change when it 'pins' at it's min height
+                // a fling can cause the title to go over the image before the animation has a chance to
+                // run. In this case we short circuit the animation and just jump to state.
+                mImageviewShowArtist.setImmediatePin(
+                        newState == AbsListView.OnScrollListener.SCROLL_STATE_FLING);
+            }
+        });
     }
 
     @Override
