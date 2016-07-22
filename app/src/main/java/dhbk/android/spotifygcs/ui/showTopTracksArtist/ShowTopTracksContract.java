@@ -1,5 +1,8 @@
 package dhbk.android.spotifygcs.ui.showTopTracksArtist;
 
+import android.os.Bundle;
+import android.os.Handler;
+
 import java.util.ArrayList;
 
 import dhbk.android.spotifygcs.BasePresenter;
@@ -15,14 +18,19 @@ public interface ShowTopTracksContract {
     interface View extends BaseView<Presenter> {
         // get the ArtistSearchInteractor for connect to the internet
         ArtistSearchInteractor getArtistSearchInteractor();
+
         // setup recyclerview
         void setupRecyclerView();
+
         // setup adatper to add to recyclerview
         void setupAdapter();
+
         // get id of artist
         String getIdArtist();
+
         // show a top of tracks in recyclerview
         void showTrackOnList(ArrayList<TopTrack> topTracks);
+
         // anim before close view
         void expandImageAndFinish();
     }
@@ -30,7 +38,25 @@ public interface ShowTopTracksContract {
     interface Presenter extends BasePresenter {
         // setup recyclerview and setup adapter
         void setupList();
+
         // connect to spotify to download top ten track
         void getTopTenTracks();
+    }
+
+    // for spotify play music service
+    interface MusicService {
+        // set the URL for a music track to field
+        void setTrackUrlPreview(String trackUrlPreview);
+        // start to play a track
+        void playTrack(int trackPosition);
+        // set listener when play success or fail
+        void initSpotifyPlayer();
+            // set handler for service
+        void setSpotifyPlayerHandler(Handler spotifyPlayerHandler);
+        // get the current position of the music that is playing
+        Bundle getCurrentTrackPosition();
+
+        void updateUI();
+        void noUpdateUI();
     }
 }

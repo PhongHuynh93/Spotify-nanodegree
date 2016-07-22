@@ -233,7 +233,6 @@ public class ShowTopTracksFragment extends BaseFragment implements
     }
 
 
-    // TODO: 7/20/16 implement this
     private void setClickListener() {
         mTopTrackAdapter.setClickListenerInterface(this);
     }

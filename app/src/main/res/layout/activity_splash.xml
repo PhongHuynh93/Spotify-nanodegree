@@ -9,7 +9,7 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".ui.splash.SplashActivity"
-    tools:showIn="@layout/activity_splash">
+    tools:ignore="MissingPrefix">
 
     <!--id synctax: what where description-->
     <ImageView
@@ -18,6 +18,7 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:src="@drawable/splash_headphone"/>
+
     <!--alpha = 0 because we want it to dissappear first, but after a delay it can appear-->
     <TextView
         android:id="@+id/textview_splash_logan"
@@ -27,9 +28,9 @@
         android:layout_marginTop="@dimen/margin_top_splash_text"
         android:alpha="0"
         android:textColor="@color/white_solid"
-        android:textSize="@dimen/textsize_medium_24"
-        tools:ignore="MissingPrefix"/>
+        android:textSize="@dimen/textsize_medium_24"/>
 
+    <!--scale = 0 because we want button to dissappear first, after the delay it's will scale to the large size-->
     <Button
         android:id="@+id/button_splash_go_to_search_activity"
         fontPath="fonts/Montserrat-Bold.otf"
@@ -42,6 +43,5 @@
         android:scaleY="0"
         android:text="listen now"
         android:textColor="@android:color/white"
-        android:textSize="@dimen/textsize_medium_24"
-        tools:ignore="MissingPrefix"/>
+        android:textSize="@dimen/textsize_medium_24"/>
 </RelativeLayout>

@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/white_yellow"
     android:orientation="vertical"
+    tools:context=".ui.searchArtist.SearchArtistActiviy"
     tools:ignore="MissingPrefix">
 
     <!--music note-->
@@ -34,8 +35,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:gravity="center"
         android:layout_marginTop="@dimen/margin_top_empty_search_artist_help_text"
+        android:gravity="center"
         android:textColor="@color/grey_light"
         android:textSize="@dimen/textsize_medium_17"/>
 </RelativeLayout>

@@ -26,6 +26,7 @@ public class SearchArtistFragment extends BaseFragment implements SearchArtistCo
 
     @BindView(R.id.textview_empty_search_artist_help_info)
     TextView mTextviewEmptySearchArtistHelpInfo;
+
     private SearchArtistContract.Presenter mPresenter;
 
     public SearchArtistFragment() {
@@ -33,6 +34,11 @@ public class SearchArtistFragment extends BaseFragment implements SearchArtistCo
 
     public static SearchArtistFragment newInstance() {
         return new SearchArtistFragment();
+    }
+
+    @Override
+    public int getLayout() {
+        return R.layout.fragment_search_artist_emtpy;
     }
 
     @Override
@@ -50,10 +56,6 @@ public class SearchArtistFragment extends BaseFragment implements SearchArtistCo
 
     }
 
-    @Override
-    public int getLayout() {
-        return R.layout.fragment_search_artist_emtpy;
-    }
 
     // this view dont need components
     @Override
@@ -89,7 +91,8 @@ public class SearchArtistFragment extends BaseFragment implements SearchArtistCo
                 break;
             case R.id.menu_about:
                 mPresenter.loadAboutSetting();
-                break;
+            case android.R.id.home:
+                ((SearchArtistActiviy)getActivity()).doWhenPressBackButton();
         }
         return true;
     }
