@@ -104,16 +104,14 @@ public class SearchResultsFragment extends BaseFragment implements
     @BindInt(R.integer.num_col)
     int NUMBER_OF_COLUMN_LIST;
 
-    //     get adapter components
     @Inject
     SearchResultsAdapter mSearchResultsAdapter;
     @Inject
     ArtistSearchInteractor mArtistSearchInteractor;
     @BindView(R.id.results_scrim)
-    View resultsScrim;
 
+    View resultsScrim;
     private boolean dismissing = false;
-    // location of the search icon
     private int searchBackDistanceX;
     private int searchIconCenterX;
     private SearchChildContract.Presenter mPresenter;
@@ -153,7 +151,6 @@ public class SearchResultsFragment extends BaseFragment implements
 
     @Override
     public void setUpComponent(SpotifyStreamerComponent appComponent) {
-        // inject ArtistSearchComponent in this view
         MVPApp.getApp(getContext())
                 .getSpotifyStreamerComponent()
                 .artistSearchComponent(new ArtistSearchModule(this))
@@ -332,11 +329,6 @@ public class SearchResultsFragment extends BaseFragment implements
                 .setInterpolator(AnimUtils.getFastOutLinearInInterpolator(getContext()))
                 .setListener(null)
                 .start();
-    }
-
-    @Override
-    public boolean isActive() {
-        return isAdded();
     }
 
     @Override
