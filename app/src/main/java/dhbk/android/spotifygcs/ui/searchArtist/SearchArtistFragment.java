@@ -57,8 +57,6 @@ public class SearchArtistFragment extends BaseFragment implements SearchArtistCo
 
     }
 
-
-    // this view dont need components
     @Override
     public void setUpComponent(SpotifyStreamerComponent appComponent) {
     }
@@ -98,12 +96,10 @@ public class SearchArtistFragment extends BaseFragment implements SearchArtistCo
                 break;
             default:
                 break;
-//                ((SearchArtistActiviy)getActivity()).doWhenPressBackButton();
         }
         return true;
     }
 
-    // set presenter for this view
     @Override
     public void setPresenter(SearchArtistContract.Presenter presenter) {
         mPresenter = checkNotNull(presenter);
@@ -116,11 +112,6 @@ public class SearchArtistFragment extends BaseFragment implements SearchArtistCo
         View searchMenuView = getActivity().findViewById(R.id.menu_search);
         int[] loc = new int[2];
         searchMenuView.getLocationOnScreen(loc);
-
-//        startActivityForResult(
-//                SearchChildActivity.createStartIntent(getContext(), loc[0], loc[0] + (searchMenuView.getWidth() / 2)),
-//                RC_SEARCH,
-//                ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
 
         startActivityForResult(
                 SearchResultsActivity.createStartIntent(getContext(), loc[0], loc[0] + (searchMenuView.getWidth() / 2)),
@@ -141,6 +132,9 @@ public class SearchArtistFragment extends BaseFragment implements SearchArtistCo
                 if (searchMenuView != null) {
                     searchMenuView.setAlpha(1f);
                 }
+                break;
+            default:
+                break;
         }
     }
 }
