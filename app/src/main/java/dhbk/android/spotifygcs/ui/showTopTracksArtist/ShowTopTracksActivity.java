@@ -12,10 +12,10 @@ public class ShowTopTracksActivity extends BaseActivity {
     private ShowTopTracksPresenter mShowTopTracksPresenter;
     private ShowTopTracksFragment mShowTopTrackView;
 
-    public static Intent createStartIntent(Context context, String artistId, String urlLargeImage) {
+    public static Intent createStartIntent(Context context, String artistId, String artistName) {
         Intent starter = new Intent(context, ShowTopTracksActivity.class);
         starter.putExtra(Constant.ID_ARTIST, artistId);
-        starter.putExtra(Constant.URL, urlLargeImage);
+        starter.putExtra(Constant.NAME_ARTIST, artistName);
         return starter;
     }
 
@@ -44,14 +44,14 @@ public class ShowTopTracksActivity extends BaseActivity {
     @Override
     protected void initView() {
         final String artistId = getIntent().getStringExtra(Constant.ID_ARTIST);
-        final String urlLargeImage = getIntent().getStringExtra(Constant.URL);
+        final String nameArtist = getIntent().getStringExtra(Constant.NAME_ARTIST);
 
         // create view
         mShowTopTrackView =
                 (ShowTopTracksFragment) getSupportFragmentManager().findFragmentByTag(Constant.TAG_FRAGMENT_SHOW_TOP_TRACKS);
         if (mShowTopTrackView == null) {
             // Create the fragment
-            mShowTopTrackView = ShowTopTracksFragment.newInstance(artistId, urlLargeImage);
+            mShowTopTrackView = ShowTopTracksFragment.newInstance(artistId, nameArtist);
             ActivityUtils.addFragmentToActivity(
                     getSupportFragmentManager(), mShowTopTrackView, R.id.contentFrame);
         }

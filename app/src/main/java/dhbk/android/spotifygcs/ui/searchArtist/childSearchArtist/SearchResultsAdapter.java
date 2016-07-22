@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -46,7 +45,7 @@ public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdap
             holder.setPlaceholderImage();
         }
 
-        holder.mTextViewNameArtist.setText(currentArtist.getNameArtist());
+//        holder.mTextViewNameArtist.setText(currentArtist.getNameArtist());
         holder.containerView.setOnClickListener(v -> mClickListener.onArtistClick(currentArtist, holder.mImageviewItemSearchArtist));
         holder.containerView.setOnTouchListener((view, motionEvent) -> mClickListener.onArtistTouch(holder.mImageviewItemSearchArtist, motionEvent));
     }
@@ -75,8 +74,6 @@ public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdap
     public class ArtistViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.imageview_item_search_artist)
         ImageView mImageviewItemSearchArtist;
-        @BindView(R.id.textview_item_search_artist_name)
-        TextView mTextViewNameArtist;
         @BindView(R.id.viewgroup_container)
         View containerView;
 

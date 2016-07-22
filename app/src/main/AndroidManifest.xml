@@ -37,7 +37,7 @@
         </activity>
         <activity
             android:name=".ui.showTopTracksArtist.ShowTopTracksActivity"
-            android:theme="@style/AppThemeNoActionBar.Translucent.Search">
+            android:theme="@style/AppThemeNoActionBar.Translucent.TopTrack">
         </activity>
 
         <service

@@ -38,6 +38,13 @@ public abstract class BaseFragment extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        doThingWhenResumeApp();
+    }
+
+
+    @Override
     public void onPause() {
         doThingWhenPauseApp();
         super.onPause();
@@ -48,6 +55,9 @@ public abstract class BaseFragment extends Fragment {
         doThingWhenDestroyApp();
         super.onDestroy();
     }
+
+    // when app is on resume, add listener
+    protected abstract void doThingWhenResumeApp();
 
     // when app is on pause state, do something to release resources.
     protected abstract void doThingWhenPauseApp();

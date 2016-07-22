@@ -39,6 +39,7 @@
     <!--size for all layout in my project-->
     <dimen name="z_app_bar">4dp</dimen>
     <dimen name="padding_normal">16dp</dimen>
+    <dimen name="padding_small">4dp</dimen>
 
     <!--size for search artist list-->
     <dimen name="size_artist_image">168dp</dimen>
@@ -61,4 +62,5 @@
     <dimen name="touched_app_bar">8dp</dimen>
     <dimen name="touch_raise">6dp</dimen>
     <dimen name="drag_dismiss_distance">112dp</dimen>
+    y<dimen name="fab_size">56dp</dimen>
 </resources>

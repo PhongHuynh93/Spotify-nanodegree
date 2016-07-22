@@ -442,6 +442,11 @@ public class SearchResultsFragment extends BaseFragment implements
         return rootView;
     }
 
+    @Override
+    protected void doThingWhenResumeApp() {
+
+    }
+
     // when app is on pause state, do something to release resources.
     @Override
     protected void doThingWhenPauseApp() {
@@ -532,7 +537,7 @@ public class SearchResultsFragment extends BaseFragment implements
         sDrawable = ((ImageView)image).getDrawable();
 
         // pass id of a artist to second activity
-        startActivityForResult(ShowTopTracksActivity.createStartIntent(getContext(), artist.getIdArtist(), artist.getUrlLargeImage()), REQUEST_CODE_VIEW_SHOT, options.toBundle());
+        startActivityForResult(ShowTopTracksActivity.createStartIntent(getContext(), artist.getIdArtist(), artist.getNameArtist()), REQUEST_CODE_VIEW_SHOT, options.toBundle());
 //        startActivity(ShowTopTracksActivity.createStartIntent(getContext(), artist.getIdArtist(), artist.getUrlLargeImage()));
     }
 
