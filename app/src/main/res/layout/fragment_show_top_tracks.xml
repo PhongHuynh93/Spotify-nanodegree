@@ -1,29 +1,3 @@
-<!--<?xml version="1.0" encoding="utf-8"?>-->
-<!--<LinearLayout-->
-<!--xmlns:android="http://schemas.android.com/apk/res/android"-->
-<!--xmlns:tools="http://schemas.android.com/tools"-->
-<!--android:layout_width="match_parent"-->
-<!--android:layout_height="match_parent"-->
-<!--android:orientation="vertical"-->
-<!--tools:context="dhbk.android.spotifygcs.ui.showTopTracksArtist.ShowTopTracksActivity">-->
-
-<!--&lt;!&ndash;image is all space remain&ndash;&gt;-->
-<!--<ImageView-->
-<!--android:id="@+id/imageview_show_artist"-->
-<!--android:layout_width="match_parent"-->
-<!--android:layout_height="0dp"-->
-<!--android:layout_weight="1"-->
-<!--android:background="@color/white_yellow"-->
-<!--android:scaleType="centerCrop"-->
-<!--android:src="@drawable/mainpic"/>-->
-
-<!--&lt;!&ndash;show a list of track, and later transform to play music machine&ndash;&gt;-->
-<!--<android.support.v7.widget.RecyclerView-->
-<!--android:id="@+id/recyclerview_show_top_track"-->
-<!--android:layout_width="match_parent"-->
-<!--android:layout_height="@dimen/height_show_top_track_list"/>-->
-<!--</LinearLayout>-->
-
 <dhbk.android.spotifygcs.ui.widget.ElasticDragDismissFrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -31,6 +5,7 @@
     android:id="@+id/draggable_frame"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/grey_dark3"
     app:dragDismissDistance="@dimen/drag_dismiss_distance"
     app:dragDismissScale="0.95"
     tools:context=".ui.showTopTracksArtist.ShowTopTracksActivity">
@@ -46,9 +21,9 @@
         <!--android:id="@+id/shot"-->
         <dhbk.android.spotifygcs.ui.widget.ParallaxScrimageView
             android:id="@+id/shot"
-            android:layout_alignParentTop="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
             android:adjustViewBounds="true"
             android:background="@color/light_grey"
             android:foreground="@drawable/mid_grey_ripple"
@@ -67,8 +42,12 @@
         <FrameLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
             android:background="@android:color/transparent"
-            android:elevation="@dimen/z_fab_over_touchable_app_bar">
+            android:elevation="@dimen/z_fab_over_touchable_app_bar"
+            android:paddingStart="@dimen/padding_small"
+            android:paddingTop="@dimen/padding_small">
 
             <!-- animate alpha in DribbleShot#enterAnimation
                  margins push out parent for the borderless ripple -->
@@ -76,19 +55,17 @@
                 android:id="@+id/back"
                 android:layout_width="?android:actionBarSize"
                 android:layout_height="?android:actionBarSize"
-                android:layout_marginBottom="@dimen/padding_normal"
-                android:layout_marginEnd="@dimen/padding_normal"
-                android:alpha="0"
                 android:background="@drawable/mid_grey_ripple"
                 android:src="@drawable/ic_arrow_back"/>
         </FrameLayout>
 
         <!--android:id="@+id/dribbble_comments"-->
         <android.support.v7.widget.RecyclerView
-            android:layout_below="@id/shot"
             android:id="@+id/recyclerview_show_top_track"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_below="@id/shot"
+            android:background="@color/grey_dark3"
             android:clipToPadding="false"
             android:divider="@null"
             android:dividerHeight="@dimen/divider_height"
@@ -97,18 +74,16 @@
             android:listSelector="@android:color/transparent"
             android:nestedScrollingEnabled="true"
             android:overScrollFooter="@android:color/transparent"
-            android:overScrollMode="never"
-            android:paddingBottom="@dimen/padding_normal"/> <!-- http://stackoverflow.com/a/24394230 -->
+            android:overScrollMode="never"/>
 
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/fab_heart"
             android:layout_width="@dimen/fab_size"
             android:layout_height="@dimen/fab_size"
-            android:elevation="@dimen/z_fab_over_touchable_app_bar"
-            android:layout_gravity="end"
-            android:layout_marginEnd="@dimen/padding_normal"
-            android:alpha="0" />
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="@dimen/padding_normal"/>
 
     </RelativeLayout>
 
