@@ -15,7 +15,10 @@
         <item>#ff212121</item>
         <item>#ff232323</item>
     </array>
-
+<!--toptrack-->
+    <!-- dribbble -->
+    <color name="dribbble">#fff06292</color> <!-- pink 300 -->
+    <color name="dribbble_super_dark">#ff33292d</color>
 <!--basic color-->
     <color name="pink_red">#FF3757</color>
     <color name="pink_red_dark">#E5314E</color>
@@ -33,6 +36,9 @@
     <color name="background_light">#fafafa</color>
     <color name="light_grey">#fff5f5f5</color>
     <color name="mid_grey">#40808080</color>
-    262833
+    <color name="fab_heart_progress_bar">#deffffff</color>
+    <color name="fab_heart_full">#ffffffff</color>
+    <color name="fab_heart_empty">#ffffffff</color>
+    <color name="ripple_light">#99ffffff</color>
 
 </resources>

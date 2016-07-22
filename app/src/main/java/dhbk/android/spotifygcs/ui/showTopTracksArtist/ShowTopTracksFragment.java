@@ -47,7 +47,7 @@ public class ShowTopTracksFragment extends BaseFragment implements
     private static final String ARG_ARTIST_ID = "artist_id";
     private static final String ARG_ARTIST_NAME = "artist_name";
 
-    @BindView(R.id.imageview_show_artist)
+    @BindView(R.id.shot)
     ParallaxScrimageView mImageviewShowArtist;
     @BindView(R.id.back)
     ImageButton mBack;
