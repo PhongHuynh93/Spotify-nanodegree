@@ -14,7 +14,6 @@ import android.graphics.drawable.TransitionDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -28,7 +27,6 @@ import android.transition.Transition;
 import android.transition.TransitionInflater;
 import android.transition.TransitionManager;
 import android.util.Pair;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -115,7 +113,6 @@ public class SearchResultsFragment extends BaseFragment implements
     private int searchBackDistanceX;
     private int searchIconCenterX;
     private SearchChildContract.Presenter mPresenter;
-    private Transition mAutoTransition;
     private BaselineGridTextView noResults;
     private Transition auto;
     public static Drawable sDrawable;
@@ -132,16 +129,6 @@ public class SearchResultsFragment extends BaseFragment implements
         arg.putInt(ARG_SEARCH_ICON_CENTER_X, searchIconCenterX);
         searchChildFragment.setArguments(arg);
         return searchChildFragment;
-    }
-
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            searchBackDistanceX = getArguments().getInt(ARG_SEARCH_BACK_DISTANCE_X);
-            searchIconCenterX = getArguments().getInt(ARG_SEARCH_ICON_CENTER_X);
-        }
     }
 
     @Override
@@ -169,45 +156,41 @@ public class SearchResultsFragment extends BaseFragment implements
 
     @Override
     protected void initView() {
+        if (getArguments() != null) {
+            searchBackDistanceX = getArguments().getInt(ARG_SEARCH_BACK_DISTANCE_X);
+            searchIconCenterX = getArguments().getInt(ARG_SEARCH_ICON_CENTER_X);
+        }
         startTransition();
     }
 
     @Override
     public void animSearchView() {
-        // anim search bar
-        // extract the search icon's location passed from the launching activity, minus 4dp to
-        // compensate for different paddings in the views
-        searchBackDistanceX = getActivity().getIntent().getIntExtra(EXTRA_MENU_LEFT, 0) - (int) TypedValue
-                .applyDimension(TypedValue.COMPLEX_UNIT_DIP, 4, getResources().getDisplayMetrics());
-        searchIconCenterX = getActivity().getIntent().getIntExtra(EXTRA_MENU_CENTER_X, 0);
-
         // translate icon to match the launching screen then animate back into position
+        // move icon search from right to left
         searchBackContainer.setTranslationX(searchBackDistanceX);
         searchBackContainer.animate()
                 .translationX(0f)
                 .setDuration(650L)
                 .setInterpolator(AnimUtils.getFastOutSlowInInterpolator(getContext()));
+
         // transform from search icon to back icon
         AnimatedVectorDrawable searchToBack = (AnimatedVectorDrawable) ContextCompat
                 .getDrawable(getContext(), R.drawable.avd_search_to_back);
         searchBack.setImageDrawable(searchToBack);
         searchToBack.start();
+
         // for some reason the animation doesn't always finish (leaving a part arrow!?) so after
         // the animation set a static drawable. Also animation callbacks weren't added until API23
         // so using post delayed :(
-        searchBack.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                searchBack.setImageDrawable(ContextCompat.getDrawable(getContext(),
-                        R.drawable.ic_arrow_back_padded));
-            }
-        }, 600L);
+        searchBack.postDelayed(() -> searchBack.setImageDrawable(ContextCompat.getDrawable(getContext(),
+                R.drawable.ic_arrow_back_padded)), 600L);
 
         // fade in the other search chrome
         searchBackground.animate()
                 .alpha(1f)
                 .setDuration(300L)
                 .setInterpolator(AnimUtils.getLinearOutSlowInInterpolator(getContext()));
+
         searchView.animate()
                 .alpha(1f)
                 .setStartDelay(400L)
@@ -233,8 +216,7 @@ public class SearchResultsFragment extends BaseFragment implements
                                 searchIconCenterX,
                                 searchBackground.getBottom(),
                                 0,
-                                (float) Math.hypot(searchBackDistanceX, scrim.getHeight()
-                                        - searchBackground.getBottom())),
+                                (float) Math.hypot(searchBackDistanceX, scrim.getHeight() - searchBackground.getBottom())),
                         ObjectAnimator.ofArgb(
                                 scrim,
                                 ViewUtils.BACKGROUND_COLOR,
@@ -395,23 +377,17 @@ public class SearchResultsFragment extends BaseFragment implements
     public void displaySearchArtists(ArrayList<Artist> artists) {
         // if has results, show it to recycler view
         if (artists != null && artists.size() > 0) {
-            mPresenter.doOtherThingToShowResults();
+            if (results.getVisibility() != View.VISIBLE) {
+                endTransition();
+                progress.setVisibility(View.GONE);
+                results.setVisibility(View.VISIBLE);
+            }
             // change data to adapter
             mSearchResultsAdapter.replaceAnotherData(artists);
         } else {
             // if not have result, info to user
             mPresenter.infoUsersNotHaveData();
         }
-    }
-
-    // delay transition
-    // remove the progress bar
-    // set the rcv to visible
-    @Override
-    public void showtoRcv() {
-        endTransition();
-        progress.setVisibility(View.GONE);
-        results.setVisibility(View.VISIBLE);
     }
 
     // if we dont have data to show, info the user
@@ -459,7 +435,7 @@ public class SearchResultsFragment extends BaseFragment implements
     }
 
     private void endTransition() {
-        TransitionManager.beginDelayedTransition(container, mAutoTransition);
+        TransitionManager.beginDelayedTransition(container, auto);
     }
 
     private void searchFor(String query) {
@@ -475,7 +451,7 @@ public class SearchResultsFragment extends BaseFragment implements
     private void clearResults() {
         mSearchResultsAdapter.clear();
 //        dataManager.clear();
-        TransitionManager.beginDelayedTransition(container, mAutoTransition);
+        TransitionManager.beginDelayedTransition(container, auto);
         results.setVisibility(View.GONE);
         progress.setVisibility(View.GONE);
 //        fab.setVisibility(View.GONE);

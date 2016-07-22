@@ -60,13 +60,6 @@ public class SearchChildPresenter implements SearchChildContract.Presenter, Arti
         mArtistSearchInteractor.performSearch(query, this);
     }
 
-    // do other things to views before showing the data to views.
-    // like show the list, dismiss the progress
-    @Override
-    public void doOtherThingToShowResults() {
-        mSearchChildView.showtoRcv();
-    }
-
     // if we dont have data to show, info the user
     @Override
     public void infoUsersNotHaveData() {

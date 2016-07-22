@@ -27,9 +27,6 @@ public interface SearchChildContract {
         ArtistSearchInteractor getArtistSearchInteractor();
         // display artists in recyclerview
         void displaySearchArtists(ArrayList<Artist> artists);
-        // remove the progress bar
-        // set the rcv to visible
-        void showtoRcv();
         // if we dont have data to show, info the user
         void showEmptyArtistsLayout();
         // set click lister for view with recyclerview
@@ -49,9 +46,6 @@ public interface SearchChildContract {
 
         // search artist with string para
         void searchArtists(String query);
-
-        // do other things to views before showing the data to views.
-        void doOtherThingToShowResults();
 
         // if we dont have data to show, info the user
         void infoUsersNotHaveData();
