@@ -52,9 +52,9 @@ import dhbk.android.spotifygcs.component.SpotifyStreamerComponent;
 import dhbk.android.spotifygcs.domain.Artist;
 import dhbk.android.spotifygcs.interactor.ArtistSearchInteractor;
 import dhbk.android.spotifygcs.module.ArtistSearchModule;
+import dhbk.android.spotifygcs.ui.SearchTopTracks.ShowTopTracksActivity;
 import dhbk.android.spotifygcs.ui.recyclerview.ArtistItemListener;
 import dhbk.android.spotifygcs.ui.recyclerview.SlideInItemAnimator;
-import dhbk.android.spotifygcs.ui.SearchTopTracks.ShowTopTracksActivity;
 import dhbk.android.spotifygcs.ui.widget.BaselineGridTextView;
 import dhbk.android.spotifygcs.util.AnimUtils;
 import dhbk.android.spotifygcs.util.ImeUtils;
@@ -66,13 +66,12 @@ import static com.google.common.base.Preconditions.checkNotNull;
 public class SearchResultsFragment extends BaseFragment implements
         SearchResultsContract.View,
         ArtistItemListener {
-    private static final String ARG_SEARCH_BACK_DISTANCE_X = "searchBackDistanceX";
-    private static final String ARG_SEARCH_ICON_CENTER_X = "searchIconCenterX";
-
     public static final String EXTRA_MENU_LEFT = "EXTRA_MENU_LEFT";
     public static final String EXTRA_MENU_CENTER_X = "EXTRA_MENU_CENTER_X";
+    private static final String ARG_SEARCH_BACK_DISTANCE_X = "searchBackDistanceX";
+    private static final String ARG_SEARCH_ICON_CENTER_X = "searchIconCenterX";
     private static final int REQUEST_CODE_VIEW_SHOT = 5407;
-
+    public static Drawable sDrawable;
     @BindView(R.id.searchback)
     ImageButton searchBack;
     @BindView(R.id.searchback_container)
@@ -95,7 +94,6 @@ public class SearchResultsFragment extends BaseFragment implements
     RecyclerView results;
     @BindInt(R.integer.num_col)
     int NUMBER_OF_COLUMN_LIST;
-
     @Inject
     SearchResultsAdapter mSearchResultsAdapter;
     @Inject
@@ -109,7 +107,6 @@ public class SearchResultsFragment extends BaseFragment implements
     private SearchResultsContract.Presenter mPresenter;
     private BaselineGridTextView noResults;
     private Transition auto;
-    public static Drawable sDrawable;
 
     public SearchResultsFragment() {
         // Required empty public constructor
@@ -144,6 +141,11 @@ public class SearchResultsFragment extends BaseFragment implements
     }
 
     @Override
+    public void setPresenter(SearchResultsContract.Presenter presenter) {
+        mPresenter = checkNotNull(presenter);
+    }
+
+    @Override
     protected boolean hasToolbar() {
         return false;
     }
@@ -156,7 +158,6 @@ public class SearchResultsFragment extends BaseFragment implements
         }
         startTransition();
     }
-
 
     @Override
     public void animSearchView() {
@@ -332,7 +333,6 @@ public class SearchResultsFragment extends BaseFragment implements
         mSearchResultsAdapter.setClickListenerInterface(this);
     }
 
-
     @Override
     public void setupSearchBar() {
         SearchManager searchManager = (SearchManager) getContext().getSystemService(getContext().SEARCH_SERVICE);
@@ -390,11 +390,6 @@ public class SearchResultsFragment extends BaseFragment implements
         endTransition();
         progress.setVisibility(View.GONE);
         setNoResultsVisibility(View.VISIBLE);
-    }
-
-    @Override
-    public void setPresenter(SearchResultsContract.Presenter presenter) {
-        mPresenter = checkNotNull(presenter);
     }
 
     @Override
