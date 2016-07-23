@@ -1,6 +1,5 @@
 package dhbk.android.spotifygcs.module;
 
-import android.app.Application;
 import android.content.Context;
 
 import javax.inject.Singleton;
@@ -14,6 +13,7 @@ import retrofit2.Retrofit;
 
 /**
  * Created by phongdth.ky on 7/15/2016.
+ * contains all retrofit instance and services need for connecting and downloading a list of artists
  * contains: application context,
  * retrofit instance,
  * retrofit service to download a list of artists from spotify
@@ -24,13 +24,6 @@ public class SpotifyStreamerModule {
 
     public SpotifyStreamerModule(MVPApp app) {
         this.app = app;
-    }
-
-    // return application context
-    @Provides
-    @Singleton
-    public Application provideApplication() {
-        return app;
     }
 
     @Provides

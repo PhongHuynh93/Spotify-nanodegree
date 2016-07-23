@@ -14,7 +14,7 @@ import java.util.TimerTask;
 
 import dhbk.android.spotifygcs.BaseBinder;
 import dhbk.android.spotifygcs.BaseService;
-import dhbk.android.spotifygcs.util.Constant;
+import dhbk.android.spotifygcs.domain.SpotifyConstant;
 
 public class SpotifyPlayerService extends BaseService implements
         MediaPlayer.OnPreparedListener,
@@ -43,10 +43,10 @@ public class SpotifyPlayerService extends BaseService implements
     // when start service, first get the music url via intent
     @Override
     public void initService(Intent intent) {
-        if (intent != null && intent.hasExtra(Constant.TRACK_REVIEW_URL)) {
-            String trackUrl = intent.getStringExtra(Constant.TRACK_REVIEW_URL);
+        if (intent != null && intent.hasExtra(SpotifyConstant.TRACK_REVIEW_URL)) {
+            String trackUrl = intent.getStringExtra(SpotifyConstant.TRACK_REVIEW_URL);
             if (trackUrl != null) {
-                setTrackUrlPreview(intent.getStringExtra(Constant.TRACK_REVIEW_URL));
+                setTrackUrlPreview(intent.getStringExtra(SpotifyConstant.TRACK_REVIEW_URL));
                 playTrack(0);
             }
         }
@@ -97,18 +97,6 @@ public class SpotifyPlayerService extends BaseService implements
         updateUI();
     }
 
-    public class Binder extends BaseBinder<SpotifyPlayerService> {
-        @Override
-        public SpotifyPlayerService getService() {
-            return super.getService();
-        }
-
-        @Override
-        public void setService(SpotifyPlayerService service) {
-            super.setService(service);
-        }
-    }
-
     // set url to field
     public void setTrackUrlPreview(String trackUrlPreview) {
         mTrackUrlPreview = trackUrlPreview;
@@ -142,7 +130,6 @@ public class SpotifyPlayerService extends BaseService implements
         }
         spotifyPlayer.setOnErrorListener(SpotifyPlayerService.this);
     }
-
 
     @Override
     public void setSpotifyPlayerHandler(Handler spotifyPlayerHandler) {
@@ -194,12 +181,23 @@ public class SpotifyPlayerService extends BaseService implements
         }
     }
 
-
     private void sendCurrentTrackPosition(){
         Message positionMessage = new Message();
         positionMessage.setData(getCurrentTrackPosition());
         if(spotifyPlayerHandler != null){
             spotifyPlayerHandler.sendMessage(positionMessage);
+        }
+    }
+
+    public class Binder extends BaseBinder<SpotifyPlayerService> {
+        @Override
+        public SpotifyPlayerService getService() {
+            return super.getService();
+        }
+
+        @Override
+        public void setService(SpotifyPlayerService service) {
+            super.setService(service);
         }
     }
 }

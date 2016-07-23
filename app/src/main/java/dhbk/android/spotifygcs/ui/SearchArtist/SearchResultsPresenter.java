@@ -5,7 +5,7 @@ import android.support.annotation.NonNull;
 import java.util.ArrayList;
 
 import dhbk.android.spotifygcs.domain.Artist;
-import dhbk.android.spotifygcs.interactor.ArtistSearchInteractor;
+import dhbk.android.spotifygcs.interactor.SpotifyInteractor;
 import dhbk.android.spotifygcs.io.callback.ArtistSearchServerCallback;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -16,7 +16,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 public class SearchResultsPresenter implements SearchResultsContract.Presenter, ArtistSearchServerCallback {
 
     private final SearchResultsContract.View mSearchChildView;
-    private ArtistSearchInteractor mArtistSearchInteractor;
+    private SpotifyInteractor mSpotifyInteractor;
 
     public SearchResultsPresenter(@NonNull SearchResultsContract.View searchChildView) {
         mSearchChildView = checkNotNull(searchChildView, "tasksView cannot be null!");
@@ -26,8 +26,8 @@ public class SearchResultsPresenter implements SearchResultsContract.Presenter, 
     // start views, so we can do anything to load the content in this method
     @Override
     public void start() {
-        // get the ArtistSearchInteractor for connect to the internet
-        mArtistSearchInteractor = mSearchChildView.getArtistSearchInteractor();
+        // get the SpotifyInteractor for connect to the internet
+        mSpotifyInteractor = mSearchChildView.getSpotifyInteractor();
         // start search bar anim in view and setup searchbar
         setupSearchBar();
         // setup recyclerview and setup adapter
@@ -57,7 +57,7 @@ public class SearchResultsPresenter implements SearchResultsContract.Presenter, 
     // search artist with string para
     @Override
     public void searchArtists(String query) {
-        mArtistSearchInteractor.performSearch(query, this);
+        mSpotifyInteractor.performArtistsSearch(query, this);
     }
 
     // if we dont have data to show, info the user

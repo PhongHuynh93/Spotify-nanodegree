@@ -5,7 +5,7 @@ import android.support.annotation.NonNull;
 import java.util.ArrayList;
 
 import dhbk.android.spotifygcs.domain.TopTrack;
-import dhbk.android.spotifygcs.interactor.ArtistSearchInteractor;
+import dhbk.android.spotifygcs.interactor.SpotifyInteractor;
 import dhbk.android.spotifygcs.io.callback.TopTrackSearchServerCallback;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -16,7 +16,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 public class ShowTopTracksPresenter implements ShowTopTracksContract.Presenter,
         TopTrackSearchServerCallback{
     private final ShowTopTracksContract.View mShowTopTrackView;
-    private ArtistSearchInteractor mArtistSearchInteractor;
+    private SpotifyInteractor mSpotifyInteractor;
 
     public ShowTopTracksPresenter(@NonNull ShowTopTracksContract.View showTopTrackView) {
         mShowTopTrackView = checkNotNull(showTopTrackView, "tasksView cannot be null!");
@@ -27,8 +27,8 @@ public class ShowTopTracksPresenter implements ShowTopTracksContract.Presenter,
     // works when views start
     @Override
     public void start() {
-        // get the ArtistSearchInteractor for connect to the internet
-        mArtistSearchInteractor = mShowTopTrackView.getArtistSearchInteractor();
+        // get the SpotifyInteractor for connect to the internet
+        mSpotifyInteractor = mShowTopTrackView.getSpotifyInteractor();
         // setup recyclerview and setup adapter
         setupList();
         // connect to spotify to download top ten track
@@ -43,7 +43,7 @@ public class ShowTopTracksPresenter implements ShowTopTracksContract.Presenter,
 
     @Override
     public void getTopTenTracks() {
-        mArtistSearchInteractor.performTopTrackSearch(mShowTopTrackView.getIdArtist(), this);
+        mSpotifyInteractor.performTopTrackSearch(mShowTopTrackView.getIdArtist(), this);
     }
 
     // when top track found
