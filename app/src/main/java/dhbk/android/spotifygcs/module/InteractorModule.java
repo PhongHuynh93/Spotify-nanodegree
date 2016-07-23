@@ -2,7 +2,7 @@ package dhbk.android.spotifygcs.module;
 
 import dagger.Module;
 import dagger.Provides;
-import dhbk.android.spotifygcs.interactor.ArtistSearchInteractor;
+import dhbk.android.spotifygcs.interactor.SpotifyInteractor;
 import dhbk.android.spotifygcs.io.SpotifyApiService;
 
 /**
@@ -12,7 +12,7 @@ import dhbk.android.spotifygcs.io.SpotifyApiService;
 @Module
 public class InteractorModule {
     @Provides
-    public ArtistSearchInteractor provideArtistSearchInteractor(SpotifyApiService apiService){
-        return new ArtistSearchInteractor(apiService);
+    public SpotifyInteractor provideArtistSearchInteractor(SpotifyApiService apiService) {
+        return new SpotifyInteractor(apiService);
     }
 }

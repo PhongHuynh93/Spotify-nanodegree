@@ -50,7 +50,7 @@ import dhbk.android.spotifygcs.MVPApp;
 import dhbk.android.spotifygcs.R;
 import dhbk.android.spotifygcs.component.SpotifyStreamerComponent;
 import dhbk.android.spotifygcs.domain.Artist;
-import dhbk.android.spotifygcs.interactor.ArtistSearchInteractor;
+import dhbk.android.spotifygcs.interactor.SpotifyInteractor;
 import dhbk.android.spotifygcs.module.ArtistSearchModule;
 import dhbk.android.spotifygcs.ui.SearchTopTracks.ShowTopTracksActivity;
 import dhbk.android.spotifygcs.ui.recyclerview.ArtistItemListener;
@@ -97,7 +97,7 @@ public class SearchResultsFragment extends BaseFragment implements
     @Inject
     SearchResultsAdapter mSearchResultsAdapter;
     @Inject
-    ArtistSearchInteractor mArtistSearchInteractor;
+    SpotifyInteractor mSpotifyInteractor;
     @BindView(R.id.results_scrim)
 
     View resultsScrim;
@@ -360,10 +360,9 @@ public class SearchResultsFragment extends BaseFragment implements
         });
     }
 
-    @Override
-    public ArtistSearchInteractor getArtistSearchInteractor() {
-        checkNotNull(mArtistSearchInteractor, "ArtistSearchInteractor cannot be null");
-        return mArtistSearchInteractor;
+    public SpotifyInteractor getSpotifyInteractor() {
+        checkNotNull(mSpotifyInteractor, "SpotifyInteractor cannot be null");
+        return mSpotifyInteractor;
     }
 
     // callback when query the spotify api, if found the artists

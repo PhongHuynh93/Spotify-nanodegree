@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import dhbk.android.spotifygcs.BasePresenter;
 import dhbk.android.spotifygcs.BaseView;
 import dhbk.android.spotifygcs.domain.Artist;
-import dhbk.android.spotifygcs.interactor.ArtistSearchInteractor;
+import dhbk.android.spotifygcs.interactor.SpotifyInteractor;
 
 /**
  * Created by phongdth.ky on 7/15/2016.
@@ -28,8 +28,8 @@ public interface SearchResultsContract {
         // setup searchbar
         void setupSearchBar();
 
-        // get the ArtistSearchInteractor for connect to the internet
-        ArtistSearchInteractor getArtistSearchInteractor();
+        // get the SpotifyInteractor for connect to the internet
+        SpotifyInteractor getSpotifyInteractor();
 
         // display artists in recyclerview
         void displaySearchArtists(ArrayList<Artist> artists);

@@ -26,11 +26,11 @@ import dhbk.android.spotifygcs.MVPApp;
 import dhbk.android.spotifygcs.R;
 import dhbk.android.spotifygcs.component.SpotifyStreamerComponent;
 import dhbk.android.spotifygcs.domain.TopTrack;
-import dhbk.android.spotifygcs.interactor.ArtistSearchInteractor;
+import dhbk.android.spotifygcs.interactor.SpotifyInteractor;
 import dhbk.android.spotifygcs.module.TopTrackModule;
+import dhbk.android.spotifygcs.ui.SearchArtist.SearchResultsFragment;
 import dhbk.android.spotifygcs.ui.recyclerview.SlideInItemAnimator;
 import dhbk.android.spotifygcs.ui.recyclerview.TrackItemListener;
-import dhbk.android.spotifygcs.ui.SearchArtist.SearchResultsFragment;
 import dhbk.android.spotifygcs.ui.widget.ElasticDragDismissFrameLayout;
 import dhbk.android.spotifygcs.ui.widget.ParallaxScrimageView;
 import dhbk.android.spotifygcs.util.AnimUtils;
@@ -54,18 +54,35 @@ public class ShowTopTracksFragment extends BaseFragment implements
     RecyclerView mRecyclerviewShowTopTrack;
     @BindView(R.id.draggable_frame)
     ElasticDragDismissFrameLayout mDraggableFrame;
-
-    private String mArtistId;
-    private String mArtistName;
-
-    private ShowTopTracksContract.Presenter mPresenter;
-
     @Inject
-    ArtistSearchInteractor mArtistSearchInteractor;
-
+    SpotifyInteractor mSpotifyInteractor;
     @Inject
     TopTrackAdapter mTopTrackAdapter;
+    private String mArtistId;
+    private String mArtistName;
+    private ShowTopTracksContract.Presenter mPresenter;
     private ElasticDragDismissFrameLayout.SystemChromeFader chromeFader;
+    private Transition.TransitionListener shotReturnHomeListener =
+            new AnimUtils.TransitionListenerAdapter() {
+                @Override
+                public void onTransitionStart(Transition transition) {
+                    super.onTransitionStart(transition);
+//                    // hide the fab as for some reason it jumps position??  TODO work out why
+//                    fab.setVisibility(View.INVISIBLE);
+                    // fade out the "toolbar" & list as we don't want them to be visible during return
+                    // animation
+                    mBack.animate()
+                            .alpha(0f)
+                            .setDuration(100)
+                            .setInterpolator(AnimUtils.getLinearOutSlowInInterpolator(getContext()));
+                    mImageviewShowArtist.setElevation(1f);
+                    mBack.setElevation(0f);
+                    mRecyclerviewShowTopTrack.animate()
+                            .alpha(0f)
+                            .setDuration(50)
+                            .setInterpolator(AnimUtils.getLinearOutSlowInInterpolator(getContext()));
+                }
+            };
 
     public ShowTopTracksFragment() {
     }
@@ -121,6 +138,11 @@ public class ShowTopTracksFragment extends BaseFragment implements
     }
 
     @Override
+    public void setPresenter(ShowTopTracksContract.Presenter presenter) {
+        mPresenter = presenter;
+    }
+
+    @Override
     protected boolean hasToolbar() {
         return true;
     }
@@ -149,39 +171,9 @@ public class ShowTopTracksFragment extends BaseFragment implements
         };
     }
 
-
-    private Transition.TransitionListener shotReturnHomeListener =
-            new AnimUtils.TransitionListenerAdapter() {
-                @Override
-                public void onTransitionStart(Transition transition) {
-                    super.onTransitionStart(transition);
-//                    // hide the fab as for some reason it jumps position??  TODO work out why
-//                    fab.setVisibility(View.INVISIBLE);
-                    // fade out the "toolbar" & list as we don't want them to be visible during return
-                    // animation
-                    mBack.animate()
-                            .alpha(0f)
-                            .setDuration(100)
-                            .setInterpolator(AnimUtils.getLinearOutSlowInInterpolator(getContext()));
-                    mImageviewShowArtist.setElevation(1f);
-                    mBack.setElevation(0f);
-                    mRecyclerviewShowTopTrack.animate()
-                            .alpha(0f)
-                            .setDuration(50)
-                            .setInterpolator(AnimUtils.getLinearOutSlowInInterpolator(getContext()));
-                }
-            };
-
-
-    @Override
-    public void setPresenter(ShowTopTracksContract.Presenter presenter) {
-        mPresenter = presenter;
-    }
-
-    @Override
-    public ArtistSearchInteractor getArtistSearchInteractor() {
-        checkNotNull(mArtistSearchInteractor, "ArtistSearchInteractor cannot be null");
-        return mArtistSearchInteractor;
+    public SpotifyInteractor getSpotifyInteractor() {
+        checkNotNull(mSpotifyInteractor, "SpotifyInteractor cannot be null");
+        return mSpotifyInteractor;
     }
 
     @Override
