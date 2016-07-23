@@ -10,8 +10,9 @@ import dhbk.android.spotifygcs.ui.SearchArtist.SearchResultsPresenter;
  * Main callback from spotify api server, communicate search results to {@link SearchResultsPresenter}
  */
 public interface ArtistSearchServerCallback {
-    // when we found the artists from query
+    // when we found the artist from query
     void onArtistsFound(ArrayList<Artist> artists);
-    // when we not found the artists
+
+    // when we not found the artist
     void onFailedSearch();
 }
