@@ -20,7 +20,6 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import dhbk.android.spotifygcs.BaseFragment;
 import dhbk.android.spotifygcs.BasePresenter;
-import dhbk.android.spotifygcs.MVPApp;
 import dhbk.android.spotifygcs.R;
 import dhbk.android.spotifygcs.component.SpotifyStreamerComponent;
 import dhbk.android.spotifygcs.domain.TopTrack;
@@ -118,11 +117,7 @@ public class ShowTopTracksFragment extends BaseFragment implements
 
     @Override
     public void setUpComponent(SpotifyStreamerComponent appComponent) {
-        // inject component (contain adapter) for this view
-        MVPApp.getApp(getContext())
-                .getSpotifyStreamerComponent()
-                .topTrackComponent(new TopTrackModule(this))
-                .inject(this);
+        appComponent.topTrackComponent(new TopTrackModule(this)).inject(this);
     }
 
     @Override
@@ -137,7 +132,7 @@ public class ShowTopTracksFragment extends BaseFragment implements
 
     @Override
     protected boolean hasToolbar() {
-        return true;
+        return false;
     }
 
     @Override

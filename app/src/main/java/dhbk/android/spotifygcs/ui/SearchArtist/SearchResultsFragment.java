@@ -4,7 +4,6 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
-import android.app.ActivityOptions;
 import android.app.SearchManager;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -25,7 +24,6 @@ import android.text.style.StyleSpan;
 import android.transition.Transition;
 import android.transition.TransitionInflater;
 import android.transition.TransitionManager;
-import android.util.Pair;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
@@ -51,7 +49,6 @@ import dhbk.android.spotifygcs.component.SpotifyStreamerComponent;
 import dhbk.android.spotifygcs.domain.Artist;
 import dhbk.android.spotifygcs.interactor.SpotifyInteractor;
 import dhbk.android.spotifygcs.module.ArtistSearchModule;
-import dhbk.android.spotifygcs.ui.SearchTopTracks.ShowTopTracksActivity;
 import dhbk.android.spotifygcs.ui.recyclerview.ArtistItemListener;
 import dhbk.android.spotifygcs.ui.recyclerview.SlideInItemAnimator;
 import dhbk.android.spotifygcs.ui.widget.BaselineGridTextView;
@@ -67,7 +64,6 @@ public class SearchResultsFragment extends BaseFragment implements
         ArtistItemListener {
     private static final String ARG_SEARCH_BACK_DISTANCE_X = "searchBackDistanceX";
     private static final String ARG_SEARCH_ICON_CENTER_X = "searchIconCenterX";
-    private static final int REQUEST_CODE_VIEW_SHOT = 5407;
     public static Drawable sDrawable;
 
     @Inject
@@ -104,6 +100,7 @@ public class SearchResultsFragment extends BaseFragment implements
     private SearchResultsContract.Presenter mPresenter;
     private BaselineGridTextView noResults;
     private Transition auto;
+    private boolean dismissing = false;
 
     public SearchResultsFragment() {
         // Required empty public constructor
@@ -224,87 +221,95 @@ public class SearchResultsFragment extends BaseFragment implements
     @OnClick({R.id.scrim, R.id.searchback})
     @Override
     public void dismiss() {
+        // run this code only one time to remove activity, if run multiple time, app will crash due to getActivity() return null.
+        if (dismissing) return;
+        dismissing = true;
+
         // translate the icon to match position in the launching activity
         // move from right to left
-        searchBackContainer.animate()
-                .translationX(searchBackDistanceX)
-                .setDuration(600L)
-                .setInterpolator(AnimUtils.getFastOutSlowInInterpolator(getContext()))
-                .setListener(new AnimatorListenerAdapter() {
-                    @Override
-                    public void onAnimationEnd(Animator animation) {
-                        getActivity().finishAfterTransition();
-                    }
-                })
-                .start();
-
-        // transform from back icon to search icon
-        AnimatedVectorDrawable backToSearch = (AnimatedVectorDrawable) ContextCompat
-                .getDrawable(getContext(), R.drawable.avd_back_to_search);
-        searchBack.setImageDrawable(backToSearch);
-
-        // clear the background else the touch ripple moves with the translation which looks bad
-        searchBack.setBackground(null);
-        backToSearch.start();
-
-        // fade out the other search chrome
-        searchView.animate()
-                .alpha(0f)
-                .setStartDelay(0L)
-                .setDuration(120L)
-                .setInterpolator(AnimUtils.getFastOutLinearInInterpolator(getContext()))
-                .setListener(new AnimatorListenerAdapter() {
-                    @Override
-                    public void onAnimationEnd(Animator animation) {
-                        // prevent clicks while other anims are finishing
-                        searchView.setVisibility(View.INVISIBLE);
-                    }
-                })
-                .start();
-
-        searchBackground.animate()
-                .alpha(0f)
-                .setStartDelay(300L)
-                .setDuration(160L)
-                .setInterpolator(AnimUtils.getFastOutLinearInInterpolator(getContext()))
-                .setListener(null)
-                .start();
-
-        if (searchToolbar.getZ() != 0f) {
-            searchToolbar.animate()
-                    .z(0f)
+        new Handler(Looper.getMainLooper()).post(() -> {
+            searchBackContainer.animate()
+                    .translationX(searchBackDistanceX)
                     .setDuration(600L)
-                    .setInterpolator(AnimUtils.getFastOutLinearInInterpolator(getContext()))
+                    .setInterpolator(AnimUtils.getFastOutSlowInInterpolator(getContext()))
+                    .setListener(new AnimatorListenerAdapter() {
+                        @Override
+                        public void onAnimationEnd(Animator animation) {
+                            getActivity().finishAfterTransition();
+                        }
+                    })
                     .start();
-        }
 
-        // if we're showing search results, circular hide them
-        if (resultsContainer.getHeight() > 0) {
-            Animator closeResults = ViewAnimationUtils.createCircularReveal(
-                    resultsContainer,
-                    searchIconCenterX,
-                    0,
-                    (float) Math.hypot(searchIconCenterX, resultsContainer.getHeight()),
-                    0f);
-            closeResults.setDuration(500L);
-            closeResults.setInterpolator(AnimUtils.getFastOutSlowInInterpolator(getContext()));
-            closeResults.addListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    resultsContainer.setVisibility(View.INVISIBLE);
-                }
-            });
-            closeResults.start();
-        }
+            // transform from back icon to search icon
+            AnimatedVectorDrawable backToSearch = (AnimatedVectorDrawable) ContextCompat
+                    .getDrawable(getContext(), R.drawable.avd_back_to_search);
+            searchBack.setImageDrawable(backToSearch);
 
-        // fade out the scrim
-        scrim.animate()
-                .alpha(0f)
-                .setDuration(400L)
-                .setInterpolator(AnimUtils.getFastOutLinearInInterpolator(getContext()))
-                .setListener(null)
-                .start();
+            // clear the background else the touch ripple moves with the translation which looks bad
+            searchBack.setBackground(null);
+            backToSearch.start();
+
+            // fade out the other search chrome
+            searchView.animate()
+                    .alpha(0f)
+                    .setStartDelay(0L)
+                    .setDuration(120L)
+                    .setInterpolator(AnimUtils.getFastOutLinearInInterpolator(getContext()))
+                    .setListener(new AnimatorListenerAdapter() {
+                        @Override
+                        public void onAnimationEnd(Animator animation) {
+                            // prevent clicks while other anims are finishing
+                            searchView.setVisibility(View.INVISIBLE);
+                        }
+                    })
+                    .start();
+
+            searchBackground.animate()
+                    .alpha(0f)
+                    .setStartDelay(300L)
+                    .setDuration(160L)
+                    .setInterpolator(AnimUtils.getFastOutLinearInInterpolator(getContext()))
+                    .setListener(null)
+                    .start();
+
+            if (searchToolbar.getZ() != 0f) {
+                searchToolbar.animate()
+                        .z(0f)
+                        .setDuration(600L)
+                        .setInterpolator(AnimUtils.getFastOutLinearInInterpolator(getContext()))
+                        .start();
+            }
+
+            // if we're showing search results, circular hide them
+            if (resultsContainer.getHeight() > 0) {
+                Animator closeResults = ViewAnimationUtils.createCircularReveal(
+                        resultsContainer,
+                        searchIconCenterX,
+                        0,
+                        (float) Math.hypot(searchIconCenterX, resultsContainer.getHeight()),
+                        0f);
+                closeResults.setDuration(500L);
+                closeResults.setInterpolator(AnimUtils.getFastOutSlowInInterpolator(getContext()));
+                closeResults.addListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        resultsContainer.setVisibility(View.INVISIBLE);
+                    }
+                });
+                closeResults.start();
+            }
+
+            // fade out the scrim
+            scrim.animate()
+                    .alpha(0f)
+                    .setDuration(400L)
+                    .setInterpolator(AnimUtils.getFastOutLinearInInterpolator(getContext()))
+                    .setListener(null)
+                    .start();
+        });
+
     }
+
 
     @Override
     public void setupRecyclerView() {
@@ -471,15 +476,10 @@ public class SearchResultsFragment extends BaseFragment implements
     // go to another activity
     @Override
     public void onArtistClick(Artist artist, View image) {
-        // anim when open second activity, with 2 share element
-        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(
-                getActivity(),
-                Pair.create(image, getActivity().getString(R.string.transition_shot)),
-                Pair.create(image, getActivity().getString(R.string.transition_shot_background)));
         sDrawable = ((ImageView) image).getDrawable();
-
-        // pass id of a artist to second activity
-        startActivityForResult(ShowTopTracksActivity.createStartIntent(getContext(), artist.getIdArtist(), artist.getNameArtist()), REQUEST_CODE_VIEW_SHOT, options.toBundle());
+        if (getActivity() != null) {
+            ((SearchResultsActivity) getActivity()).goToAnotherActivity(image, artist.getIdArtist(), artist.getNameArtist());
+        }
     }
 
     @Override
