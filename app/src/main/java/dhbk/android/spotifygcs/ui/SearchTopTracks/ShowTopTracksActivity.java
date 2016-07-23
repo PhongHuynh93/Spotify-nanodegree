@@ -62,8 +62,5 @@ public class ShowTopTracksActivity extends BaseActivity {
 
         // Create the presenter and set view
         ShowTopTracksPresenter showTopTracksPresenter = new ShowTopTracksPresenter(mShowTopTrackView);
-
     }
-
-
 }

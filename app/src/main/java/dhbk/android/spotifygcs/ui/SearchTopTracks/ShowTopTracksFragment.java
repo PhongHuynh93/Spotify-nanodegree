@@ -191,10 +191,6 @@ public class ShowTopTracksFragment extends BaseFragment implements
     // show anim before close view
     @Override
     public void expandImageAndFinish() {
-//        return OK status to calling view
-//        final Intent resultData = new Intent();
-//        resultData.putExtra(RESULT_EXTRA_SHOT_ID, shot.id);
-//        setResult(RESULT_OK, resultData);
         if (mImageviewShowArtist.getOffset() != 0f) {
             Animator expandImage = ObjectAnimator.ofFloat(mImageviewShowArtist, ParallaxScrimageView.OFFSET,
                     0f);
@@ -238,5 +234,7 @@ public class ShowTopTracksFragment extends BaseFragment implements
 //            Log.d(SpotifyPlayerFragment.class.getSimpleName(), "" + isServiceBounded);
 //            getActivity().getApplicationContext().bindService(spotifyServiceIntent, serviceConnection, Context.BIND_AUTO_CREATE);
 //        }
+
+
     }
 }
