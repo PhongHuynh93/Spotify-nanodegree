@@ -32,10 +32,11 @@
 
         <!-- not make another activity when this activity is in the top -->
         <activity
-            android:name=".ui.SearchArtist.SearchResultsActivity"
+            android:name=".ui.searchArtist.SearchResultsActivity"
             android:launchMode="singleTop"
             android:theme="@style/AppThemeNoActionBar.Translucent.Search">
         </activity>
+
         <activity
             android:name=".ui.SearchTopTracks.ShowTopTracksActivity"
             android:theme="@style/AppThemeNoActionBar.Translucent.TopTrack">
