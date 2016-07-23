@@ -14,7 +14,6 @@ import dhbk.android.spotifygcs.util.Constant;
  * this activity will tell the top tracks of a artist which user has clicked
  */
 public class ShowTopTracksActivity extends BaseActivity {
-    private ShowTopTracksPresenter mShowTopTracksPresenter;
     private ShowTopTracksFragment mShowTopTrackView;
 
     public static Intent createStartIntent(Context context, String artistId, String artistName) {
@@ -30,7 +29,7 @@ public class ShowTopTracksActivity extends BaseActivity {
         mShowTopTrackView.expandImageAndFinish();
     }
 
-    // want to use custome font
+    // want to use custom font
     @Override
     protected boolean hasUseCustomeFont() {
         return true;
@@ -55,14 +54,13 @@ public class ShowTopTracksActivity extends BaseActivity {
         mShowTopTrackView =
                 (ShowTopTracksFragment) getSupportFragmentManager().findFragmentByTag(Constant.TAG_FRAGMENT_SHOW_TOP_TRACKS);
         if (mShowTopTrackView == null) {
-            // Create the fragment
             mShowTopTrackView = ShowTopTracksFragment.newInstance(artistId, nameArtist);
             ActivityUtils.addFragmentToActivity(
                     getSupportFragmentManager(), mShowTopTrackView, R.id.contentFrame);
         }
 
-        // Create the presenter
-        mShowTopTracksPresenter = new ShowTopTracksPresenter(mShowTopTrackView);
+        // Create the presenter and set view
+        ShowTopTracksPresenter showTopTracksPresenter = new ShowTopTracksPresenter(mShowTopTrackView);
     }
 
 
