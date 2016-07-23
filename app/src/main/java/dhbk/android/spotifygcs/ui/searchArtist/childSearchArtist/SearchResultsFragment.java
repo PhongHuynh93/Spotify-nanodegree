@@ -10,7 +10,6 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.AnimatedVectorDrawable;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.TransitionDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -27,8 +26,6 @@ import android.transition.Transition;
 import android.transition.TransitionInflater;
 import android.transition.TransitionManager;
 import android.util.Pair;
-import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
@@ -40,15 +37,12 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.SearchView;
 
-import com.bumptech.glide.load.resource.gif.GifDrawable;
-
 import java.util.ArrayList;
 
 import javax.inject.Inject;
 
 import butterknife.BindInt;
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import dhbk.android.spotifygcs.BaseFragment;
 import dhbk.android.spotifygcs.BasePresenter;
@@ -235,10 +229,8 @@ public class SearchResultsFragment extends BaseFragment implements
     @OnClick({R.id.scrim, R.id.searchback})
     @Override
     public void dismiss() {
-        if (dismissing) return;
-        dismissing = true;
-
         // translate the icon to match position in the launching activity
+        // move from right to left
         searchBackContainer.animate()
                 .translationX(searchBackDistanceX)
                 .setDuration(600L)
@@ -250,13 +242,16 @@ public class SearchResultsFragment extends BaseFragment implements
                     }
                 })
                 .start();
+
         // transform from back icon to search icon
         AnimatedVectorDrawable backToSearch = (AnimatedVectorDrawable) ContextCompat
                 .getDrawable(getContext(), R.drawable.avd_back_to_search);
         searchBack.setImageDrawable(backToSearch);
+
         // clear the background else the touch ripple moves with the translation which looks bad
         searchBack.setBackground(null);
         backToSearch.start();
+
         // fade out the other search chrome
         searchView.animate()
                 .alpha(0f)
@@ -271,6 +266,7 @@ public class SearchResultsFragment extends BaseFragment implements
                     }
                 })
                 .start();
+
         searchBackground.animate()
                 .alpha(0f)
                 .setStartDelay(300L)
@@ -278,6 +274,7 @@ public class SearchResultsFragment extends BaseFragment implements
                 .setInterpolator(AnimUtils.getFastOutLinearInInterpolator(getContext()))
                 .setListener(null)
                 .start();
+
         if (searchToolbar.getZ() != 0f) {
             searchToolbar.animate()
                     .z(0f)
@@ -340,6 +337,7 @@ public class SearchResultsFragment extends BaseFragment implements
     public void setupSearchBar() {
         SearchManager searchManager = (SearchManager) getContext().getSystemService(getContext().SEARCH_SERVICE);
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
+
         // hint, inputType & ime options seem to be ignored from XML! Set in code
         searchView.setQueryHint(getString(R.string.search_artist_child_text));
         searchView.setInputType(InputType.TYPE_TEXT_FLAG_CAP_WORDS);
@@ -360,11 +358,6 @@ public class SearchResultsFragment extends BaseFragment implements
                 return true;
             }
         });
-//        searchView.setOnQueryTextFocusChangeListener((v, hasFocus) -> {
-//            if (hasFocus && confirmSaveContainer.getVisibility() == View.VISIBLE) {
-//                hideSaveConfimation();
-//            }
-//        });
     }
 
     @Override
@@ -405,25 +398,16 @@ public class SearchResultsFragment extends BaseFragment implements
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        ButterKnife.bind(this, rootView);
-        return rootView;
-    }
-
-    @Override
     protected void doThingWhenResumeApp() {
 
     }
 
-    // when app is on pause state, do something to release resources.
     @Override
     protected void doThingWhenPauseApp() {
         int stopAnimation = 0;
         getActivity().overridePendingTransition(stopAnimation, stopAnimation);
     }
 
-    // when app is on destroy state, stop network.
     @Override
     protected void doThingWhenDestroyApp() {
         sDrawable = null;
@@ -477,6 +461,7 @@ public class SearchResultsFragment extends BaseFragment implements
                             ImeUtils.showIme(searchView);
                         });
                     }
+
                     // show info to user depends on their search
                     String message = String.format(getString(R
                             .string.no_search_results), searchView.getQuery().toString());
@@ -495,96 +480,25 @@ public class SearchResultsFragment extends BaseFragment implements
         });
     }
 
-    // called when click an artist in this view
-    // go to show detail top tracks of artist
+    // go to another activity
     @Override
     public void onArtistClick(Artist artist, View image) {
-        // anim when open second activity
-//        setGridItemContentTransitions(image);
+        // anim when open second activity, with 2 share element
         ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(
                 getActivity(),
                 Pair.create(image, getActivity().getString(R.string.transition_shot)),
                 Pair.create(image, getActivity().getString(R.string.transition_shot_background)));
-
         sDrawable = ((ImageView) image).getDrawable();
 
         // pass id of a artist to second activity
         startActivityForResult(ShowTopTracksActivity.createStartIntent(getContext(), artist.getIdArtist(), artist.getNameArtist()), REQUEST_CODE_VIEW_SHOT, options.toBundle());
-//        startActivity(ShowTopTracksActivity.createStartIntent(getContext(), artist.getIdArtist(), artist.getUrlLargeImage()));
     }
 
     @Override
-    public boolean onArtistTouch(View view, MotionEvent event) {
-        // check if it's an event we care about, else bail fast
-        final int action = event.getAction();
-        if (!(action == MotionEvent.ACTION_DOWN
-                || action == MotionEvent.ACTION_UP
-                || action == MotionEvent.ACTION_CANCEL)) return false;
-
-        // get the image and check if it's an animated GIF
-        final Drawable drawable = ((ImageView) view).getDrawable();
-        if (drawable == null) return false;
-        GifDrawable gif = null;
-        if (drawable instanceof GifDrawable) {
-            gif = (GifDrawable) drawable;
-        } else if (drawable instanceof TransitionDrawable) {
-            // we fade in images on load which uses a TransitionDrawable; check its layers
-            TransitionDrawable fadingIn = (TransitionDrawable) drawable;
-            for (int i = 0; i < fadingIn.getNumberOfLayers(); i++) {
-                if (fadingIn.getDrawable(i) instanceof GifDrawable) {
-                    gif = (GifDrawable) fadingIn.getDrawable(i);
-                    break;
-                }
-            }
-        }
-        if (gif == null) return false;
-        // GIF found, start/stop it on press/lift
-        switch (action) {
-            case MotionEvent.ACTION_DOWN:
-                gif.start();
-                break;
-            case MotionEvent.ACTION_UP:
-            case MotionEvent.ACTION_CANCEL:
-                gif.stop();
-                break;
-        }
-        return false;
-    }
-
     public void setQueryToSearchBar(String query) {
         if (!TextUtils.isEmpty(query)) {
             searchView.setQuery(query, false);
             searchFor(query);
         }
     }
-
-
-    /**
-     * The shared element transition to dribbble shots & dn stories can intersect with the FAB.
-     * This can cause a strange layers-passing-through-each-other effect. On return hide the FAB
-     * and animate it back in after the transition.
-     */
-//    private void setGridItemContentTransitions(View gridItem) {
-////        final View fab = getActivity().findViewById(R.id.fab);
-////        if (!ViewUtils.viewsIntersect(gridItem, fab)) return;
-////
-////        final Transition reenter = TransitionInflater.from(getActivity())
-////                .inflateTransition(R.transition.home_content_item_reenter);
-//        // we only want these content transitions in certain cases so clear out when done.
-//        reenter.addListener(new AnimUtils.TransitionListenerAdapter() {
-//            @Override
-//            public void onTransitionStart(Transition transition) {
-////                fab.setAlpha(0f);
-////                fab.setScaleX(0f);
-////                fab.setScaleY(0f);
-//            }
-//
-//            @Override
-//            public void onTransitionEnd(Transition transition) {
-//                getActivity().getWindow().setReenterTransition(null);
-//            }
-//        });
-//        getActivity().getWindow().setReenterTransition(reenter);
-//    }
-
 }

@@ -45,9 +45,7 @@ public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdap
             holder.setPlaceholderImage();
         }
 
-//        holder.mTextViewNameArtist.setText(currentArtist.getNameArtist());
         holder.containerView.setOnClickListener(v -> mClickListener.onArtistClick(currentArtist, holder.mImageviewItemSearchArtist));
-        holder.containerView.setOnTouchListener((view, motionEvent) -> mClickListener.onArtistTouch(holder.mImageviewItemSearchArtist, motionEvent));
     }
 
     @Override
