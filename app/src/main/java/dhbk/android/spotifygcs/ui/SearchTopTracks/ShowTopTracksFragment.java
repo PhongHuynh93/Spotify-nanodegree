@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.transition.Transition;
 import android.view.View;
 import android.widget.ImageButton;
@@ -27,6 +26,7 @@ import dhbk.android.spotifygcs.interactor.SpotifyInteractor;
 import dhbk.android.spotifygcs.module.TopTrackModule;
 import dhbk.android.spotifygcs.ui.SearchArtist.SearchResultsFragment;
 import dhbk.android.spotifygcs.ui.recyclerview.SlideInItemAnimator;
+import dhbk.android.spotifygcs.ui.recyclerview.StatefulRecyclerView;
 import dhbk.android.spotifygcs.ui.recyclerview.TrackItemListener;
 import dhbk.android.spotifygcs.ui.widget.ElasticDragDismissFrameLayout;
 import dhbk.android.spotifygcs.ui.widget.ParallaxScrimageView;
@@ -48,7 +48,7 @@ public class ShowTopTracksFragment extends BaseFragment implements
     @BindView(R.id.back)
     ImageButton mBack;
     @BindView(R.id.recyclerview_show_top_track)
-    RecyclerView mRecyclerviewShowTopTrack;
+    StatefulRecyclerView mRecyclerviewShowTopTrack;
     @BindView(R.id.draggable_frame)
     ElasticDragDismissFrameLayout mDraggableFrame;
     @Inject
@@ -94,6 +94,7 @@ public class ShowTopTracksFragment extends BaseFragment implements
         showTopTracksFragment.setArguments(args);
         return showTopTracksFragment;
     }
+
 
     @Override
     protected void doThingWhenResumeApp() {

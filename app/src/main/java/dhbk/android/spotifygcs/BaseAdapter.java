@@ -60,7 +60,9 @@ public abstract class BaseAdapter<T, V extends RecyclerView.ViewHolder> extends 
 
     public void addAll(List<T> items) {
         itemList.addAll(items);
-        notifyDataSetChanged();
+        notifyItemRangeChanged(0, items.size());
+
+//        notifyDataSetChanged();
     }
 
     public void setOnClickListener(OnClickListener<T> onClickListener) {
