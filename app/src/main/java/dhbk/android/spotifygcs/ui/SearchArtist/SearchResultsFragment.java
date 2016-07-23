@@ -116,6 +116,7 @@ public class SearchResultsFragment extends BaseFragment implements
         return searchChildFragment;
     }
 
+
     @Override
     public int getLayout() {
         return R.layout.fragment_test_translucent;

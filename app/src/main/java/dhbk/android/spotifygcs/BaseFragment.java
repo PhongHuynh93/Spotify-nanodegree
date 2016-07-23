@@ -34,12 +34,12 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+        getPresenter().start();
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        getPresenter().start();
         doThingWhenResumeApp();
     }
 
