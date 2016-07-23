@@ -56,8 +56,7 @@
     <dimen name="margin_left_show_top_track_number">26dp</dimen>
     <dimen name="margin_left_show_top_track_name_song">47dp</dimen>
     <dimen name="margin_left_show_top_track_length_song">284dp</dimen>
-    <dimen name="shot_collapsed_app_bar_height">418dp</dimen>
-    <!--<dimen name="shot_collapsed_app_bar_height">168dp</dimen>-->
+    <dimen name="shot_collapsed_app_bar_height">168dp</dimen>
     <dimen name="z_fab_over_touchable_app_bar">9dp</dimen>
     <dimen name="divider_height">1px</dimen>
     <dimen name="touched_app_bar">8dp</dimen>
