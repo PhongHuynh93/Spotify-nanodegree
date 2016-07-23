@@ -3,7 +3,7 @@ package dhbk.android.spotifygcs.io.callback;
 import java.util.ArrayList;
 
 import dhbk.android.spotifygcs.domain.Artist;
-import dhbk.android.spotifygcs.ui.SearchArtist.SearchResultsPresenter;
+import dhbk.android.spotifygcs.ui.searchArtist.SearchResultsPresenter;
 
 /**
  * Created by phongdth.ky on 7/15/2016.

@@ -1,4 +1,4 @@
-package dhbk.android.spotifygcs.ui.SearchArtist;
+package dhbk.android.spotifygcs.ui.searchArtist;
 
 import android.support.annotation.NonNull;
 
