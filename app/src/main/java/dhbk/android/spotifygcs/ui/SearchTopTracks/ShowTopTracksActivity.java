@@ -8,6 +8,11 @@ import dhbk.android.spotifygcs.R;
 import dhbk.android.spotifygcs.util.ActivityUtils;
 import dhbk.android.spotifygcs.util.Constant;
 
+/**
+ * simply control between views(fragment) and presenter
+ * when user click a artist, this activity'll show up
+ * this activity will tell the top tracks of a artist which user has clicked
+ */
 public class ShowTopTracksActivity extends BaseActivity {
     private ShowTopTracksPresenter mShowTopTracksPresenter;
     private ShowTopTracksFragment mShowTopTrackView;

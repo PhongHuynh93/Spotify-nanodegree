@@ -18,9 +18,8 @@ import dhbk.android.spotifygcs.ui.showYourReposition.SearchArtistActiviy;
 import dhbk.android.spotifygcs.util.HelpUtil;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-/*
-a beginner activity: which show a brand image (headphone icon) + text + button with animation
-because it's a simple layout with no background tasks, so no fragment here
+/**
+ * this activity coontains a login screen, so user can log in by their spotify account
  */
 public class SplashActivity extends AppCompatActivity {
     @BindView(R.id.imageview_splash_headphone)

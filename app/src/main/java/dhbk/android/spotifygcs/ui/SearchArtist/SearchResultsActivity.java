@@ -10,6 +10,10 @@ import dhbk.android.spotifygcs.R;
 import dhbk.android.spotifygcs.util.ActivityUtils;
 import dhbk.android.spotifygcs.util.Constant;
 
+/**
+ * simply control between views(fragment) and presenter
+ * search for artists that the user has searched.
+ */
 public class SearchResultsActivity extends BaseActivity {
     public static final String EXTRA_MENU_LEFT = "EXTRA_MENU_LEFT";
     public static final String EXTRA_MENU_CENTER_X = "EXTRA_MENU_CENTER_X";
