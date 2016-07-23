@@ -2,20 +2,20 @@ package dhbk.android.spotifygcs.domain;
 
 import com.google.gson.annotations.SerializedName;
 
-import dhbk.android.spotifygcs.util.Constant;
-
 /**
  * Created by phongdth.ky on 7/15/2016.
- * a model for images of an artist
+ * a child model for images of an {@link Artist}
+ * * See for more field from JSON:
+ * @see <a href="https://api.spotify.com/v1/search?q=hari&type=artist">https://api.spotify.com</a>
  */
-public class SpotifyImage {
-    @SerializedName(Constant.WIDTH)
+public class ArtistImage {
+    @SerializedName(SpotifyConstant.WIDTH)
     int width;
 
-    @SerializedName(Constant.HEIGHT)
+    @SerializedName(SpotifyConstant.HEIGHT)
     int height;
 
-    @SerializedName(Constant.URL)
+    @SerializedName(SpotifyConstant.URL)
     String url;
 
     public int getWidth() {
