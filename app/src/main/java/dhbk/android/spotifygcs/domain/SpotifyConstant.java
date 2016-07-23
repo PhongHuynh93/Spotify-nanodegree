@@ -6,7 +6,7 @@ package dhbk.android.spotifygcs.domain;
  * @ see <a href="https://developer.spotify.com/web-api/artist-endpoints/">Web API Artist Endpoints</a>
  */
 // use default modifier because I dont want other class in another package use this.
-class SpotifyConstant {
+public class SpotifyConstant {
     /**
      * See for more field from artist search JSON:
      *

@@ -46,7 +46,6 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import dhbk.android.spotifygcs.BaseFragment;
 import dhbk.android.spotifygcs.BasePresenter;
-import dhbk.android.spotifygcs.MVPApp;
 import dhbk.android.spotifygcs.R;
 import dhbk.android.spotifygcs.component.SpotifyStreamerComponent;
 import dhbk.android.spotifygcs.domain.Artist;
@@ -66,12 +65,16 @@ import static com.google.common.base.Preconditions.checkNotNull;
 public class SearchResultsFragment extends BaseFragment implements
         SearchResultsContract.View,
         ArtistItemListener {
-    public static final String EXTRA_MENU_LEFT = "EXTRA_MENU_LEFT";
-    public static final String EXTRA_MENU_CENTER_X = "EXTRA_MENU_CENTER_X";
     private static final String ARG_SEARCH_BACK_DISTANCE_X = "searchBackDistanceX";
     private static final String ARG_SEARCH_ICON_CENTER_X = "searchIconCenterX";
     private static final int REQUEST_CODE_VIEW_SHOT = 5407;
     public static Drawable sDrawable;
+
+    @Inject
+    SearchResultsAdapter mSearchResultsAdapter;
+    @Inject
+    SpotifyInteractor mSpotifyInteractor;
+
     @BindView(R.id.searchback)
     ImageButton searchBack;
     @BindView(R.id.searchback_container)
@@ -94,14 +97,8 @@ public class SearchResultsFragment extends BaseFragment implements
     RecyclerView results;
     @BindInt(R.integer.num_col)
     int NUMBER_OF_COLUMN_LIST;
-    @Inject
-    SearchResultsAdapter mSearchResultsAdapter;
-    @Inject
-    SpotifyInteractor mSpotifyInteractor;
     @BindView(R.id.results_scrim)
-
     View resultsScrim;
-    private boolean dismissing = false;
     private int searchBackDistanceX;
     private int searchIconCenterX;
     private SearchResultsContract.Presenter mPresenter;
@@ -128,11 +125,8 @@ public class SearchResultsFragment extends BaseFragment implements
     }
 
     @Override
-    public void setUpComponent(SpotifyStreamerComponent appComponent) {
-        MVPApp.getApp(getContext())
-                .getSpotifyStreamerComponent()
-                .artistSearchComponent(new ArtistSearchModule(this))
-                .inject(this);
+    public void setUpComponent(SpotifyStreamerComponent spotifyStreamerComponent) {
+        spotifyStreamerComponent.artistSearchComponent(new ArtistSearchModule(this)).inject(this);
     }
 
     @Override

@@ -5,8 +5,8 @@ import android.content.Context;
 import dagger.Module;
 import dagger.Provides;
 import dhbk.android.spotifygcs.ActivityScope;
-import dhbk.android.spotifygcs.ui.SearchArtist.SearchResultsContract;
 import dhbk.android.spotifygcs.ui.SearchArtist.SearchResultsAdapter;
+import dhbk.android.spotifygcs.ui.SearchArtist.SearchResultsContract;
 
 /**
  * Created by huynhducthanhphong on 7/16/16.
@@ -17,6 +17,9 @@ public class ArtistSearchModule {
 
     private SearchResultsContract.View view;
 
+    /**
+     * @param view {@link dhbk.android.spotifygcs.ui.SearchArtist.SearchResultsFragment}
+     */
     public ArtistSearchModule(SearchResultsContract.View view) {
         this.view = view;
     }

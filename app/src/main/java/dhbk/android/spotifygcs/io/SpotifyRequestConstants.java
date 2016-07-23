@@ -18,6 +18,8 @@ class SpotifyRequestConstants {
     private static final String ARTIST = "artist";
     //  example curl -X GET "https://api.spotify.com/v1/search?q=tania%20bowra&type=artist"
     public static final String ARTIST_SEARCH_URL = VERSION_PATH + SEARCH_PATH + "?"+ TYPE_QUERY + "=" + ARTIST;
+
+
     //    search top tracks
     private static final String SEARCH_TOP_TRACK_PATH = "/artists";
     private static final String TOP_TRACK = "/top-tracks";

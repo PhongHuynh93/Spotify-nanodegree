@@ -11,6 +11,11 @@ import dhbk.android.spotifygcs.io.SpotifyApiService;
  */
 @Module
 public class InteractorModule {
+
+    /**
+     * @param apiService from {@link SpotifyStreamerModule}
+     * @return
+     */
     @Provides
     public SpotifyInteractor provideArtistSearchInteractor(SpotifyApiService apiService) {
         return new SpotifyInteractor(apiService);

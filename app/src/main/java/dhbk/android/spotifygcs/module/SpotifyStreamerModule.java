@@ -26,13 +26,6 @@ public class SpotifyStreamerModule {
         this.app = app;
     }
 
-//    // return application context
-//    @Provides
-//    @Singleton
-//    public Application provideApplication() {
-//        return app;
-//    }
-
     @Provides
     @Singleton
     public Context provideContext() {

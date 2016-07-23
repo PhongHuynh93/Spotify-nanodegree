@@ -5,6 +5,7 @@ import android.content.Intent;
 
 import dhbk.android.spotifygcs.BaseActivity;
 import dhbk.android.spotifygcs.R;
+import dhbk.android.spotifygcs.domain.SpotifyConstant;
 import dhbk.android.spotifygcs.util.ActivityUtils;
 import dhbk.android.spotifygcs.util.Constant;
 
@@ -18,8 +19,8 @@ public class ShowTopTracksActivity extends BaseActivity {
 
     public static Intent createStartIntent(Context context, String artistId, String artistName) {
         Intent starter = new Intent(context, ShowTopTracksActivity.class);
-        starter.putExtra(Constant.ID_ARTIST, artistId);
-        starter.putExtra(Constant.NAME_ARTIST, artistName);
+        starter.putExtra(SpotifyConstant.ID_ARTIST, artistId);
+        starter.putExtra(SpotifyConstant.NAME_ARTIST, artistName);
         return starter;
     }
 
@@ -47,8 +48,8 @@ public class ShowTopTracksActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        final String artistId = getIntent().getStringExtra(Constant.ID_ARTIST);
-        final String nameArtist = getIntent().getStringExtra(Constant.NAME_ARTIST);
+        final String artistId = getIntent().getStringExtra(SpotifyConstant.ID_ARTIST);
+        final String nameArtist = getIntent().getStringExtra(SpotifyConstant.NAME_ARTIST);
 
         // create view
         mShowTopTrackView =
