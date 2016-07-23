@@ -8,9 +8,7 @@ import dhbk.android.spotifygcs.util.HelpUtil;
 
 /**
  * Created by phongdth.ky on 7/20/2016.
- * See API Endpoint Reference Artists:
- * @ see <a href="https://developer.spotify.com/web-api/get-artists-top-tracks/">Get an Artist’s Top Tracks</a>
- * @ see <a href="https://api.spotify.com/v1/artists/43ZHCT0cAZBISjO8DG9PnE/top-tracks?country=SE">See field in JSON</a>
+ * see field here {@link SpotifyConstant}
  */
 public class TopTrack {
     @SerializedName(SpotifyConstant.NAME_OF_TRACKS)

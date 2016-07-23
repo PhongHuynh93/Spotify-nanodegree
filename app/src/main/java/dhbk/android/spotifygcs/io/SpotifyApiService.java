@@ -12,13 +12,12 @@ import rx.Observable;
  * All methods that will make a request to Spotify API
  */
 public interface SpotifyApiService {
-    // get the artists from api depend on link:  https://developer.spotify.com/web-api/endpoint-reference/
-    // require query is the keyword for searching
-    @GET(SpotifyApiConstants.ARTIST_SEARCH_URL)
-    Observable<ArtistSearchResponse> searchArtist(@Query(SpotifyApiConstants.QUERY_TO_SEARCH) String query);
+    //    get artist depend on keyword
+    @GET(SpotifyRequestConstants.ARTIST_SEARCH_URL)
+    Observable<ArtistSearchResponse> searchArtist(@Query(SpotifyRequestConstants.QUERY_TO_SEARCH) String query);
 
-    //    get a top track of an artist
-    @GET(SpotifyApiConstants.TOP_TRACK_SEARCH_URL)
-    Observable<TopTrackSearchResponse> searchTopTrack(@Path(SpotifyApiConstants.ID_ARTIST) String idArtist);
+    //    get a top track of an artist depend on artist ID.
+    @GET(SpotifyRequestConstants.TOP_TRACK_SEARCH_URL)
+    Observable<TopTrackSearchResponse> searchTopTrack(@Path(SpotifyRequestConstants.ID_ARTIST) String idArtist);
 
 }

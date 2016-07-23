@@ -7,10 +7,7 @@ import com.google.gson.annotations.SerializedName;
 /**
  * Created by phongdth.ky on 7/15/2016.
  * a model JSON for an artist
- * See API Endpoint Reference Artists:
- * @ see <a href="https://developer.spotify.com/web-api/artist-endpoints/">Web API Artist Endpoints</a>
- * See for more field from JSON:
- * @see <a href="https://api.spotify.com/v1/search?q=hari&type=artist">https://api.spotify.com</a>
+ * see field here {@link SpotifyConstant}
  * add another field here if you want to show more than image of artist
  */
 public class Artist {
