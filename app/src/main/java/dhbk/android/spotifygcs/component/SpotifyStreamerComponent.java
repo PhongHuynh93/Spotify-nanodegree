@@ -13,17 +13,15 @@ import dhbk.android.spotifygcs.module.TopTrackModule;
  */
 
 /**
- * This is a parent dependence: define method to connect to spotify api
+ * This is a parent dependence:
+ * contains module to
  * Module:
- * spotify: contains all retrofit instance and services need for connecting and downloading a list of artists
- * InteractorModule: contains method to for service to connect to network.
+ * {@link SpotifyStreamerModule}
+ * {@link InteractorModule}:
  */
 @Singleton
 @Component(modules = {SpotifyStreamerModule.class, InteractorModule.class})
 public interface SpotifyStreamerComponent {
-    //    void inject(SearchChildFragment searchFragment);
-    // method that child component can use
-//    Context getContext();
     ArtistSearchComponent artistSearchComponent(ArtistSearchModule artistSearchModule);
     TopTrackComponent topTrackComponent(TopTrackModule topTrackModule);
 }

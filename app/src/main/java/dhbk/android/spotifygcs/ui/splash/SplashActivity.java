@@ -2,10 +2,7 @@ package dhbk.android.spotifygcs.ui.splash;
 
 import android.animation.Animator;
 import android.animation.AnimatorInflater;
-import android.animation.ObjectAnimator;
 import android.content.Context;
-import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -17,13 +14,12 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import dhbk.android.spotifygcs.R;
-import dhbk.android.spotifygcs.ui.searchArtist.SearchArtistActiviy;
+import dhbk.android.spotifygcs.ui.showYourReposition.SearchArtistActiviy;
 import dhbk.android.spotifygcs.util.HelpUtil;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-/*
-a beginner activity: which show a headphone icon + text + button with animation
-because it's a simple layout with no background tasks, so no fragment here
+/**
+ * this activity coontains a login screen, so user can log in by their spotify account
  */
 public class SplashActivity extends AppCompatActivity {
     @BindView(R.id.imageview_splash_headphone)
@@ -35,27 +31,16 @@ public class SplashActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setTheme(R.style.AppThemeNoActionBar); // set theme default
-        if (Build.VERSION.SDK_INT >= 16) {
-            getWindow().getDecorView().setSystemUiVisibility(
-                    View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
-        }
-
+        // because before nav to this activity, the app load theme for brand
+        // so after loading brand done, nav to Splash Theme
+        setTheme(R.style.AppThemeNoActionBarSplash);
+        // make this activity go full screen - hide navigation bottom bar and status bar
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         ButterKnife.bind(this);
         initView();
-    }
-
-
-    // animation when layout load successful
-    @Override
-    public void onWindowFocusChanged(boolean hasFocus) {
-        if (!hasFocus) {
-            return;
-        }
         animate();
-        super.onWindowFocusChanged(hasFocus);
     }
 
     // use this method for an activity to change font of text
@@ -67,7 +52,7 @@ public class SplashActivity extends AppCompatActivity {
     // anim view on the screen, amin with different start delay
     private void animate() {
         // anim image - move upward
-        ObjectAnimator setImage = (ObjectAnimator) AnimatorInflater.loadAnimator(this, R.animator.main_move_translation_y_headphone);
+        Animator setImage = AnimatorInflater.loadAnimator(this, R.animator.main_move_translation_y_headphone);
         setImage.setTarget(mImageviewSplashHeadphone);
         setImage.start();
 
@@ -82,16 +67,13 @@ public class SplashActivity extends AppCompatActivity {
         setButton.start();
     }
 
-    // load view
     private void initView() {
-        // load text to textview
         mTextviewSplashLogan.setText(HelpUtil.getSpannedText(this, R.string.splash_text));
     }
 
     // when click button, go to search artist activity.
     @OnClick(R.id.button_splash_go_to_search_activity)
     public void onClick() {
-        Intent gotoSearchArtistAcIntent = new Intent(this, SearchArtistActiviy.class);
-        startActivity(gotoSearchArtistAcIntent);
+        startActivity(SearchArtistActiviy.createStartIntent(this));
     }
 }

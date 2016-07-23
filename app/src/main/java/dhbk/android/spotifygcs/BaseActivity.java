@@ -40,12 +40,6 @@ public abstract class BaseActivity extends AppCompatActivity{
         }
     }
 
-    @Override
-    public void onBackPressed() {
-        doWhenPressBackButton();
-    }
-
-    protected abstract void doWhenPressBackButton();
 
     // if a activity want to use the custome font, return true
     protected abstract boolean hasUseCustomeFont();

@@ -1,6 +1,5 @@
 package dhbk.android.spotifygcs.ui.recyclerview;
 
-import android.view.MotionEvent;
 import android.view.View;
 
 import dhbk.android.spotifygcs.domain.Artist;
@@ -11,5 +10,4 @@ import dhbk.android.spotifygcs.domain.Artist;
  */
 public interface ArtistItemListener {
     void onArtistClick(Artist clickedTask, View v);
-    boolean onArtistTouch(View view, MotionEvent motionEvent);
 }

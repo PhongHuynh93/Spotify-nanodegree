@@ -8,6 +8,7 @@
         android:interpolator="@android:anim/decelerate_interpolator"
         android:startOffset="@integer/main_anim_delay_text"
         android:valueTo="@dimen/margin_bottom_splash_translation_y_headphone"/>
+    <!--alpha to make this text appear-->
     <objectAnimator
         android:propertyName="alpha"
         android:duration="@integer/main_anim_move_y_duration"

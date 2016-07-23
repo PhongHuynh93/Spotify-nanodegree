@@ -1,17 +1,16 @@
-package dhbk.android.spotifygcs.ui.showTopTracksArtist;
+package dhbk.android.spotifygcs.ui.SearchTopTracks;
 
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.transition.Transition;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageButton;
 
 import java.util.ArrayList;
@@ -19,18 +18,16 @@ import java.util.ArrayList;
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import dhbk.android.spotifygcs.BaseFragment;
 import dhbk.android.spotifygcs.BasePresenter;
-import dhbk.android.spotifygcs.MVPApp;
 import dhbk.android.spotifygcs.R;
 import dhbk.android.spotifygcs.component.SpotifyStreamerComponent;
 import dhbk.android.spotifygcs.domain.TopTrack;
-import dhbk.android.spotifygcs.interactor.ArtistSearchInteractor;
+import dhbk.android.spotifygcs.interactor.SpotifyInteractor;
 import dhbk.android.spotifygcs.module.TopTrackModule;
+import dhbk.android.spotifygcs.ui.SearchArtist.SearchResultsFragment;
 import dhbk.android.spotifygcs.ui.recyclerview.SlideInItemAnimator;
 import dhbk.android.spotifygcs.ui.recyclerview.TrackItemListener;
-import dhbk.android.spotifygcs.ui.searchArtist.childSearchArtist.SearchResultsFragment;
 import dhbk.android.spotifygcs.ui.widget.ElasticDragDismissFrameLayout;
 import dhbk.android.spotifygcs.ui.widget.ParallaxScrimageView;
 import dhbk.android.spotifygcs.util.AnimUtils;
@@ -42,7 +39,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
  */
 public class ShowTopTracksFragment extends BaseFragment implements
         ShowTopTracksContract.View,
-        TrackItemListener{
+        TrackItemListener {
     private static final String ARG_ARTIST_ID = "artist_id";
     private static final String ARG_ARTIST_NAME = "artist_name";
 
@@ -54,22 +51,41 @@ public class ShowTopTracksFragment extends BaseFragment implements
     RecyclerView mRecyclerviewShowTopTrack;
     @BindView(R.id.draggable_frame)
     ElasticDragDismissFrameLayout mDraggableFrame;
-
-    private String mArtistId;
-    private String mArtistName;
-
-    private ShowTopTracksContract.Presenter mPresenter;
-
     @Inject
-    ArtistSearchInteractor mArtistSearchInteractor;
-
+    SpotifyInteractor mSpotifyInteractor;
     @Inject
     TopTrackAdapter mTopTrackAdapter;
+    @BindView(R.id.fab_heart)
+    FloatingActionButton mFabHeart;
+    private String mArtistId;
+    private String mArtistName;
+    private ShowTopTracksContract.Presenter mPresenter;
     private ElasticDragDismissFrameLayout.SystemChromeFader chromeFader;
+
+    private Transition.TransitionListener shotReturnHomeListener =
+            new AnimUtils.TransitionListenerAdapter() {
+                @Override
+                public void onTransitionStart(Transition transition) {
+                    super.onTransitionStart(transition);
+                    mFabHeart.setVisibility(View.INVISIBLE);
+                    // fade out the "toolbar" & list as we don't want them to be visible during return
+                    mBack.animate()
+                            .alpha(0f)
+                            .setDuration(100)
+                            .setInterpolator(AnimUtils.getLinearOutSlowInInterpolator(getContext()));
+                    mImageviewShowArtist.setElevation(1f);
+                    mBack.setElevation(0f);
+                    mRecyclerviewShowTopTrack.animate()
+                            .alpha(0f)
+                            .setDuration(50)
+                            .setInterpolator(AnimUtils.getLinearOutSlowInInterpolator(getContext()));
+                }
+            };
 
     public ShowTopTracksFragment() {
     }
 
+    //    id used to construct top track api
     public static ShowTopTracksFragment newInstance(String artistId, String artistName) {
         ShowTopTracksFragment showTopTracksFragment = new ShowTopTracksFragment();
         Bundle args = new Bundle();
@@ -77,13 +93,6 @@ public class ShowTopTracksFragment extends BaseFragment implements
         args.putString(ARG_ARTIST_NAME, artistName);
         showTopTracksFragment.setArguments(args);
         return showTopTracksFragment;
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        ButterKnife.bind(this, rootView);
-        return rootView;
     }
 
     @Override
@@ -108,11 +117,7 @@ public class ShowTopTracksFragment extends BaseFragment implements
 
     @Override
     public void setUpComponent(SpotifyStreamerComponent appComponent) {
-        // inject component (contain adapter) for this view
-        MVPApp.getApp(getContext())
-                .getSpotifyStreamerComponent()
-                .topTrackComponent(new TopTrackModule(this))
-                .inject(this);
+        appComponent.topTrackComponent(new TopTrackModule(this)).inject(this);
     }
 
     @Override
@@ -121,8 +126,13 @@ public class ShowTopTracksFragment extends BaseFragment implements
     }
 
     @Override
+    public void setPresenter(ShowTopTracksContract.Presenter presenter) {
+        mPresenter = presenter;
+    }
+
+    @Override
     protected boolean hasToolbar() {
-        return true;
+        return false;
     }
 
     @Override
@@ -149,39 +159,9 @@ public class ShowTopTracksFragment extends BaseFragment implements
         };
     }
 
-
-    private Transition.TransitionListener shotReturnHomeListener =
-            new AnimUtils.TransitionListenerAdapter() {
-                @Override
-                public void onTransitionStart(Transition transition) {
-                    super.onTransitionStart(transition);
-//                    // hide the fab as for some reason it jumps position??  TODO work out why
-//                    fab.setVisibility(View.INVISIBLE);
-                    // fade out the "toolbar" & list as we don't want them to be visible during return
-                    // animation
-                    mBack.animate()
-                            .alpha(0f)
-                            .setDuration(100)
-                            .setInterpolator(AnimUtils.getLinearOutSlowInInterpolator(getContext()));
-                    mImageviewShowArtist.setElevation(1f);
-                    mBack.setElevation(0f);
-                    mRecyclerviewShowTopTrack.animate()
-                            .alpha(0f)
-                            .setDuration(50)
-                            .setInterpolator(AnimUtils.getLinearOutSlowInInterpolator(getContext()));
-                }
-            };
-
-
-    @Override
-    public void setPresenter(ShowTopTracksContract.Presenter presenter) {
-        mPresenter = presenter;
-    }
-
-    @Override
-    public ArtistSearchInteractor getArtistSearchInteractor() {
-        checkNotNull(mArtistSearchInteractor, "ArtistSearchInteractor cannot be null");
-        return mArtistSearchInteractor;
+    public SpotifyInteractor getSpotifyInteractor() {
+        checkNotNull(mSpotifyInteractor, "SpotifyInteractor cannot be null");
+        return mSpotifyInteractor;
     }
 
     @Override
@@ -211,10 +191,6 @@ public class ShowTopTracksFragment extends BaseFragment implements
     // show anim before close view
     @Override
     public void expandImageAndFinish() {
-//        return OK status to calling view
-//        final Intent resultData = new Intent();
-//        resultData.putExtra(RESULT_EXTRA_SHOT_ID, shot.id);
-//        setResult(RESULT_OK, resultData);
         if (mImageviewShowArtist.getOffset() != 0f) {
             Animator expandImage = ObjectAnimator.ofFloat(mImageviewShowArtist, ParallaxScrimageView.OFFSET,
                     0f);
@@ -233,7 +209,6 @@ public class ShowTopTracksFragment extends BaseFragment implements
     }
 
 
-    // TODO: 7/20/16 implement this
     private void setClickListener() {
         mTopTrackAdapter.setClickListenerInterface(this);
     }
@@ -259,5 +234,7 @@ public class ShowTopTracksFragment extends BaseFragment implements
 //            Log.d(SpotifyPlayerFragment.class.getSimpleName(), "" + isServiceBounded);
 //            getActivity().getApplicationContext().bindService(spotifyServiceIntent, serviceConnection, Context.BIND_AUTO_CREATE);
 //        }
+
+
     }
 }

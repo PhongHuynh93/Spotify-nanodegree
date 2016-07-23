@@ -5,8 +5,8 @@ import android.content.Context;
 import dagger.Module;
 import dagger.Provides;
 import dhbk.android.spotifygcs.ActivityScope;
-import dhbk.android.spotifygcs.ui.searchArtist.childSearchArtist.SearchChildContract;
-import dhbk.android.spotifygcs.ui.searchArtist.childSearchArtist.SearchResultsAdapter;
+import dhbk.android.spotifygcs.ui.SearchArtist.SearchResultsAdapter;
+import dhbk.android.spotifygcs.ui.SearchArtist.SearchResultsContract;
 
 /**
  * Created by huynhducthanhphong on 7/16/16.
@@ -15,16 +15,19 @@ import dhbk.android.spotifygcs.ui.searchArtist.childSearchArtist.SearchResultsAd
 @Module
 public class ArtistSearchModule {
 
-    private SearchChildContract.View view;
+    private SearchResultsContract.View view;
 
-    public ArtistSearchModule(SearchChildContract.View view) {
+    /**
+     * @param view {@link dhbk.android.spotifygcs.ui.SearchArtist.SearchResultsFragment}
+     */
+    public ArtistSearchModule(SearchResultsContract.View view) {
         this.view = view;
     }
 
     // return this view which inject this module
     @Provides
     @ActivityScope
-    public SearchChildContract.View provideView() {
+    public SearchResultsContract.View provideView() {
         return view;
     }
 

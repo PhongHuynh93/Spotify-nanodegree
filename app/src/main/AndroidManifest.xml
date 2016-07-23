@@ -19,29 +19,30 @@
             android:theme="@style/AppThemeNoActionBar.CenterAnimation">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
-
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
+
         <activity
-            android:name=".ui.searchArtist.SearchArtistActiviy"
+            android:name=".ui.showYourReposition.SearchArtistActiviy"
             android:label="@string/title_activity_search_artist_activiy"
             android:theme="@style/AppThemeNoActionBar">
         </activity>
 
         <!-- not make another activity when this activity is in the top -->
         <activity
-            android:name=".ui.searchArtist.childSearchArtist.SearchResultsActivity"
+            android:name=".ui.SearchArtist.SearchResultsActivity"
             android:launchMode="singleTop"
             android:theme="@style/AppThemeNoActionBar.Translucent.Search">
         </activity>
         <activity
-            android:name=".ui.showTopTracksArtist.ShowTopTracksActivity"
+            android:name=".ui.SearchTopTracks.ShowTopTracksActivity"
             android:theme="@style/AppThemeNoActionBar.Translucent.TopTrack">
         </activity>
 
         <service
-            android:name=".ui.showTopTracksArtist.SpotifyPlayerService"
+            android:name=".ui.SearchTopTracks.SpotifyPlayerService"
             android:enabled="true"
             android:exported="true">
         </service>

@@ -1,11 +1,11 @@
-package dhbk.android.spotifygcs.ui.searchArtist.childSearchArtist;
+package dhbk.android.spotifygcs.ui.SearchArtist;
 
 import android.support.annotation.NonNull;
 
 import java.util.ArrayList;
 
 import dhbk.android.spotifygcs.domain.Artist;
-import dhbk.android.spotifygcs.interactor.ArtistSearchInteractor;
+import dhbk.android.spotifygcs.interactor.SpotifyInteractor;
 import dhbk.android.spotifygcs.io.callback.ArtistSearchServerCallback;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -13,12 +13,12 @@ import static com.google.common.base.Preconditions.checkNotNull;
 /**
  * Created by phongdth.ky on 7/15/2016.
  */
-public class SearchChildPresenter implements SearchChildContract.Presenter, ArtistSearchServerCallback {
+public class SearchResultsPresenter implements SearchResultsContract.Presenter, ArtistSearchServerCallback {
 
-    private final SearchChildContract.View mSearchChildView;
-    private ArtistSearchInteractor mArtistSearchInteractor;
+    private final SearchResultsContract.View mSearchChildView;
+    private SpotifyInteractor mSpotifyInteractor;
 
-    public SearchChildPresenter(@NonNull SearchChildContract.View searchChildView) {
+    public SearchResultsPresenter(@NonNull SearchResultsContract.View searchChildView) {
         mSearchChildView = checkNotNull(searchChildView, "tasksView cannot be null!");
         mSearchChildView.setPresenter(this);
     }
@@ -26,8 +26,8 @@ public class SearchChildPresenter implements SearchChildContract.Presenter, Arti
     // start views, so we can do anything to load the content in this method
     @Override
     public void start() {
-        // get the ArtistSearchInteractor for connect to the internet
-        mArtistSearchInteractor = mSearchChildView.getArtistSearchInteractor();
+        // get the SpotifyInteractor for connect to the internet
+        mSpotifyInteractor = mSearchChildView.getSpotifyInteractor();
         // start search bar anim in view and setup searchbar
         setupSearchBar();
         // setup recyclerview and setup adapter
@@ -57,14 +57,7 @@ public class SearchChildPresenter implements SearchChildContract.Presenter, Arti
     // search artist with string para
     @Override
     public void searchArtists(String query) {
-        mArtistSearchInteractor.performSearch(query, this);
-    }
-
-    // do other things to views before showing the data to views.
-    // like show the list, dismiss the progress
-    @Override
-    public void doOtherThingToShowResults() {
-        mSearchChildView.showtoRcv();
+        mSpotifyInteractor.performArtistsSearch(query, this);
     }
 
     // if we dont have data to show, info the user

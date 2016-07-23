@@ -24,6 +24,17 @@ public abstract class BaseService extends Service{
         return START_STICKY;
     }
 
+    @Override
+    public void onDestroy() {
+        doThingBeforeDestroyService();
+        super.onDestroy();
+    }
+
+    // before destroy service, release resource
+    protected abstract void doThingBeforeDestroyService();
+
+    // get binder
     public abstract IBinder getBinder();
+    // get the data from intent
     public abstract void initService(Intent intent);
 }

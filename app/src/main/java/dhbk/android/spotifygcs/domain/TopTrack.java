@@ -4,26 +4,26 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 
-import dhbk.android.spotifygcs.util.Constant;
 import dhbk.android.spotifygcs.util.HelpUtil;
 
 /**
  * Created by phongdth.ky on 7/20/2016.
+ * see field here {@link SpotifyConstant}
  */
 public class TopTrack {
-    @SerializedName(Constant.NAME_OF_TRACKS)
+    @SerializedName(SpotifyConstant.NAME_OF_TRACKS)
     String mNameOfTrack;
 
     // is milisecond
-    @SerializedName(Constant.DURATION_OF_TRACKS)
+    @SerializedName(SpotifyConstant.DURATION_OF_TRACKS)
     int mDurationOfTrack;
 
     // the url that play track for 30s
-    @SerializedName(Constant.TRACK_REVIEW_URL)
+    @SerializedName(SpotifyConstant.TRACK_REVIEW_URL)
     String trackUrl;
 
     // a array of artists which sings this track
-    @SerializedName(Constant.ARTISTS_OF_TRACKS)
+    @SerializedName(SpotifyConstant.ARTISTS_OF_TRACKS)
     ArrayList<Artist> mArtistsOfTrack;
 
     public String getNameOfTrack() {
@@ -35,16 +35,16 @@ public class TopTrack {
         return HelpUtil.transformMilisecond(mDurationOfTrack);
     }
 
+    // change from array list to string
     public String getArtistsOfTrack() {
-
         String allArtistsInTrack = "";
         for (Artist artist : mArtistsOfTrack) {
             allArtistsInTrack += artist.getNameArtist();
         }
-
         return allArtistsInTrack;
     }
 
+    // need url of track for listening from it.
     public String getTrackUrl() {
         return trackUrl;
     }

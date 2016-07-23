@@ -1,6 +1,6 @@
 <resources>
     <!--name synctax: where_description-->
-    <string name="app_name">SpotifyGCS</string>
+    <string name="app_name">Spotify</string>
     <string name="action_settings">Settings</string>
 
     <!--icon-->

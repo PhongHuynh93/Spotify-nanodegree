@@ -1,4 +1,4 @@
-package dhbk.android.spotifygcs.ui.searchArtist.childSearchArtist;
+package dhbk.android.spotifygcs.ui.SearchArtist;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -45,9 +45,7 @@ public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdap
             holder.setPlaceholderImage();
         }
 
-//        holder.mTextViewNameArtist.setText(currentArtist.getNameArtist());
         holder.containerView.setOnClickListener(v -> mClickListener.onArtistClick(currentArtist, holder.mImageviewItemSearchArtist));
-        holder.containerView.setOnTouchListener((view, motionEvent) -> mClickListener.onArtistTouch(holder.mImageviewItemSearchArtist, motionEvent));
     }
 
     @Override

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="dhbk.android.spotifygcs.ui.showTopTracksArtist.ShowTopTracksActivity">
+    tools:context="dhbk.android.spotifygcs.ui.SearchTopTracks.ShowTopTracksActivity">
 
     <!--image is all space remain-->
     <ImageView

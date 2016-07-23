@@ -3,7 +3,7 @@ package dhbk.android.spotifygcs.component;
 import dagger.Subcomponent;
 import dhbk.android.spotifygcs.ActivityScope;
 import dhbk.android.spotifygcs.module.TopTrackModule;
-import dhbk.android.spotifygcs.ui.showTopTracksArtist.ShowTopTracksFragment;
+import dhbk.android.spotifygcs.ui.SearchTopTracks.ShowTopTracksFragment;
 
 /**
  * Created by huynhducthanhphong on 7/16/16.

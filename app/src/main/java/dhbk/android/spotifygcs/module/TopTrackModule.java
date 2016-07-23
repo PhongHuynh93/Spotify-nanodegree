@@ -5,8 +5,8 @@ import android.content.Context;
 import dagger.Module;
 import dagger.Provides;
 import dhbk.android.spotifygcs.ActivityScope;
-import dhbk.android.spotifygcs.ui.showTopTracksArtist.ShowTopTracksContract;
-import dhbk.android.spotifygcs.ui.showTopTracksArtist.TopTrackAdapter;
+import dhbk.android.spotifygcs.ui.SearchTopTracks.ShowTopTracksContract;
+import dhbk.android.spotifygcs.ui.SearchTopTracks.TopTrackAdapter;
 
 /**
  * Created by huynhducthanhphong on 7/16/16.

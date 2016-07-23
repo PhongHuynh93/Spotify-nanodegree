@@ -2,17 +2,22 @@ package dhbk.android.spotifygcs.module;
 
 import dagger.Module;
 import dagger.Provides;
-import dhbk.android.spotifygcs.interactor.ArtistSearchInteractor;
+import dhbk.android.spotifygcs.interactor.SpotifyInteractor;
 import dhbk.android.spotifygcs.io.SpotifyApiService;
 
 /**
  * Created by phongdth.ky on 7/15/2016.
- * this module used to communicate the service with network.
+ * supply {@link SpotifyInteractor} for views to interact with api spotify server.
  */
 @Module
 public class InteractorModule {
+
+    /**
+     * @param apiService from {@link SpotifyStreamerModule}
+     * @return
+     */
     @Provides
-    public ArtistSearchInteractor provideArtistSearchInteractor(SpotifyApiService apiService){
-        return new ArtistSearchInteractor(apiService);
+    public SpotifyInteractor provideArtistSearchInteractor(SpotifyApiService apiService) {
+        return new SpotifyInteractor(apiService);
     }
 }

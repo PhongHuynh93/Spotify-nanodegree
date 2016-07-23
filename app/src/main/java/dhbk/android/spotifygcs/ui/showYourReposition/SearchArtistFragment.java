@@ -1,7 +1,8 @@
-package dhbk.android.spotifygcs.ui.searchArtist;
+package dhbk.android.spotifygcs.ui.showYourReposition;
 
 import android.app.ActivityOptions;
 import android.content.Intent;
+import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -13,7 +14,7 @@ import dhbk.android.spotifygcs.BaseFragment;
 import dhbk.android.spotifygcs.BasePresenter;
 import dhbk.android.spotifygcs.R;
 import dhbk.android.spotifygcs.component.SpotifyStreamerComponent;
-import dhbk.android.spotifygcs.ui.searchArtist.childSearchArtist.SearchResultsActivity;
+import dhbk.android.spotifygcs.ui.SearchArtist.SearchResultsActivity;
 import dhbk.android.spotifygcs.util.HelpUtil;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -26,6 +27,7 @@ public class SearchArtistFragment extends BaseFragment implements SearchArtistCo
 
     @BindView(R.id.textview_empty_search_artist_help_info)
     TextView mTextviewEmptySearchArtistHelpInfo;
+
     private SearchArtistContract.Presenter mPresenter;
 
     public SearchArtistFragment() {
@@ -33,6 +35,11 @@ public class SearchArtistFragment extends BaseFragment implements SearchArtistCo
 
     public static SearchArtistFragment newInstance() {
         return new SearchArtistFragment();
+    }
+
+    @Override
+    public int getLayout() {
+        return R.layout.fragment_search_artist_emtpy;
     }
 
     @Override
@@ -50,12 +57,6 @@ public class SearchArtistFragment extends BaseFragment implements SearchArtistCo
 
     }
 
-    @Override
-    public int getLayout() {
-        return R.layout.fragment_search_artist_emtpy;
-    }
-
-    // this view dont need components
     @Override
     public void setUpComponent(SpotifyStreamerComponent appComponent) {
     }
@@ -90,11 +91,15 @@ public class SearchArtistFragment extends BaseFragment implements SearchArtistCo
             case R.id.menu_about:
                 mPresenter.loadAboutSetting();
                 break;
+            case android.R.id.home:
+                NavUtils.navigateUpFromSameTask(getActivity());
+                break;
+            default:
+                break;
         }
         return true;
     }
 
-    // set presenter for this view
     @Override
     public void setPresenter(SearchArtistContract.Presenter presenter) {
         mPresenter = checkNotNull(presenter);
@@ -108,11 +113,7 @@ public class SearchArtistFragment extends BaseFragment implements SearchArtistCo
         int[] loc = new int[2];
         searchMenuView.getLocationOnScreen(loc);
 
-//        startActivityForResult(
-//                SearchChildActivity.createStartIntent(getContext(), loc[0], loc[0] + (searchMenuView.getWidth() / 2)),
-//                RC_SEARCH,
-//                ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
-
+        // not define  transition
         startActivityForResult(
                 SearchResultsActivity.createStartIntent(getContext(), loc[0], loc[0] + (searchMenuView.getWidth() / 2)),
                 RC_SEARCH,
@@ -132,6 +133,9 @@ public class SearchArtistFragment extends BaseFragment implements SearchArtistCo
                 if (searchMenuView != null) {
                     searchMenuView.setAlpha(1f);
                 }
+                break;
+            default:
+                break;
         }
     }
 }
