@@ -100,6 +100,7 @@ public class SearchResultsFragment extends BaseFragment implements
     private SearchResultsContract.Presenter mPresenter;
     private BaselineGridTextView noResults;
     private Transition auto;
+    private boolean dismissing = false;
 
     public SearchResultsFragment() {
         // Required empty public constructor
@@ -220,87 +221,95 @@ public class SearchResultsFragment extends BaseFragment implements
     @OnClick({R.id.scrim, R.id.searchback})
     @Override
     public void dismiss() {
+        // run this code only one time to remove activity, if run multiple time, app will crash due to getActivity() return null.
+        if (dismissing) return;
+        dismissing = true;
+
         // translate the icon to match position in the launching activity
         // move from right to left
-        searchBackContainer.animate()
-                .translationX(searchBackDistanceX)
-                .setDuration(600L)
-                .setInterpolator(AnimUtils.getFastOutSlowInInterpolator(getContext()))
-                .setListener(new AnimatorListenerAdapter() {
-                    @Override
-                    public void onAnimationEnd(Animator animation) {
-                        getActivity().finishAfterTransition();
-                    }
-                })
-                .start();
-
-        // transform from back icon to search icon
-        AnimatedVectorDrawable backToSearch = (AnimatedVectorDrawable) ContextCompat
-                .getDrawable(getContext(), R.drawable.avd_back_to_search);
-        searchBack.setImageDrawable(backToSearch);
-
-        // clear the background else the touch ripple moves with the translation which looks bad
-        searchBack.setBackground(null);
-        backToSearch.start();
-
-        // fade out the other search chrome
-        searchView.animate()
-                .alpha(0f)
-                .setStartDelay(0L)
-                .setDuration(120L)
-                .setInterpolator(AnimUtils.getFastOutLinearInInterpolator(getContext()))
-                .setListener(new AnimatorListenerAdapter() {
-                    @Override
-                    public void onAnimationEnd(Animator animation) {
-                        // prevent clicks while other anims are finishing
-                        searchView.setVisibility(View.INVISIBLE);
-                    }
-                })
-                .start();
-
-        searchBackground.animate()
-                .alpha(0f)
-                .setStartDelay(300L)
-                .setDuration(160L)
-                .setInterpolator(AnimUtils.getFastOutLinearInInterpolator(getContext()))
-                .setListener(null)
-                .start();
-
-        if (searchToolbar.getZ() != 0f) {
-            searchToolbar.animate()
-                    .z(0f)
+        new Handler(Looper.getMainLooper()).post(() -> {
+            searchBackContainer.animate()
+                    .translationX(searchBackDistanceX)
                     .setDuration(600L)
-                    .setInterpolator(AnimUtils.getFastOutLinearInInterpolator(getContext()))
+                    .setInterpolator(AnimUtils.getFastOutSlowInInterpolator(getContext()))
+                    .setListener(new AnimatorListenerAdapter() {
+                        @Override
+                        public void onAnimationEnd(Animator animation) {
+                            getActivity().finishAfterTransition();
+                        }
+                    })
                     .start();
-        }
 
-        // if we're showing search results, circular hide them
-        if (resultsContainer.getHeight() > 0) {
-            Animator closeResults = ViewAnimationUtils.createCircularReveal(
-                    resultsContainer,
-                    searchIconCenterX,
-                    0,
-                    (float) Math.hypot(searchIconCenterX, resultsContainer.getHeight()),
-                    0f);
-            closeResults.setDuration(500L);
-            closeResults.setInterpolator(AnimUtils.getFastOutSlowInInterpolator(getContext()));
-            closeResults.addListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    resultsContainer.setVisibility(View.INVISIBLE);
-                }
-            });
-            closeResults.start();
-        }
+            // transform from back icon to search icon
+            AnimatedVectorDrawable backToSearch = (AnimatedVectorDrawable) ContextCompat
+                    .getDrawable(getContext(), R.drawable.avd_back_to_search);
+            searchBack.setImageDrawable(backToSearch);
 
-        // fade out the scrim
-        scrim.animate()
-                .alpha(0f)
-                .setDuration(400L)
-                .setInterpolator(AnimUtils.getFastOutLinearInInterpolator(getContext()))
-                .setListener(null)
-                .start();
+            // clear the background else the touch ripple moves with the translation which looks bad
+            searchBack.setBackground(null);
+            backToSearch.start();
+
+            // fade out the other search chrome
+            searchView.animate()
+                    .alpha(0f)
+                    .setStartDelay(0L)
+                    .setDuration(120L)
+                    .setInterpolator(AnimUtils.getFastOutLinearInInterpolator(getContext()))
+                    .setListener(new AnimatorListenerAdapter() {
+                        @Override
+                        public void onAnimationEnd(Animator animation) {
+                            // prevent clicks while other anims are finishing
+                            searchView.setVisibility(View.INVISIBLE);
+                        }
+                    })
+                    .start();
+
+            searchBackground.animate()
+                    .alpha(0f)
+                    .setStartDelay(300L)
+                    .setDuration(160L)
+                    .setInterpolator(AnimUtils.getFastOutLinearInInterpolator(getContext()))
+                    .setListener(null)
+                    .start();
+
+            if (searchToolbar.getZ() != 0f) {
+                searchToolbar.animate()
+                        .z(0f)
+                        .setDuration(600L)
+                        .setInterpolator(AnimUtils.getFastOutLinearInInterpolator(getContext()))
+                        .start();
+            }
+
+            // if we're showing search results, circular hide them
+            if (resultsContainer.getHeight() > 0) {
+                Animator closeResults = ViewAnimationUtils.createCircularReveal(
+                        resultsContainer,
+                        searchIconCenterX,
+                        0,
+                        (float) Math.hypot(searchIconCenterX, resultsContainer.getHeight()),
+                        0f);
+                closeResults.setDuration(500L);
+                closeResults.setInterpolator(AnimUtils.getFastOutSlowInInterpolator(getContext()));
+                closeResults.addListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        resultsContainer.setVisibility(View.INVISIBLE);
+                    }
+                });
+                closeResults.start();
+            }
+
+            // fade out the scrim
+            scrim.animate()
+                    .alpha(0f)
+                    .setDuration(400L)
+                    .setInterpolator(AnimUtils.getFastOutLinearInInterpolator(getContext()))
+                    .setListener(null)
+                    .start();
+        });
+
     }
+
 
     @Override
     public void setupRecyclerView() {

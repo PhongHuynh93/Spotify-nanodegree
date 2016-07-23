@@ -5,7 +5,6 @@ import android.app.SearchManager;
 import android.app.SharedElementCallback;
 import android.content.Context;
 import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.util.Pair;
 import android.util.TypedValue;
 import android.view.View;
@@ -78,7 +77,7 @@ public class SearchResultsActivity extends BaseActivity {
         // You can invoke onNewIntent always by putting it into onCreate method like
         onNewIntent(getIntent());
 
-        setExitSharedElementCallback(createSharedElementReenterCallback(this));
+        setExitSharedElementCallback(createSharedElementReenterCallback());
     }
 
     // because this activity is single top
@@ -102,13 +101,10 @@ public class SearchResultsActivity extends BaseActivity {
     }
 
 
-    private SharedElementCallback createSharedElementReenterCallback(
-            @NonNull Context context) {
-        final String shotTransitionName = context.getString(R.string.transition_shot);
-        final String shotBackgroundTransitionName =
-                context.getString(R.string.transition_shot_background);
+    private SharedElementCallback createSharedElementReenterCallback() {
+        final String shotTransitionName = getString(R.string.transition_shot);
+        final String shotBackgroundTransitionName = getString(R.string.transition_shot_background);
         return new SharedElementCallback() {
-
             /**
              * We're performing a slightly unusual shared element transition i.e. from one view
              * (image in the grid) to two views (the image & also the background of the details
