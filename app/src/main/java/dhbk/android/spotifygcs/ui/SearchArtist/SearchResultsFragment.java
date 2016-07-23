@@ -4,7 +4,6 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
-import android.app.ActivityOptions;
 import android.app.SearchManager;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -25,7 +24,6 @@ import android.text.style.StyleSpan;
 import android.transition.Transition;
 import android.transition.TransitionInflater;
 import android.transition.TransitionManager;
-import android.util.Pair;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
@@ -51,7 +49,6 @@ import dhbk.android.spotifygcs.component.SpotifyStreamerComponent;
 import dhbk.android.spotifygcs.domain.Artist;
 import dhbk.android.spotifygcs.interactor.SpotifyInteractor;
 import dhbk.android.spotifygcs.module.ArtistSearchModule;
-import dhbk.android.spotifygcs.ui.SearchTopTracks.ShowTopTracksActivity;
 import dhbk.android.spotifygcs.ui.recyclerview.ArtistItemListener;
 import dhbk.android.spotifygcs.ui.recyclerview.SlideInItemAnimator;
 import dhbk.android.spotifygcs.ui.widget.BaselineGridTextView;
@@ -67,7 +64,6 @@ public class SearchResultsFragment extends BaseFragment implements
         ArtistItemListener {
     private static final String ARG_SEARCH_BACK_DISTANCE_X = "searchBackDistanceX";
     private static final String ARG_SEARCH_ICON_CENTER_X = "searchIconCenterX";
-    private static final int REQUEST_CODE_VIEW_SHOT = 5407;
     public static Drawable sDrawable;
 
     @Inject
@@ -471,15 +467,10 @@ public class SearchResultsFragment extends BaseFragment implements
     // go to another activity
     @Override
     public void onArtistClick(Artist artist, View image) {
-        // anim when open second activity, with 2 share element
-        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(
-                getActivity(),
-                Pair.create(image, getActivity().getString(R.string.transition_shot)),
-                Pair.create(image, getActivity().getString(R.string.transition_shot_background)));
         sDrawable = ((ImageView) image).getDrawable();
-
-        // pass id of a artist to second activity
-        startActivityForResult(ShowTopTracksActivity.createStartIntent(getContext(), artist.getIdArtist(), artist.getNameArtist()), REQUEST_CODE_VIEW_SHOT, options.toBundle());
+        if (getActivity() != null) {
+            ((SearchResultsActivity) getActivity()).goToAnotherActivity(image, artist.getIdArtist(), artist.getNameArtist());
+        }
     }
 
     @Override
