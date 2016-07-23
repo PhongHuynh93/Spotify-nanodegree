@@ -64,7 +64,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 // TODO: 7/19/2016 implement onNewIntent()
 public class SearchResultsFragment extends BaseFragment implements
-        SearchChildContract.View,
+        SearchResultsContract.View,
         ArtistItemListener {
     private static final String ARG_SEARCH_BACK_DISTANCE_X = "searchBackDistanceX";
     private static final String ARG_SEARCH_ICON_CENTER_X = "searchIconCenterX";
@@ -106,7 +106,7 @@ public class SearchResultsFragment extends BaseFragment implements
     private boolean dismissing = false;
     private int searchBackDistanceX;
     private int searchIconCenterX;
-    private SearchChildContract.Presenter mPresenter;
+    private SearchResultsContract.Presenter mPresenter;
     private BaselineGridTextView noResults;
     private Transition auto;
     public static Drawable sDrawable;
@@ -393,7 +393,7 @@ public class SearchResultsFragment extends BaseFragment implements
     }
 
     @Override
-    public void setPresenter(SearchChildContract.Presenter presenter) {
+    public void setPresenter(SearchResultsContract.Presenter presenter) {
         mPresenter = checkNotNull(presenter);
     }
 

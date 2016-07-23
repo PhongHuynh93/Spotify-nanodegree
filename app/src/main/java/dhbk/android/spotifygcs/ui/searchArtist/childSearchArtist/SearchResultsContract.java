@@ -10,7 +10,7 @@ import dhbk.android.spotifygcs.interactor.ArtistSearchInteractor;
 /**
  * Created by phongdth.ky on 7/15/2016.
  */
-public interface SearchChildContract {
+public interface SearchResultsContract {
     // method for views  - fragments
     interface View extends BaseView<Presenter> {
         // open this view and anim the search bar

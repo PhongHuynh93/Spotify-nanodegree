@@ -13,7 +13,7 @@ import dhbk.android.spotifygcs.util.Constant;
 public class SearchResultsActivity extends BaseActivity {
     public static final String EXTRA_MENU_LEFT = "EXTRA_MENU_LEFT";
     public static final String EXTRA_MENU_CENTER_X = "EXTRA_MENU_CENTER_X";
-    private SearchChildPresenter mSearchChildPresenter;
+    private SearchResultsPresenter mSearchResultsPresenter;
     private SearchResultsFragment mView;
 
     // intent to go to searchChildActivity, with anim search icon on toolbar, so get the location of it
@@ -26,7 +26,7 @@ public class SearchResultsActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
-        mSearchChildPresenter.dismissView();
+        mSearchResultsPresenter.dismissView();
     }
 
     @Override
@@ -61,7 +61,7 @@ public class SearchResultsActivity extends BaseActivity {
         }
 
         // Create the presenter
-        mSearchChildPresenter = new SearchChildPresenter(mView);
+        mSearchResultsPresenter = new SearchResultsPresenter(mView);
 
         // You can invoke onNewIntent always by putting it into onCreate method like
         onNewIntent(getIntent());

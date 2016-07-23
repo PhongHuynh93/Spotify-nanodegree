@@ -13,12 +13,12 @@ import static com.google.common.base.Preconditions.checkNotNull;
 /**
  * Created by phongdth.ky on 7/15/2016.
  */
-public class SearchChildPresenter implements SearchChildContract.Presenter, ArtistSearchServerCallback {
+public class SearchResultsPresenter implements SearchResultsContract.Presenter, ArtistSearchServerCallback {
 
-    private final SearchChildContract.View mSearchChildView;
+    private final SearchResultsContract.View mSearchChildView;
     private ArtistSearchInteractor mArtistSearchInteractor;
 
-    public SearchChildPresenter(@NonNull SearchChildContract.View searchChildView) {
+    public SearchResultsPresenter(@NonNull SearchResultsContract.View searchChildView) {
         mSearchChildView = checkNotNull(searchChildView, "tasksView cannot be null!");
         mSearchChildView.setPresenter(this);
     }
