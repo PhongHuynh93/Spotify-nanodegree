@@ -14,7 +14,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import dhbk.android.spotifygcs.R;
-import dhbk.android.spotifygcs.ui.searchArtist.SearchArtistActiviy;
+import dhbk.android.spotifygcs.ui.showYourReposition.SearchArtistActiviy;
 import dhbk.android.spotifygcs.util.HelpUtil;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 

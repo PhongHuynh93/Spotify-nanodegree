@@ -1,4 +1,4 @@
-package dhbk.android.spotifygcs.ui.showTopTracksArtist;
+package dhbk.android.spotifygcs.ui.SearchTopTracks;
 
 import android.content.Context;
 import android.content.Intent;

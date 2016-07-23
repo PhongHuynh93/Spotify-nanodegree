@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/white_yellow"
     android:orientation="vertical"
-    tools:context=".ui.searchArtist.SearchArtistActiviy"
+    tools:context=".ui.showYourReposition.SearchArtistActiviy"
     tools:ignore="MissingPrefix">
 
     <!--music note-->

@@ -1,4 +1,4 @@
-package dhbk.android.spotifygcs.ui.showTopTracksArtist;
+package dhbk.android.spotifygcs.ui.SearchTopTracks;
 
 
 import android.animation.Animator;
@@ -30,7 +30,7 @@ import dhbk.android.spotifygcs.interactor.ArtistSearchInteractor;
 import dhbk.android.spotifygcs.module.TopTrackModule;
 import dhbk.android.spotifygcs.ui.recyclerview.SlideInItemAnimator;
 import dhbk.android.spotifygcs.ui.recyclerview.TrackItemListener;
-import dhbk.android.spotifygcs.ui.searchArtist.childSearchArtist.SearchResultsFragment;
+import dhbk.android.spotifygcs.ui.SearchArtist.SearchResultsFragment;
 import dhbk.android.spotifygcs.ui.widget.ElasticDragDismissFrameLayout;
 import dhbk.android.spotifygcs.ui.widget.ParallaxScrimageView;
 import dhbk.android.spotifygcs.util.AnimUtils;

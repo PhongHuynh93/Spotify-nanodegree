@@ -1,4 +1,4 @@
-package dhbk.android.spotifygcs.ui.searchArtist;
+package dhbk.android.spotifygcs.ui.showYourReposition;
 
 import android.app.ActivityOptions;
 import android.content.Intent;
@@ -14,7 +14,7 @@ import dhbk.android.spotifygcs.BaseFragment;
 import dhbk.android.spotifygcs.BasePresenter;
 import dhbk.android.spotifygcs.R;
 import dhbk.android.spotifygcs.component.SpotifyStreamerComponent;
-import dhbk.android.spotifygcs.ui.searchArtist.childSearchArtist.SearchResultsActivity;
+import dhbk.android.spotifygcs.ui.SearchArtist.SearchResultsActivity;
 import dhbk.android.spotifygcs.util.HelpUtil;
 
 import static com.google.common.base.Preconditions.checkNotNull;

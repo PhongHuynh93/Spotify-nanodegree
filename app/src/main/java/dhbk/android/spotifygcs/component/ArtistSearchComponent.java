@@ -3,8 +3,7 @@ package dhbk.android.spotifygcs.component;
 import dagger.Subcomponent;
 import dhbk.android.spotifygcs.ActivityScope;
 import dhbk.android.spotifygcs.module.ArtistSearchModule;
-import dhbk.android.spotifygcs.ui.searchArtist.childSearchArtist.SearchResultsFragment;
-import dhbk.android.spotifygcs.ui.showTopTracksArtist.ShowTopTracksFragment;
+import dhbk.android.spotifygcs.ui.SearchArtist.SearchResultsFragment;
 
 /**
  * Created by huynhducthanhphong on 7/16/16.

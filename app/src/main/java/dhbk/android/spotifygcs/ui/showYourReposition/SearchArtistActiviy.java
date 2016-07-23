@@ -1,4 +1,4 @@
-package dhbk.android.spotifygcs.ui.searchArtist;
+package dhbk.android.spotifygcs.ui.showYourReposition;
 
 import android.content.Context;
 import android.content.Intent;

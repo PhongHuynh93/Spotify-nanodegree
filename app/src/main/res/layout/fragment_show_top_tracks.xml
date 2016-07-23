@@ -8,7 +8,7 @@
     android:background="@color/grey_dark3"
     app:dragDismissDistance="@dimen/drag_dismiss_distance"
     app:dragDismissScale="0.95"
-    tools:context=".ui.showTopTracksArtist.ShowTopTracksActivity">
+    tools:context=".ui.SearchTopTracks.ShowTopTracksActivity">
 
     <RelativeLayout
         android:id="@+id/container"
