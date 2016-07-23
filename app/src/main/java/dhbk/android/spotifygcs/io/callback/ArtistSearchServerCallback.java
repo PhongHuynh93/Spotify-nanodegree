@@ -12,7 +12,6 @@ import dhbk.android.spotifygcs.ui.SearchArtist.SearchResultsPresenter;
 public interface ArtistSearchServerCallback {
     // when we found the artist from query
     void onArtistsFound(ArrayList<Artist> artists);
-
     // when we not found the artist
     void onFailedSearch();
 }
