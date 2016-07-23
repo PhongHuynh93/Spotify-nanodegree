@@ -5,13 +5,12 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.transition.Transition;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageButton;
 
 import java.util.ArrayList;
@@ -19,7 +18,6 @@ import java.util.ArrayList;
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import dhbk.android.spotifygcs.BaseFragment;
 import dhbk.android.spotifygcs.BasePresenter;
 import dhbk.android.spotifygcs.MVPApp;
@@ -42,7 +40,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
  */
 public class ShowTopTracksFragment extends BaseFragment implements
         ShowTopTracksContract.View,
-        TrackItemListener{
+        TrackItemListener {
     private static final String ARG_ARTIST_ID = "artist_id";
     private static final String ARG_ARTIST_NAME = "artist_name";
 
@@ -58,19 +56,20 @@ public class ShowTopTracksFragment extends BaseFragment implements
     SpotifyInteractor mSpotifyInteractor;
     @Inject
     TopTrackAdapter mTopTrackAdapter;
+    @BindView(R.id.fab_heart)
+    FloatingActionButton mFabHeart;
     private String mArtistId;
     private String mArtistName;
     private ShowTopTracksContract.Presenter mPresenter;
     private ElasticDragDismissFrameLayout.SystemChromeFader chromeFader;
+
     private Transition.TransitionListener shotReturnHomeListener =
             new AnimUtils.TransitionListenerAdapter() {
                 @Override
                 public void onTransitionStart(Transition transition) {
                     super.onTransitionStart(transition);
-//                    // hide the fab as for some reason it jumps position??  TODO work out why
-//                    fab.setVisibility(View.INVISIBLE);
+                    mFabHeart.setVisibility(View.INVISIBLE);
                     // fade out the "toolbar" & list as we don't want them to be visible during return
-                    // animation
                     mBack.animate()
                             .alpha(0f)
                             .setDuration(100)
@@ -87,6 +86,7 @@ public class ShowTopTracksFragment extends BaseFragment implements
     public ShowTopTracksFragment() {
     }
 
+    //    id used to construct top track api
     public static ShowTopTracksFragment newInstance(String artistId, String artistName) {
         ShowTopTracksFragment showTopTracksFragment = new ShowTopTracksFragment();
         Bundle args = new Bundle();
@@ -94,13 +94,6 @@ public class ShowTopTracksFragment extends BaseFragment implements
         args.putString(ARG_ARTIST_NAME, artistName);
         showTopTracksFragment.setArguments(args);
         return showTopTracksFragment;
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        ButterKnife.bind(this, rootView);
-        return rootView;
     }
 
     @Override
