@@ -1,5 +1,6 @@
 package dhbk.android.spotifygcs.ui.searchArtist.childSearchArtist;
 
+import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.util.TypedValue;
@@ -13,6 +14,7 @@ public class SearchResultsActivity extends BaseActivity {
     public static final String EXTRA_MENU_LEFT = "EXTRA_MENU_LEFT";
     public static final String EXTRA_MENU_CENTER_X = "EXTRA_MENU_CENTER_X";
     private SearchChildPresenter mSearchChildPresenter;
+    private SearchResultsFragment mView;
 
     // intent to go to searchChildActivity, with anim search icon on toolbar, so get the location of it
     public static Intent createStartIntent(Context context, int menuIconLeft, int menuIconCenterX) {
@@ -49,17 +51,28 @@ public class SearchResultsActivity extends BaseActivity {
         final int searchBackDistanceX = getIntent().getIntExtra(EXTRA_MENU_LEFT, 0) - (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 4, getResources().getDisplayMetrics());
         final int searchIconCenterX = getIntent().getIntExtra(EXTRA_MENU_CENTER_X, 0);
 
-        SearchResultsFragment searchChildFragment =
+        mView =
                 (SearchResultsFragment) getSupportFragmentManager().findFragmentByTag(Constant.TAG_FRAGMENT_TEST_CHILD_SEARCH_ARTISTS);
-        if (searchChildFragment == null) {
+        if (mView == null) {
             // Create the fragment
-            searchChildFragment = SearchResultsFragment.newInstance(searchBackDistanceX, searchIconCenterX);
+            mView = SearchResultsFragment.newInstance(searchBackDistanceX, searchIconCenterX);
             ActivityUtils.addFragmentToActivity(
-                    getSupportFragmentManager(), searchChildFragment, R.id.contentFrame);
+                    getSupportFragmentManager(), mView, R.id.contentFrame);
         }
 
         // Create the presenter
-        mSearchChildPresenter = new SearchChildPresenter(searchChildFragment);
+        mSearchChildPresenter = new SearchChildPresenter(mView);
+
+        // You can invoke onNewIntent always by putting it into onCreate method like
+        onNewIntent(getIntent());
+    }
+
+    // because this activity is single top
+    @Override
+    protected void onNewIntent(Intent intent) {
+        if (intent.hasExtra(SearchManager.QUERY)) {
+            mView.setQueryToSearchBar(intent.getStringExtra(SearchManager.QUERY));
+        }
     }
 
 }

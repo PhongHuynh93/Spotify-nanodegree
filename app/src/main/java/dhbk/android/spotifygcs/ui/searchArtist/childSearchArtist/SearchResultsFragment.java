@@ -163,6 +163,7 @@ public class SearchResultsFragment extends BaseFragment implements
         startTransition();
     }
 
+
     @Override
     public void animSearchView() {
         // translate icon to match the launching screen then animate back into position
@@ -548,6 +549,13 @@ public class SearchResultsFragment extends BaseFragment implements
                 break;
         }
         return false;
+    }
+
+    public void setQueryToSearchBar(String query) {
+        if (!TextUtils.isEmpty(query)) {
+            searchView.setQuery(query, false);
+            searchFor(query);
+        }
     }
 
 
