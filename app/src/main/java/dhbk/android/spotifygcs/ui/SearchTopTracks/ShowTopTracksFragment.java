@@ -10,9 +10,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.transition.Transition;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -22,7 +20,6 @@ import java.util.ArrayList;
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import dhbk.android.spotifygcs.BaseFragment;
 import dhbk.android.spotifygcs.BasePresenter;
@@ -272,15 +269,6 @@ public class ShowTopTracksFragment extends BaseFragment implements
         mTextviewToptrackNameOfArtist.setText(topTrack.getArtistsOfTrack());
         mTextviewToptrackNameOfSong.setText(topTrack.getNameOfTrack());
         mFabRevealLayout.revealSecondaryView();
-
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // TODO: inflate a fragment view
-        View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        ButterKnife.bind(this, rootView);
-        return rootView;
     }
 
     @OnClick({R.id.imagebutton_top_track_previous, R.id.imagebutton_top_track_play, R.id.imagebutton_top_track_next})
