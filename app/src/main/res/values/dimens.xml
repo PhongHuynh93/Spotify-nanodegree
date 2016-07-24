@@ -65,4 +65,5 @@
     <dimen name="drag_dismiss_distance">112dp</dimen>
     <dimen name="fab_size">56dp</dimen>
     <dimen name="margin_top_show_top_track_name_song">12dp</dimen>
+    <item name="size_thumb_oval" format="float" type="dimen">21.3dp</item>
 </resources>

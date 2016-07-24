@@ -118,76 +118,77 @@
 
                 <!--3 button to play, next, previous -->
                 <FrameLayout
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="68dp"
                     android:layout_width="258.7dp"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="68dp">
 
                     <ImageButton
-                        android:layout_gravity="start|center_vertical"
                         android:id="@+id/imagebutton_top_track_previous"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="start|center_vertical"
                         android:adjustViewBounds="true"
-                        android:scaleType="fitXY"
                         android:background="@color/grey_dark3"
+                        android:scaleType="fitXY"
                         android:src="@drawable/previous"/>
 
                     <ImageButton
-                        android:layout_gravity="center"
                         android:id="@+id/imagebutton_top_track_play"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
                         android:adjustViewBounds="true"
-                        android:scaleType="fitXY"
                         android:background="@color/grey_dark3"
+                        android:scaleType="fitXY"
                         android:src="@drawable/play"/>
 
 
                     <ImageButton
-                        android:layout_gravity="end|center_vertical"
                         android:id="@+id/imagebutton_top_track_next"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="end|center_vertical"
                         android:adjustViewBounds="true"
-                        android:scaleType="fitXY"
                         android:background="@color/grey_dark3"
+                        android:scaleType="fitXY"
                         android:src="@drawable/next"/>
                 </FrameLayout>
 
                 <!-- seekbar, time playing music -->
                 <FrameLayout
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="111dp"
                     android:layout_width="325.3dp"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="111dp">
 
                     <TextView
-                        android:layout_gravity="start|center_vertical"
                         android:id="@+id/textview_showtrack_song_playing_now"
+                        fontPath="fonts/ProximaNova-Semibold.otf"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="start|center_vertical"
                         android:text="2.14"
                         android:textColor="@color/white_solid"
-                        android:textSize="8sp"
-                        fontPath="fonts/ProximaNova-Semibold.otf"/>
+                        android:textSize="8sp"/>
 
                     <SeekBar
-                        android:layout_gravity="center"
                         android:id="@+id/seekbar_showtrack_music"
                         android:layout_width="274.7dp"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:thumb="@drawable/thumb_oval"/>
 
 
                     <TextView
-                        android:layout_gravity="end|center_vertical"
                         android:id="@+id/textview_showtrack_length_of_song"
+                        fontPath="fonts/ProximaNova-Semibold.otf"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="end|center_vertical"
                         android:text="4.18"
                         android:textColor="@color/white_solid"
-                        android:textSize="8sp"
-                        fontPath="fonts/ProximaNova-Semibold.otf"/>
+                        android:textSize="8sp"/>
                 </FrameLayout>
 
 
