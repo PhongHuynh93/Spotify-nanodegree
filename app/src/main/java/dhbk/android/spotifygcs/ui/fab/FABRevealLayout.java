@@ -144,7 +144,7 @@ public class FABRevealLayout extends RelativeLayout {
         getSecondaryView().setVisibility(GONE);
     }
 
-    private boolean isShowingMainView(){
+    public boolean isShowingMainView(){
         return getMainView().getVisibility() == VISIBLE;
     }
 

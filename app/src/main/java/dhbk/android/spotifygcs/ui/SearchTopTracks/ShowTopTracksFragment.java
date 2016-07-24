@@ -216,21 +216,28 @@ public class ShowTopTracksFragment extends BaseFragment implements
     // show anim before close view
     @Override
     public void expandImageAndFinish() {
-        if (mImageviewShowArtist.getOffset() != 0f) {
-            Animator expandImage = ObjectAnimator.ofFloat(mImageviewShowArtist, ParallaxScrimageView.OFFSET,
-                    0f);
-            expandImage.setDuration(80);
-            expandImage.setInterpolator(AnimUtils.getFastOutSlowInInterpolator(getContext()));
-            expandImage.addListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    getActivity().finishAfterTransition();
-                }
-            });
-            expandImage.start();
-        } else {
-            getActivity().finishAfterTransition();
+        // if second view (the view with play setting) is opened, closed it and return to lists of track
+        if (!mFabRevealLayout.isShowingMainView()) {
+            mFabRevealLayout.revealMainView();
+        } // go to previous activity
+        else {
+            if (mImageviewShowArtist.getOffset() != 0f) {
+                Animator expandImage = ObjectAnimator.ofFloat(mImageviewShowArtist, ParallaxScrimageView.OFFSET,
+                        0f);
+                expandImage.setDuration(80);
+                expandImage.setInterpolator(AnimUtils.getFastOutSlowInInterpolator(getContext()));
+                expandImage.addListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        getActivity().finishAfterTransition();
+                    }
+                });
+                expandImage.start();
+            } else {
+                getActivity().finishAfterTransition();
+            }
         }
+
     }
 
 
