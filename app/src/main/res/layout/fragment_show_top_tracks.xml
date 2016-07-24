@@ -157,7 +157,7 @@
 
                 <!-- seekbar, time playing music -->
                 <FrameLayout
-                    android:layout_width="325.3dp"
+                    android:layout_width="310dp"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="111dp">
@@ -177,7 +177,8 @@
                         android:layout_width="274.7dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:thumb="@drawable/thumb_oval"/>
+                        android:thumb="@drawable/thumb_oval"
+                        android:progressDrawable="@drawable/seekbar"/>
 
 
                     <TextView
