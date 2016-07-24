@@ -7,7 +7,8 @@
     android:layout_height="match_parent"
     app:dragDismissDistance="@dimen/drag_dismiss_distance"
     app:dragDismissScale="0.95"
-    tools:context=".ui.SearchTopTracks.ShowTopTracksActivity">
+    tools:context=".ui.SearchTopTracks.ShowTopTracksActivity"
+    tools:ignore="MissingPrefix">
 
     <RelativeLayout
         android:id="@+id/container"
@@ -68,7 +69,8 @@
             <android.support.design.widget.FloatingActionButton
                 android:id="@+id/fab_heart"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_play_arrow"/>
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recyclerview_show_top_track"
@@ -91,13 +93,66 @@
                 android:background="@android:color/transparent">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:id="@+id/textview_toptrack_name_of_song"
+                    fontPath="fonts/ProximaNova-Semibold.otf"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:text="test play music"
+                    android:layout_marginTop="@dimen/margin_top_show_top_track_name_song"
+                    android:gravity="center_horizontal"
+                    android:text="Writing's On The Wall"
                     android:textColor="@color/white_solid"
-                    android:textSize="16sp"
-                    />
+                    android:textSize="@dimen/textsize_medium_18"/>
+
+                <TextView
+                    android:id="@+id/textview_toptrack_name_of_artist"
+                    fontPath="fonts/ProximaNova-Semibold.otf"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/textview_toptrack_name_of_song"
+                    android:gravity="center"
+                    android:text="Sam Smith"
+                    android:textColor="@color/grey_light2"
+                    android:textSize="@dimen/textsize_small_13"/>
+
+                <FrameLayout
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="68dp"
+                    android:layout_width="258.7dp"
+                    android:layout_height="wrap_content">
+
+                    <ImageButton
+                        android:layout_gravity="start|center_vertical"
+                        android:id="@+id/imagebutton_top_track_previous"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitXY"
+                        android:background="@color/grey_dark3"
+                        android:src="@drawable/previous"/>
+
+                    <ImageButton
+                        android:layout_gravity="center"
+                        android:id="@+id/imagebutton_top_track_play"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitXY"
+                        android:background="@color/grey_dark3"
+                        android:src="@drawable/play"/>
+
+
+                    <ImageButton
+                        android:layout_gravity="end|center_vertical"
+                        android:id="@+id/imagebutton_top_track_next"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitXY"
+                        android:background="@color/grey_dark3"
+                        android:src="@drawable/next"/>
+                </FrameLayout>
+
+
             </RelativeLayout>
         </com.truizlop.fabreveallayout.FABRevealLayout>
 

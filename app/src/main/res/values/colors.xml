@@ -24,9 +24,7 @@
     <color name="grey_dark">#994A4A4A</color>
     <color name="grey_light">#664A4A4A</color>
     <color name="grey_light2">#BCC1D8</color>
-    <!--scrim-->
     <color name="grey_opa">#99323232</color>
-    <!--background dark-->
     <color name="grey_dark2">#ff333333</color>
     <color name="grey_dark3">#262833</color>
     <color name="black_light">#555555</color>
