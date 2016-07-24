@@ -14,7 +14,7 @@ import dhbk.android.spotifygcs.BaseFragment;
 import dhbk.android.spotifygcs.BasePresenter;
 import dhbk.android.spotifygcs.R;
 import dhbk.android.spotifygcs.component.SpotifyStreamerComponent;
-import dhbk.android.spotifygcs.ui.SearchArtist.SearchResultsActivity;
+import dhbk.android.spotifygcs.ui.searchArtist.SearchResultsActivity;
 import dhbk.android.spotifygcs.util.HelpUtil;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -54,7 +54,7 @@ public class SearchArtistFragment extends BaseFragment implements SearchArtistCo
 
     @Override
     protected void doThingWhenDestroyApp() {
-
+        mPresenter = null;
     }
 
     @Override

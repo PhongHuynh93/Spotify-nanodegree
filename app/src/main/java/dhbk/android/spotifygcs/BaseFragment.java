@@ -34,7 +34,9 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        getPresenter().start();
+        if (getPresenter() != null) {
+            getPresenter().start();
+        }
     }
 
     @Override

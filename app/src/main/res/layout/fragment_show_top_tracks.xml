@@ -7,7 +7,8 @@
     android:layout_height="match_parent"
     app:dragDismissDistance="@dimen/drag_dismiss_distance"
     app:dragDismissScale="0.95"
-    tools:context=".ui.SearchTopTracks.ShowTopTracksActivity">
+    tools:context=".ui.SearchTopTracks.ShowTopTracksActivity"
+    tools:ignore="MissingPrefix">
 
     <RelativeLayout
         android:id="@+id/container"
@@ -17,17 +18,17 @@
         android:transitionGroup="false"
         android:transitionName="@string/transition_shot_background">
 
-        <!--android:id="@+id/shot"-->
         <dhbk.android.spotifygcs.ui.widget.ParallaxScrimageView
             android:id="@+id/shot"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_above="@+id/fab_reveal_layout"
             android:layout_alignParentTop="true"
             android:adjustViewBounds="true"
             android:background="@color/light_grey"
             android:foreground="@drawable/mid_grey_ripple"
             android:minHeight="@dimen/shot_collapsed_app_bar_height"
-            android:scaleType="fitXY"
+            android:scaleType="centerCrop"
             android:stateListAnimator="@animator/app_bar_pin"
             android:transitionName="@string/transition_shot"
             app:maxScrimAlpha="0.4"
@@ -58,31 +59,102 @@
                 android:src="@drawable/ic_arrow_back"/>
         </FrameLayout>
 
-        <!--android:id="@+id/dribbble_comments"-->
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerview_show_top_track"
+        <com.truizlop.fabreveallayout.FABRevealLayout
+            android:id="@+id/fab_reveal_layout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@id/shot"
-            android:background="@color/grey_dark3"
-            android:clipToPadding="false"
-            android:divider="@null"
-            android:dividerHeight="@dimen/divider_height"
-            android:footerDividersEnabled="true"
-            android:headerDividersEnabled="false"
-            android:listSelector="@android:color/transparent"
-            android:nestedScrollingEnabled="true"
-            android:overScrollFooter="@android:color/transparent"
-            android:overScrollMode="never"/>
-
-
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab_heart"
-            android:layout_width="@dimen/fab_size"
-            android:layout_height="@dimen/fab_size"
+            android:layout_height="200dp"
             android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
-            android:layout_margin="@dimen/padding_normal"/>
+            android:layout_alignParentStart="true">
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/fab_heart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_play_arrow"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerview_show_top_track"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/grey_dark3"
+                android:clipToPadding="false"
+                android:divider="@null"
+                android:dividerHeight="@dimen/divider_height"
+                android:footerDividersEnabled="true"
+                android:headerDividersEnabled="false"
+                android:listSelector="@android:color/transparent"
+                android:nestedScrollingEnabled="true"
+                android:overScrollFooter="@android:color/transparent"
+                android:overScrollMode="never"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent">
+
+                <TextView
+                    android:id="@+id/textview_toptrack_name_of_song"
+                    fontPath="fonts/ProximaNova-Semibold.otf"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_top_show_top_track_name_song"
+                    android:gravity="center_horizontal"
+                    android:text="Writing's On The Wall"
+                    android:textColor="@color/white_solid"
+                    android:textSize="@dimen/textsize_medium_18"/>
+
+                <TextView
+                    android:id="@+id/textview_toptrack_name_of_artist"
+                    fontPath="fonts/ProximaNova-Semibold.otf"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/textview_toptrack_name_of_song"
+                    android:gravity="center"
+                    android:text="Sam Smith"
+                    android:textColor="@color/grey_light2"
+                    android:textSize="@dimen/textsize_small_13"/>
+
+                <FrameLayout
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="68dp"
+                    android:layout_width="258.7dp"
+                    android:layout_height="wrap_content">
+
+                    <ImageButton
+                        android:layout_gravity="start|center_vertical"
+                        android:id="@+id/imagebutton_top_track_previous"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitXY"
+                        android:background="@color/grey_dark3"
+                        android:src="@drawable/previous"/>
+
+                    <ImageButton
+                        android:layout_gravity="center"
+                        android:id="@+id/imagebutton_top_track_play"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitXY"
+                        android:background="@color/grey_dark3"
+                        android:src="@drawable/play"/>
+
+
+                    <ImageButton
+                        android:layout_gravity="end|center_vertical"
+                        android:id="@+id/imagebutton_top_track_next"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitXY"
+                        android:background="@color/grey_dark3"
+                        android:src="@drawable/next"/>
+                </FrameLayout>
+
+
+            </RelativeLayout>
+        </com.truizlop.fabreveallayout.FABRevealLayout>
 
     </RelativeLayout>
 
