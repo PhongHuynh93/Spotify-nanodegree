@@ -111,10 +111,9 @@
     </style>
 
     <style name="AppThemeNoActionBar.Translucent.TopTrack">
-        <item name="android:colorPrimary">@color/dribbble</item>
-        <item name="android:colorAccent">@color/dribbble</item>
-        <item name="android:statusBarColor">@color/dribbble_super_dark</item>
-        <item name="android:navigationBarColor">@color/dribbble_super_dark</item>
+        <item name="colorAccent">@color/grey_dark3</item>
+        <item name="android:statusBarColor">@color/grey_dark3</item>
+        <item name="android:navigationBarColor">@color/grey_dark3</item>
         <item name="android:colorControlActivated">?android:colorAccent</item>
         <item name="android:windowAllowReturnTransitionOverlap">false</item>
         <item name="android:windowSharedElementEnterTransition">@transition/dribbble_shot_shared_enter</item>
@@ -122,7 +121,4 @@
         <item name="android:windowEnterTransition">@transition/dribbble_shot_enter</item>
         <item name="android:windowReturnTransition">@transition/dribbble_shot_return</item>
     </style>
-
-    <color name="dribbble">#fff06292</color>
-    <color name="dribbble_super_dark">#ff33292d</color>
 </resources>
