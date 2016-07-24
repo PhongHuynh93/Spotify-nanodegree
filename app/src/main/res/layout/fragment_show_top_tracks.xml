@@ -59,7 +59,7 @@
                 android:src="@drawable/ic_arrow_back"/>
         </FrameLayout>
 
-        <com.truizlop.fabreveallayout.FABRevealLayout
+        <dhbk.android.spotifygcs.ui.fab.FABRevealLayout
             android:id="@+id/fab_reveal_layout"
             android:layout_width="match_parent"
             android:layout_height="200dp"
@@ -163,7 +163,7 @@
                     android:layout_marginTop="111dp">
 
                     <TextView
-                        android:id="@+id/textview_showtrack_song_playing_now"
+                        android:id="@+id/textview_time_song_playing_now"
                         fontPath="fonts/ProximaNova-Semibold.otf"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -182,7 +182,7 @@
 
 
                     <TextView
-                        android:id="@+id/textview_showtrack_length_of_song"
+                        android:id="@+id/textview_time_length_of_song"
                         fontPath="fonts/ProximaNova-Semibold.otf"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -194,7 +194,7 @@
 
 
             </RelativeLayout>
-        </com.truizlop.fabreveallayout.FABRevealLayout>
+        </dhbk.android.spotifygcs.ui.fab.FABRevealLayout>
 
     </RelativeLayout>
 

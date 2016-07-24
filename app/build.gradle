@@ -74,6 +74,6 @@ dependencies {
     compile 'com.android.support:support-v4:19.1.0'
 
 //    fab reveal
-    compile 'com.truizlop.fabreveallayout:library:1.0.0'
+//    compile 'com.truizlop.fabreveallayout:library:1.0.0'
 
 }

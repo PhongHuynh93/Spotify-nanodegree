@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -30,6 +31,7 @@ import dhbk.android.spotifygcs.component.SpotifyStreamerComponent;
 import dhbk.android.spotifygcs.domain.TopTrack;
 import dhbk.android.spotifygcs.interactor.SpotifyInteractor;
 import dhbk.android.spotifygcs.module.TopTrackModule;
+import dhbk.android.spotifygcs.ui.fab.FABRevealLayout;
 import dhbk.android.spotifygcs.ui.recyclerview.SlideInItemAnimator;
 import dhbk.android.spotifygcs.ui.recyclerview.TrackItemListener;
 import dhbk.android.spotifygcs.ui.searchArtist.SearchResultsFragment;
@@ -72,6 +74,14 @@ public class ShowTopTracksFragment extends BaseFragment implements
     ImageButton mImagebuttonTopTrackPlay;
     @BindView(R.id.imagebutton_top_track_next)
     ImageButton mImagebuttonTopTrackNext;
+    @BindView(R.id.textview_time_song_playing_now)
+    TextView mTextviewTimeSongPlayingNow;
+    @BindView(R.id.seekbar_showtrack_music)
+    SeekBar mSeekbarShowtrackMusic;
+    @BindView(R.id.textview_time_length_of_song)
+    TextView mTextviewTimeLengthOfSong;
+    @BindView(R.id.fab_reveal_layout)
+    FABRevealLayout mFabRevealLayout;
     private String mArtistId;
     private String mArtistName;
     private ShowTopTracksContract.Presenter mPresenter;
@@ -250,6 +260,10 @@ public class ShowTopTracksFragment extends BaseFragment implements
 //            getActivity().getApplicationContext().bindService(spotifyServiceIntent, serviceConnection, Context.BIND_AUTO_CREATE);
 //        }
 
+        // show play settings (play - stop - pause)
+        mTextviewToptrackNameOfArtist.setText(topTrack.getArtistsOfTrack());
+        mTextviewToptrackNameOfSong.setText(topTrack.getNameOfTrack());
+        mFabRevealLayout.revealSecondaryView();
 
     }
 
