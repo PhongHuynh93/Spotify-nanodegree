@@ -92,6 +92,7 @@
                 android:layout_height="match_parent"
                 android:background="@android:color/transparent">
 
+                <!--name of song-->
                 <TextView
                     android:id="@+id/textview_toptrack_name_of_song"
                     fontPath="fonts/ProximaNova-Semibold.otf"
@@ -103,6 +104,7 @@
                     android:textColor="@color/white_solid"
                     android:textSize="@dimen/textsize_medium_18"/>
 
+                <!--name of artist-->
                 <TextView
                     android:id="@+id/textview_toptrack_name_of_artist"
                     fontPath="fonts/ProximaNova-Semibold.otf"
@@ -114,6 +116,7 @@
                     android:textColor="@color/grey_light2"
                     android:textSize="@dimen/textsize_small_13"/>
 
+                <!--3 button to play, next, previous -->
                 <FrameLayout
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="68dp"
@@ -150,6 +153,41 @@
                         android:scaleType="fitXY"
                         android:background="@color/grey_dark3"
                         android:src="@drawable/next"/>
+                </FrameLayout>
+
+                <!-- seekbar, time playing music -->
+                <FrameLayout
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="111dp"
+                    android:layout_width="325.3dp"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_gravity="start|center_vertical"
+                        android:id="@+id/textview_showtrack_song_playing_now"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="2.14"
+                        android:textColor="@color/white_solid"
+                        android:textSize="8sp"
+                        fontPath="fonts/ProximaNova-Semibold.otf"/>
+
+                    <SeekBar
+                        android:layout_gravity="center"
+                        android:id="@+id/seekbar_showtrack_music"
+                        android:layout_width="274.7dp"
+                        android:layout_height="wrap_content"/>
+
+
+                    <TextView
+                        android:layout_gravity="end|center_vertical"
+                        android:id="@+id/textview_showtrack_length_of_song"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="4.18"
+                        android:textColor="@color/white_solid"
+                        android:textSize="8sp"
+                        fontPath="fonts/ProximaNova-Semibold.otf"/>
                 </FrameLayout>
 
 
