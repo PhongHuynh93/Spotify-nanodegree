@@ -10,14 +10,19 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.transition.Transition;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import dhbk.android.spotifygcs.BaseFragment;
 import dhbk.android.spotifygcs.BasePresenter;
 import dhbk.android.spotifygcs.R;
@@ -57,6 +62,16 @@ public class ShowTopTracksFragment extends BaseFragment implements
     TopTrackAdapter mTopTrackAdapter;
     @BindView(R.id.fab_heart)
     FloatingActionButton mFabHeart;
+    @BindView(R.id.textview_toptrack_name_of_song)
+    TextView mTextviewToptrackNameOfSong;
+    @BindView(R.id.textview_toptrack_name_of_artist)
+    TextView mTextviewToptrackNameOfArtist;
+    @BindView(R.id.imagebutton_top_track_previous)
+    ImageButton mImagebuttonTopTrackPrevious;
+    @BindView(R.id.imagebutton_top_track_play)
+    ImageButton mImagebuttonTopTrackPlay;
+    @BindView(R.id.imagebutton_top_track_next)
+    ImageButton mImagebuttonTopTrackNext;
     private String mArtistId;
     private String mArtistName;
     private ShowTopTracksContract.Presenter mPresenter;
@@ -236,5 +251,25 @@ public class ShowTopTracksFragment extends BaseFragment implements
 //        }
 
 
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // TODO: inflate a fragment view
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        ButterKnife.bind(this, rootView);
+        return rootView;
+    }
+
+    @OnClick({R.id.imagebutton_top_track_previous, R.id.imagebutton_top_track_play, R.id.imagebutton_top_track_next})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.imagebutton_top_track_previous:
+                break;
+            case R.id.imagebutton_top_track_play:
+                break;
+            case R.id.imagebutton_top_track_next:
+                break;
+        }
     }
 }
