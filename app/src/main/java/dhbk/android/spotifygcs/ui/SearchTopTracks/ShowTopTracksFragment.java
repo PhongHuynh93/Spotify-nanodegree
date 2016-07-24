@@ -132,7 +132,7 @@ public class ShowTopTracksFragment extends BaseFragment implements
 
     @Override
     protected void doThingWhenDestroyApp() {
-
+        mPresenter = null;
     }
 
     @Override
@@ -152,6 +152,7 @@ public class ShowTopTracksFragment extends BaseFragment implements
 
     @Override
     public void setPresenter(ShowTopTracksContract.Presenter presenter) {
+        checkNotNull(presenter);
         mPresenter = presenter;
     }
 
