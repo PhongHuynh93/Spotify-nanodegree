@@ -4,7 +4,11 @@ package dhbk.android.spotifygcs.ui.SearchTopTracks;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -83,6 +87,8 @@ public class ShowTopTracksFragment extends BaseFragment implements
     private String mArtistName;
     private ShowTopTracksContract.Presenter mPresenter;
     private ElasticDragDismissFrameLayout.SystemChromeFader chromeFader;
+    private boolean firstTimeClick = true;
+    private int trackDurationNow;
 
     private Transition.TransitionListener shotReturnHomeListener =
             new AnimUtils.TransitionListenerAdapter() {
@@ -103,6 +109,30 @@ public class ShowTopTracksFragment extends BaseFragment implements
                             .setInterpolator(AnimUtils.getLinearOutSlowInInterpolator(getContext()));
                 }
             };
+
+    private SpotifyPlayerService spotifyPlayerService;
+    private boolean isServiceBounded = false;
+    private boolean isPlayerPlaying = false;
+    // connection to connect to play music service
+    private ServiceConnection serviceConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
+            SpotifyPlayerService.Binder playerBinder = (SpotifyPlayerService.Binder) iBinder;
+            spotifyPlayerService = playerBinder.getService();
+            isServiceBounded = true;
+            if (!isPlayerPlaying) {
+                isPlayerPlaying = true;
+            }
+            setTrackDuration();
+            spotifyPlayerService.setSpotifyPlayerHandler(playerHandler);
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName componentName) {
+            isServiceBounded = false;
+        }
+    };
+    ;
 
     public ShowTopTracksFragment() {
     }
@@ -182,6 +212,12 @@ public class ShowTopTracksFragment extends BaseFragment implements
         };
     }
 
+    //    start service with url of a song which was clicked
+    @Override
+    public void startSpotifyService(TopTrack topTrack) {
+        getActivity().getApplication().bindService(SpotifyPlayerService.createStartIntent(getActivity(), topTrack.getTrackUrl()), serviceConnection, Context.BIND_AUTO_CREATE);
+    }
+
     public SpotifyInteractor getSpotifyInteractor() {
         checkNotNull(mSpotifyInteractor, "SpotifyInteractor cannot be null");
         return mSpotifyInteractor;
@@ -246,7 +282,6 @@ public class ShowTopTracksFragment extends BaseFragment implements
     // a callback with results is the toptrack which was clicked.
     @Override
     public void onTrackClick(TopTrack topTrack) {
-        // TODO: 7/21/2016 when click a track, show a play button depend on plaid
 //        // start playing music, pass the toptrack url to a service
 //        Intent spotifyServiceIntent = new Intent(getActivity(), SpotifyPlayerService.class);
 //        spotifyServiceIntent.putExtra(Constant.TRACK_REVIEW_URL, topTrack.getTrackUrl());
@@ -264,6 +299,12 @@ public class ShowTopTracksFragment extends BaseFragment implements
 //            Log.d(SpotifyPlayerFragment.class.getSimpleName(), "" + isServiceBounded);
 //            getActivity().getApplicationContext().bindService(spotifyServiceIntent, serviceConnection, Context.BIND_AUTO_CREATE);
 //        }
+        // TODO start spotify service when the first time click one track
+        if (firstTimeClick) {
+            startSpotifyService(topTrack);
+            firstTimeClick = false;
+        }
+
 
         // show play settings (play - stop - pause)
         mTextviewToptrackNameOfArtist.setText(topTrack.getArtistsOfTrack());
@@ -280,6 +321,16 @@ public class ShowTopTracksFragment extends BaseFragment implements
                 break;
             case R.id.imagebutton_top_track_next:
                 break;
+        }
+    }
+
+    // set the text to the time that player is playing
+    @Override
+    public void setTrackDuration() {
+        if (spotifyPlayerService != null) {
+            trackDurationNow = spotifyPlayerService.getTrackDuration();
+            mSeekbarShowtrackMusic.setMax(trackDurationNow);
+            mTextviewTimeSongPlayingNow.setText(spotifyPlayerService.getTrackDurationString());
         }
     }
 }
