@@ -11,6 +11,7 @@ import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
+import android.os.Looper;
 import android.os.Message;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -102,7 +103,6 @@ public class ShowTopTracksFragment extends BaseFragment implements
     private boolean isServiceBounded = false;
     private boolean isPlayerPlaying = false;
     private int trackCurrentPosition;
-    private boolean isPlayerPaused = false;
     private final Handler playerHandler = new Handler() {
         // receiver message from service to change song
         @Override
@@ -116,19 +116,22 @@ public class ShowTopTracksFragment extends BaseFragment implements
             mSeekbarShowtrackMusic.setProgress(trackCurrentPosition);
             mTextviewTimeSongPlayingNow.setText("00:" + String.format("%02d", trackCurrentPosition));
 
-            if (trackCurrentPosition == trackDuration && trackCurrentPosition != 0) {
-                isPlayerPlaying = false;
-                isPlayerPaused = false;
-                trackCurrentPosition = 0;
+            // reset field, change icon when click play or stop.
+            if (mPresenter != null) {
+                if (trackCurrentPosition == trackDuration && trackCurrentPosition != 0) {
+                    mPresenter.resetPlayer();
+                }
+
+                if (isPlayerPlaying) {
+                    mPresenter.changeIconToPlay();
+                } else {
+                    mPresenter.changeIconToStop();
+                }
             }
 
-            if (isPlayerPlaying) {
-                mImagebuttonTopTrackPlay.setImageResource(android.R.drawable.ic_media_pause);
-            } else {
-                mImagebuttonTopTrackPlay.setImageResource(android.R.drawable.ic_media_play);
-            }
         }
     };
+    private boolean isPlayerPaused = false;
     private Transition.TransitionListener shotReturnHomeListener =
             new AnimUtils.TransitionListenerAdapter() {
                 @Override
@@ -169,7 +172,6 @@ public class ShowTopTracksFragment extends BaseFragment implements
         }
     };
 
-
     public ShowTopTracksFragment() {
     }
 
@@ -184,6 +186,30 @@ public class ShowTopTracksFragment extends BaseFragment implements
     }
 
     @Override
+    public void changeIcon(String icon) {
+        new Handler(Looper.getMainLooper()).post(() -> {
+            switch (icon) {
+                case ShowTopTracksPresenter.PLAY_ICON:
+                    mImagebuttonTopTrackPlay.setImageResource(android.R.drawable.ic_media_pause);
+                    break;
+                case ShowTopTracksPresenter.STOP_ICON:
+                    mImagebuttonTopTrackPlay.setImageResource(android.R.drawable.ic_media_play);
+                    break;
+                default:
+                    break;
+            }
+        });
+    }
+
+    // reset the player, stop playing or pause, refresh duration
+    @Override
+    public void resetPlayer() {
+        isPlayerPlaying = false;
+        isPlayerPaused = false;
+        trackCurrentPosition = 0;
+    }
+
+    @Override
     protected void doThingWhenResumeApp() {
         mDraggableFrame.addListener(chromeFader);
     }
@@ -195,6 +221,7 @@ public class ShowTopTracksFragment extends BaseFragment implements
 
     @Override
     protected void doThingWhenDestroyApp() {
+        mPresenter.stopDoBackgroundThread();
         mPresenter = null;
         destroySpotifyService();
     }
@@ -283,7 +310,9 @@ public class ShowTopTracksFragment extends BaseFragment implements
         if (spotifyPlayerService == null) {
             getActivity().getApplication().bindService(spotifyServiceIntent, serviceConnection, Context.BIND_AUTO_CREATE);
         }
+
     }
+
 
     public SpotifyInteractor getSpotifyInteractor() {
         checkNotNull(mSpotifyInteractor, "SpotifyInteractor cannot be null");

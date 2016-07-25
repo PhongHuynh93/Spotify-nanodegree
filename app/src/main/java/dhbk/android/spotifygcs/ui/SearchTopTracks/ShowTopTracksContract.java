@@ -43,6 +43,11 @@ public interface ShowTopTracksContract {
         // stop service
         void destroySpotifyService();
 
+        // reset the player, stop playing or pause, refresh duration
+        void resetPlayer();
+
+        // change icon of play button
+        void changeIcon(String icon);
     }
 
     interface Presenter extends BasePresenter {
@@ -51,6 +56,18 @@ public interface ShowTopTracksContract {
 
         // connect to spotify to download top ten track
         void getTopTenTracks();
+
+        // reset the field of player
+        void resetPlayer();
+
+        // stop duing background thread that update the view.
+        void stopDoBackgroundThread();
+
+        // change icon of playbutton to playbutton
+        void changeIconToPlay();
+
+        // change icon of playbutton to stopbutton
+        void changeIconToStop();
     }
 
     // for spotify play music service
