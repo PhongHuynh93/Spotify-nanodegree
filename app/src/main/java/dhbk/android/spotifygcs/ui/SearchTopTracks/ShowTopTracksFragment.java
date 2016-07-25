@@ -195,37 +195,34 @@ public class ShowTopTracksFragment extends BaseFragment implements
 
     @Override
     public void addListener() {
-        new Handler(Looper.getMainLooper()).post(() -> {
-
-            // anim when close the share preference
-            getActivity().getWindow().getSharedElementReturnTransition().addListener(new AnimUtils.TransitionListenerAdapter() {
-                @Override
-                public void onTransitionStart(Transition transition) {
-                    super.onTransitionStart(transition);
-                    mFabHeart.setVisibility(View.INVISIBLE);
-                    // fade out the "toolbar" & list as we don't want them to be visible during return
-                    mBack.animate()
-                            .alpha(0f)
-                            .setDuration(100)
-                            .setInterpolator(AnimUtils.getLinearOutSlowInInterpolator(getContext()));
-                    mImageviewShowArtist.setElevation(1f);
-                    mBack.setElevation(0f);
-                    mRecyclerviewShowTopTrack.animate()
-                            .alpha(0f)
-                            .setDuration(50)
-                            .setInterpolator(AnimUtils.getLinearOutSlowInInterpolator(getContext()));
-                }
-            });
-            // when drag image, close views
-            mBack.setOnClickListener(v -> expandImageAndFinish());
-            mChromeFader = new ElasticDragDismissFrameLayout.SystemChromeFader(getActivity()) {
-                // when we stop dragging, close this view
-                @Override
-                public void onDragDismissed() {
-                    expandImageAndFinish();
-                }
-            };
+        // anim when close the share preference
+        getActivity().getWindow().getSharedElementReturnTransition().addListener(new AnimUtils.TransitionListenerAdapter() {
+            @Override
+            public void onTransitionStart(Transition transition) {
+                super.onTransitionStart(transition);
+                mFabHeart.setVisibility(View.INVISIBLE);
+                // fade out the "toolbar" & list as we don't want them to be visible during return
+                mBack.animate()
+                        .alpha(0f)
+                        .setDuration(100)
+                        .setInterpolator(AnimUtils.getLinearOutSlowInInterpolator(getContext()));
+                mImageviewShowArtist.setElevation(1f);
+                mBack.setElevation(0f);
+                mRecyclerviewShowTopTrack.animate()
+                        .alpha(0f)
+                        .setDuration(50)
+                        .setInterpolator(AnimUtils.getLinearOutSlowInInterpolator(getContext()));
+            }
         });
+        // when drag image, close views
+        mBack.setOnClickListener(v -> expandImageAndFinish());
+        mChromeFader = new ElasticDragDismissFrameLayout.SystemChromeFader(getActivity()) {
+            // when we stop dragging, close this view
+            @Override
+            public void onDragDismissed() {
+                expandImageAndFinish();
+            }
+        };
     }
 
 
@@ -536,7 +533,7 @@ public class ShowTopTracksFragment extends BaseFragment implements
 
     @Override
     public int getNextTrackPosition() {
-        return  (mTrackPositionInList + 1) % mTopTrackAdapter.getItemCount();
+        return (mTrackPositionInList + 1) % mTopTrackAdapter.getItemCount();
     }
 
     // set the text to the time that player is playing
