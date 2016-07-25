@@ -377,7 +377,7 @@ public class ShowTopTracksFragment extends BaseFragment implements
 
     // a callback with results is the toptrack which was clicked.
     @Override
-    public void onTrackClick(TopTrack topTrack) {
+    public void onTrackClick(TopTrack topTrack, int position) {
 //        // start playing music, pass the toptrack url to a service
 //        Intent spotifyServiceIntent = new Intent(getActivity(), SpotifyPlayerService.class);
 //        spotifyServiceIntent.putExtra(Constant.TRACK_REVIEW_URL, topTrack.getTrackUrl());
