@@ -21,14 +21,15 @@ public class TopTrackAdapter extends BaseAdapter<TopTrack, TopTrackAdapter.View_
 
     public TopTrackAdapter(Context context) {
         mContext = context;
-        setOnClickListener(topTrack -> {
+        setOnClickListener((topTrack, position) -> {
             //  when click one view, return a top track model
-            mView.onTrackClick(topTrack);
+            mView.onTrackClick(topTrack, position);
         });
     }
 
     @Override
-    public void onBindViewHolder(View_Holder holder, TopTrack item) {
+    public void onBindViewHolder(View_Holder holder, TopTrack item, int position) {
+        holder.mTextviewNumberOfTrack.setText(Integer.toString(position));
         holder.mTextviewLengthOfSong.setText(item.getDurationOfTrack());
         holder.mTextviewNameOfArtist.setText(item.getArtistsOfTrack());
         holder.mTextviewNameOfSong.setText(item.getNameOfTrack());

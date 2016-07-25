@@ -8,5 +8,5 @@ import dhbk.android.spotifygcs.domain.TopTrack;
  * define method when interact with a track
  */
 public interface TrackItemListener {
-    void onTrackClick(TopTrack topTrack);
+    void onTrackClick(TopTrack topTrack, int position);
 }

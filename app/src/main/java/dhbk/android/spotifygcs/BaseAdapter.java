@@ -26,15 +26,15 @@ public abstract class BaseAdapter<T, V extends RecyclerView.ViewHolder> extends 
 
         // if click on row, return model for this row
         if (holder.itemView != null && onClickListener != null) {
-            holder.itemView.setOnClickListener(v -> onClickListener.onClick(item));
+            holder.itemView.setOnClickListener(v -> onClickListener.onClick(item, position));
         } else if (holder.itemView == null) {
             Log.e("BaseAdapter","ViewHolder's itemView is null");
         }
 
-        onBindViewHolder(holder, item);
+        onBindViewHolder(holder, item, position);
     }
 
-    public abstract void onBindViewHolder(V holder, T item);
+    public abstract void onBindViewHolder(V holder, T item, int position);
 
     @Override
     public V onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -69,6 +69,6 @@ public abstract class BaseAdapter<T, V extends RecyclerView.ViewHolder> extends 
 
     // interface fire when click a row in list
     public interface OnClickListener<T> {
-        void onClick(T t);
+        void onClick(T t, int position);
     }
 }

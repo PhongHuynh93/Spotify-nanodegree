@@ -14,8 +14,10 @@ import static com.google.common.base.Preconditions.checkNotNull;
  * Created by phongdth.ky on 7/20/2016.
  */
 public class ShowTopTracksPresenter implements ShowTopTracksContract.Presenter,
-        TopTrackSearchServerCallback{
-    private final ShowTopTracksContract.View mShowTopTrackView;
+        TopTrackSearchServerCallback {
+    public static final String PLAY_ICON = "play";
+    public static final String STOP_ICON = "stop";
+    private ShowTopTracksContract.View mShowTopTrackView;
     private SpotifyInteractor mSpotifyInteractor;
 
     public ShowTopTracksPresenter(@NonNull ShowTopTracksContract.View showTopTrackView) {
@@ -37,13 +39,38 @@ public class ShowTopTracksPresenter implements ShowTopTracksContract.Presenter,
 
     @Override
     public void setupList() {
-        mShowTopTrackView.setupAdapter();
-        mShowTopTrackView.setupRecyclerView();
+        if (mShowTopTrackView != null) {
+            mShowTopTrackView.setupAdapter();
+            mShowTopTrackView.setupRecyclerView();
+        }
     }
 
     @Override
     public void getTopTenTracks() {
         mSpotifyInteractor.performTopTrackSearch(mShowTopTrackView.getIdArtist(), this);
+    }
+
+
+    @Override
+    public void resetPlayer() {
+        if (mShowTopTrackView != null) {
+            mShowTopTrackView.resetPlayer();
+        }
+    }
+
+    @Override
+    public void stopDoBackgroundThread() {
+        mShowTopTrackView = null;
+    }
+
+    @Override
+    public void changeIconToPlay() {
+        mShowTopTrackView.changeIcon(PLAY_ICON);
+    }
+
+    @Override
+    public void changeIconToStop() {
+        mShowTopTrackView.changeIcon(STOP_ICON);
     }
 
     // when top track found
