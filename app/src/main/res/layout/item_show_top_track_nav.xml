@@ -2,10 +2,9 @@
 <!--layout for one item in show top track-->
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="?android:attr/selectableItemBackground"
+    android:background="@color/grey_dark3"
     android:paddingBottom="@dimen/size_margin_show_top_track"
     android:paddingTop="@dimen/size_margin_show_top_track">
 
@@ -16,8 +15,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="@dimen/margin_left_show_top_track_number"
         android:layout_alignTop="@+id/container_song_artist"
+        android:layout_marginStart="@dimen/margin_left_show_top_track_number_nav"
         android:textSize="@dimen/textsize_small_12"/>
 
     <!--the same baseline with number song-->
@@ -26,7 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_marginStart="@dimen/margin_left_show_top_track_name_song"
+        android:layout_marginStart="@dimen/margin_left_show_top_track_name_song_nav"
         android:orientation="vertical">
         <!--song name-->
         <TextView
@@ -56,7 +55,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
-        android:layout_marginEnd="@dimen/margin_left_show_top_track_number"
+        android:layout_marginEnd="@dimen/margin_right_show_top_track_number_nav"
         android:textColor="@color/white_solid"
         android:textSize="@dimen/textsize_small_7"/>
 </RelativeLayout>
