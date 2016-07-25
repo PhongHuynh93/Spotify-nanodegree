@@ -67,6 +67,10 @@ public abstract class BaseAdapter<T, V extends RecyclerView.ViewHolder> extends 
         this.onClickListener = onClickListener;
     }
 
+    public T getItemAtPosition(int position) {
+        return itemList.get(position);
+    }
+
     // interface fire when click a row in list
     public interface OnClickListener<T> {
         void onClick(T t, int position);

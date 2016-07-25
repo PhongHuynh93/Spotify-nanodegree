@@ -1,4 +1,4 @@
-package dhbk.android.spotifygcs.ui.searchArtist;
+package dhbk.android.spotifygcs.ui.SearchArtist;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
