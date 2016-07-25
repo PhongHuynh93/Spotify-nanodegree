@@ -467,14 +467,14 @@ public class ShowTopTracksFragment extends BaseFragment implements
                 break;
 //            this button has 2 methods, play and pause music
             case R.id.imagebutton_top_track_play:
-                // FIXME: 7/25/16 error here, cannot change the simple
                 // pause music
                 if (mIsPlayerPlaying) {
                     mPresenter.pauseTrack();
                 }
                 // play music
                 else {
-                    mPresenter.playNextTrack();
+                    // FIXME: 7/25/16 error here when play music, not resume play but play the next song
+                    mPresenter.playTrack();
                 }
                 break;
             case R.id.imagebutton_top_track_next:
