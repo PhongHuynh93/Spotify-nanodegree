@@ -459,7 +459,6 @@ public class ShowTopTracksFragment extends BaseFragment implements
         }
     }
 
-    // TODO: 7/25/2016 test when press next button and previous button
     @OnClick({R.id.imagebutton_top_track_previous, R.id.imagebutton_top_track_play, R.id.imagebutton_top_track_next})
     public void onClick(View view) {
         switch (view.getId()) {
@@ -468,13 +467,14 @@ public class ShowTopTracksFragment extends BaseFragment implements
                 break;
 //            this button has 2 methods, play and pause music
             case R.id.imagebutton_top_track_play:
+                // FIXME: 7/25/16 error here, cannot change the simple
                 // pause music
                 if (mIsPlayerPlaying) {
-                    mPresenter.playTrack();
+                    mPresenter.pauseTrack();
                 }
                 // play music
                 else {
-                    mPresenter.pauseTrack();
+                    mPresenter.playNextTrack();
                 }
                 break;
             case R.id.imagebutton_top_track_next:
