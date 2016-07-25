@@ -4,7 +4,14 @@ package dhbk.android.spotifygcs.ui.SearchTopTracks;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.IBinder;
+import android.os.Message;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,12 +19,15 @@ import android.support.v7.widget.RecyclerView;
 import android.transition.Transition;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.SeekBar;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 import dhbk.android.spotifygcs.BaseFragment;
 import dhbk.android.spotifygcs.BasePresenter;
 import dhbk.android.spotifygcs.R;
@@ -25,12 +35,14 @@ import dhbk.android.spotifygcs.component.SpotifyStreamerComponent;
 import dhbk.android.spotifygcs.domain.TopTrack;
 import dhbk.android.spotifygcs.interactor.SpotifyInteractor;
 import dhbk.android.spotifygcs.module.TopTrackModule;
+import dhbk.android.spotifygcs.ui.fab.FABRevealLayout;
 import dhbk.android.spotifygcs.ui.recyclerview.SlideInItemAnimator;
 import dhbk.android.spotifygcs.ui.recyclerview.TrackItemListener;
 import dhbk.android.spotifygcs.ui.searchArtist.SearchResultsFragment;
 import dhbk.android.spotifygcs.ui.widget.ElasticDragDismissFrameLayout;
 import dhbk.android.spotifygcs.ui.widget.ParallaxScrimageView;
 import dhbk.android.spotifygcs.util.AnimUtils;
+import dhbk.android.spotifygcs.util.HelpUtil;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -57,11 +69,66 @@ public class ShowTopTracksFragment extends BaseFragment implements
     TopTrackAdapter mTopTrackAdapter;
     @BindView(R.id.fab_heart)
     FloatingActionButton mFabHeart;
+    @BindView(R.id.textview_toptrack_name_of_song)
+    TextView mTextviewToptrackNameOfSong;
+    @BindView(R.id.textview_toptrack_name_of_artist)
+    TextView mTextviewToptrackNameOfArtist;
+    @BindView(R.id.imagebutton_top_track_previous)
+    ImageButton mImagebuttonTopTrackPrevious;
+    @BindView(R.id.imagebutton_top_track_play)
+    ImageButton mImagebuttonTopTrackPlay;
+    @BindView(R.id.imagebutton_top_track_next)
+    ImageButton mImagebuttonTopTrackNext;
+    @BindView(R.id.textview_time_song_playing_now)
+    TextView mTextviewTimeSongPlayingNow;
+    @BindView(R.id.seekbar_showtrack_music)
+    SeekBar mSeekbarShowtrackMusic;
+    @BindView(R.id.textview_time_length_of_song)
+    TextView mTextviewTimeLengthOfSong;
+    /**
+     * see this library
+     *
+     * @see <a href="https://github.com/truizlop/FABRevealLayout"></a>
+     */
+    @BindView(R.id.fab_reveal_layout)
+    FABRevealLayout mFabRevealLayout;
     private String mArtistId;
     private String mArtistName;
     private ShowTopTracksContract.Presenter mPresenter;
     private ElasticDragDismissFrameLayout.SystemChromeFader chromeFader;
+    private boolean firstTimeClick = true;
+    private int trackDuration;
+    private SpotifyPlayerService spotifyPlayerService;
+    private boolean isServiceBounded = false;
+    private boolean isPlayerPlaying = false;
+    private int trackCurrentPosition;
+    private boolean isPlayerPaused = false;
+    private final Handler playerHandler = new Handler() {
+        // receiver message from service to change song
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            if (trackDuration == 0) {
+                setTrackDuration();
+            }
 
+            trackCurrentPosition = msg.getData().getInt(SpotifyPlayerService.CURRENT_TRACK_POSITION);
+            mSeekbarShowtrackMusic.setProgress(trackCurrentPosition);
+            mTextviewTimeSongPlayingNow.setText("00:" + String.format("%02d", trackCurrentPosition));
+
+            if (trackCurrentPosition == trackDuration && trackCurrentPosition != 0) {
+                isPlayerPlaying = false;
+                isPlayerPaused = false;
+                trackCurrentPosition = 0;
+            }
+
+            if (isPlayerPlaying) {
+                mImagebuttonTopTrackPlay.setImageResource(android.R.drawable.ic_media_pause);
+            } else {
+                mImagebuttonTopTrackPlay.setImageResource(android.R.drawable.ic_media_play);
+            }
+        }
+    };
     private Transition.TransitionListener shotReturnHomeListener =
             new AnimUtils.TransitionListenerAdapter() {
                 @Override
@@ -81,6 +148,27 @@ public class ShowTopTracksFragment extends BaseFragment implements
                             .setInterpolator(AnimUtils.getLinearOutSlowInInterpolator(getContext()));
                 }
             };
+    // connection to connect to play music service
+    private ServiceConnection serviceConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
+            SpotifyPlayerService.Binder playerBinder = (SpotifyPlayerService.Binder) iBinder;
+            spotifyPlayerService = playerBinder.getService();
+            isServiceBounded = true;
+            if (!isPlayerPlaying) {
+                isPlayerPlaying = true;
+            }
+
+            setTrackDuration();
+            spotifyPlayerService.setSpotifyPlayerHandler(playerHandler);
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName componentName) {
+            isServiceBounded = false;
+        }
+    };
+
 
     public ShowTopTracksFragment() {
     }
@@ -107,7 +195,22 @@ public class ShowTopTracksFragment extends BaseFragment implements
 
     @Override
     protected void doThingWhenDestroyApp() {
+        mPresenter = null;
+        destroySpotifyService();
+    }
 
+    @Override
+    public void destroySpotifyService() {
+        if (spotifyPlayerService != null) {
+            spotifyPlayerService.noUpdateUI();
+            if (isServiceBounded) {
+                getActivity().getApplicationContext().unbindService(serviceConnection);
+                isServiceBounded = false;
+            }
+        }
+        if (!isPlayerPaused && !isPlayerPlaying) {
+            getActivity().getApplicationContext().stopService(new Intent(getActivity(), SpotifyPlayerService.class));
+        }
     }
 
     @Override
@@ -127,6 +230,7 @@ public class ShowTopTracksFragment extends BaseFragment implements
 
     @Override
     public void setPresenter(ShowTopTracksContract.Presenter presenter) {
+        checkNotNull(presenter);
         mPresenter = presenter;
     }
 
@@ -157,6 +261,28 @@ public class ShowTopTracksFragment extends BaseFragment implements
                 expandImageAndFinish();
             }
         };
+    }
+
+    //    start service with url of a song which was clicked
+    @Override
+    public void startSpotifyService(TopTrack topTrack) {
+        Intent spotifyServiceIntent = SpotifyPlayerService.createStartIntent(getActivity(), topTrack.getTrackUrl());
+
+        // start service by running it indefinitely, because I dont want it to stop when no components is bound to it.
+        if (HelpUtil.isServiceRunning(SpotifyPlayerService.class, getActivity()) && !isPlayerPlaying) {
+            // stop service to start to new service.
+            trackCurrentPosition = 0;
+            getActivity().getApplicationContext().stopService(spotifyServiceIntent);
+            getActivity().getApplicationContext().startService(spotifyServiceIntent);
+        } else if (!HelpUtil.isServiceRunning(SpotifyPlayerService.class, getActivity())) {
+            trackCurrentPosition = 0;
+            getActivity().getApplicationContext().startService(spotifyServiceIntent);
+        }
+
+        // bound service to component
+        if (spotifyPlayerService == null) {
+            getActivity().getApplication().bindService(spotifyServiceIntent, serviceConnection, Context.BIND_AUTO_CREATE);
+        }
     }
 
     public SpotifyInteractor getSpotifyInteractor() {
@@ -191,21 +317,28 @@ public class ShowTopTracksFragment extends BaseFragment implements
     // show anim before close view
     @Override
     public void expandImageAndFinish() {
-        if (mImageviewShowArtist.getOffset() != 0f) {
-            Animator expandImage = ObjectAnimator.ofFloat(mImageviewShowArtist, ParallaxScrimageView.OFFSET,
-                    0f);
-            expandImage.setDuration(80);
-            expandImage.setInterpolator(AnimUtils.getFastOutSlowInInterpolator(getContext()));
-            expandImage.addListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    getActivity().finishAfterTransition();
-                }
-            });
-            expandImage.start();
-        } else {
-            getActivity().finishAfterTransition();
+        // if second view (the view with play setting) is opened, closed it and return to lists of track
+        if (!mFabRevealLayout.isShowingMainView()) {
+            mFabRevealLayout.revealMainView();
+        } // go to previous activity
+        else {
+            if (mImageviewShowArtist.getOffset() != 0f) {
+                Animator expandImage = ObjectAnimator.ofFloat(mImageviewShowArtist, ParallaxScrimageView.OFFSET,
+                        0f);
+                expandImage.setDuration(80);
+                expandImage.setInterpolator(AnimUtils.getFastOutSlowInInterpolator(getContext()));
+                expandImage.addListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        getActivity().finishAfterTransition();
+                    }
+                });
+                expandImage.start();
+            } else {
+                getActivity().finishAfterTransition();
+            }
         }
+
     }
 
 
@@ -216,7 +349,6 @@ public class ShowTopTracksFragment extends BaseFragment implements
     // a callback with results is the toptrack which was clicked.
     @Override
     public void onTrackClick(TopTrack topTrack) {
-        // TODO: 7/21/2016 when click a track, show a play button depend on plaid
 //        // start playing music, pass the toptrack url to a service
 //        Intent spotifyServiceIntent = new Intent(getActivity(), SpotifyPlayerService.class);
 //        spotifyServiceIntent.putExtra(Constant.TRACK_REVIEW_URL, topTrack.getTrackUrl());
@@ -234,7 +366,51 @@ public class ShowTopTracksFragment extends BaseFragment implements
 //            Log.d(SpotifyPlayerFragment.class.getSimpleName(), "" + isServiceBounded);
 //            getActivity().getApplicationContext().bindService(spotifyServiceIntent, serviceConnection, Context.BIND_AUTO_CREATE);
 //        }
+        if (firstTimeClick) {
+            startSpotifyService(topTrack);
+            firstTimeClick = false;
+        }
 
+        // show play settings (play - stop - pause)
+        mTextviewToptrackNameOfArtist.setText(topTrack.getArtistsOfTrack());
+        mTextviewToptrackNameOfSong.setText(topTrack.getNameOfTrack());
+        mFabRevealLayout.revealSecondaryView();
 
+        // play music
+    }
+
+    @OnClick({R.id.imagebutton_top_track_previous, R.id.imagebutton_top_track_play, R.id.imagebutton_top_track_next})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.imagebutton_top_track_previous:
+                break;
+            case R.id.imagebutton_top_track_play:
+                if (isPlayerPlaying) {
+                    mImagebuttonTopTrackPlay.setImageResource(android.R.drawable.ic_media_play);
+                    spotifyPlayerService.pauseTrack();
+                    isPlayerPaused = true;
+                    isPlayerPlaying = false;
+                } else {
+                    mImagebuttonTopTrackPlay.setImageResource(android.R.drawable.ic_media_pause);
+                    spotifyPlayerService.playTrack(trackCurrentPosition);
+                    isPlayerPaused = true;
+                    isPlayerPlaying = true;
+                }
+                break;
+            case R.id.imagebutton_top_track_next:
+                break;
+        }
+    }
+
+    // set the text to the time that player is playing
+    @Override
+    public void setTrackDuration() {
+        if (spotifyPlayerService != null) {
+            trackDuration = spotifyPlayerService.getTrackDuration();
+            // the first time, trackDuration = 0, we the seekbar set to 0
+            mSeekbarShowtrackMusic.setMax(trackDuration);
+            // but a few second later after we connect to api server trackDuration to set to the length of song , trackDuration has the value different from 0
+            mTextviewTimeLengthOfSong.setText(spotifyPlayerService.getTrackDurationString());
+        }
     }
 }

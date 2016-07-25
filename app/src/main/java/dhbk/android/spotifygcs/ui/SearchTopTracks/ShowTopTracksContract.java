@@ -33,6 +33,16 @@ public interface ShowTopTracksContract {
 
         // anim before close view
         void expandImageAndFinish();
+
+        // start service
+        void startSpotifyService(TopTrack topTrack);
+
+        // set the text to the time that player is playing
+        void setTrackDuration();
+
+        // stop service
+        void destroySpotifyService();
+
     }
 
     interface Presenter extends BasePresenter {
@@ -47,16 +57,31 @@ public interface ShowTopTracksContract {
     interface MusicService {
         // set the URL for a music track to field
         void setTrackUrlPreview(String trackUrlPreview);
+
         // start to play a track
         void playTrack(int trackPosition);
+
+        // stop play track, return time which the track is currently playing on
+        int pauseTrack();
+
         // set listener when play success or fail
         void initSpotifyPlayer();
-            // set handler for service
+
+        // set handler for service
         void setSpotifyPlayerHandler(Handler spotifyPlayerHandler);
+
         // get the current position of the music that is playing
         Bundle getCurrentTrackPosition();
 
         void updateUI();
+
         void noUpdateUI();
+
+        // get the duration at the moment of a track
+        int getTrackDuration();
+
+        // change time in milisecond to text
+        String getTrackDurationString();
+
     }
 }

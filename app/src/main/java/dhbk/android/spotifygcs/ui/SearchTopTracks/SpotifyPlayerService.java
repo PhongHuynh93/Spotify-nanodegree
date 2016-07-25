@@ -1,5 +1,6 @@
 package dhbk.android.spotifygcs.ui.SearchTopTracks;
 
+import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -14,7 +15,6 @@ import java.util.TimerTask;
 
 import dhbk.android.spotifygcs.BaseBinder;
 import dhbk.android.spotifygcs.BaseService;
-import dhbk.android.spotifygcs.domain.SpotifyConstant;
 
 public class SpotifyPlayerService extends BaseService implements
         MediaPlayer.OnPreparedListener,
@@ -25,9 +25,20 @@ public class SpotifyPlayerService extends BaseService implements
     public static final String CURRENT_TRACK_POSITION = "current_track_position";
     public static final String TRACK_PREVIEW_URL = "track_preview_url";
 
-    private String mTrackUrlPreview;
+    /**
+     * this handler is connecting to {@link ShowTopTracksFragment#playerHandler}
+     * use this var to update views
+     */
     private Handler spotifyPlayerHandler;
+
+    private String mTrackUrlPreview;
     private boolean isPlayerPaused;
+    /**
+     * MediaPlayer is a class which is used to stream audio via url
+     *
+     * @see <a href="https://developer.android.com/reference/android/media/MediaPlayer.html"></a>
+     * @see <a href="https://developer.android.com/guide/topics/media/mediaplayer.html"></a>
+     */
     private MediaPlayer spotifyPlayer;
     private Timer uiUpdater;
     private int currentTrackPosition;
@@ -35,18 +46,26 @@ public class SpotifyPlayerService extends BaseService implements
     public SpotifyPlayerService() {
     }
 
+    public static Intent createStartIntent(Context context, String trackUrl) {
+        Intent spotifyServiceIntent = new Intent(context, SpotifyPlayerService.class);
+        spotifyServiceIntent.putExtra(SpotifyPlayerService.TRACK_PREVIEW_URL, trackUrl);
+        return spotifyServiceIntent;
+    }
+
+    // FIXME: 7/25/16 test why no call onstartcommand
     @Override
     public IBinder getBinder() {
-        return new Binder();
+        IBinder binder = new Binder();
+        return binder;
     }
 
     // when start service, first get the music url via intent
     @Override
     public void initService(Intent intent) {
-        if (intent != null && intent.hasExtra(SpotifyConstant.TRACK_REVIEW_URL)) {
-            String trackUrl = intent.getStringExtra(SpotifyConstant.TRACK_REVIEW_URL);
+        if (intent != null && intent.hasExtra(SpotifyPlayerService.TRACK_PREVIEW_URL)) {
+            String trackUrl = intent.getStringExtra(SpotifyPlayerService.TRACK_PREVIEW_URL);
             if (trackUrl != null) {
-                setTrackUrlPreview(intent.getStringExtra(SpotifyConstant.TRACK_REVIEW_URL));
+                setTrackUrlPreview(trackUrl);
                 playTrack(0);
             }
         }
@@ -54,14 +73,14 @@ public class SpotifyPlayerService extends BaseService implements
 
     @Override
     protected void doThingBeforeDestroyService() {
-        if(uiUpdater != null){
+        if (uiUpdater != null) {
             noUpdateUI();
         }
-        if(spotifyPlayer != null){
+        if (spotifyPlayer != null) {
             spotifyPlayer.release();
             spotifyPlayer = null;
         }
-        if(spotifyPlayerHandler != null){
+        if (spotifyPlayerHandler != null) {
             spotifyPlayerHandler = null;
         }
     }
@@ -91,7 +110,7 @@ public class SpotifyPlayerService extends BaseService implements
     @Override
     public void onPrepared(MediaPlayer mediaPlayer) {
         mediaPlayer.start();
-        if(currentTrackPosition != 0){
+        if (currentTrackPosition != 0) {
             mediaPlayer.seekTo(currentTrackPosition * 1000);
         }
         updateUI();
@@ -105,8 +124,8 @@ public class SpotifyPlayerService extends BaseService implements
     @Override
     public void playTrack(int trackPosition) {
         currentTrackPosition = trackPosition;
-        if(spotifyPlayer != null) {
-            if(spotifyPlayer.isPlaying()){
+        if (spotifyPlayer != null) {
+            if (spotifyPlayer.isPlaying()) {
                 spotifyPlayer.stop();
             }
             spotifyPlayer.reset();
@@ -116,11 +135,25 @@ public class SpotifyPlayerService extends BaseService implements
     }
 
     @Override
-    public void initSpotifyPlayer(){
-        if(spotifyPlayer == null)
+    public int pauseTrack() {
+        if (spotifyPlayer != null && spotifyPlayer.isPlaying()) {
+            spotifyPlayer.pause();
+            isPlayerPaused = true;
+            noUpdateUI();
+            return spotifyPlayer.getDuration() / 1000;
+        } else {
+            return 0;
+        }
+    }
+
+
+    @Override
+    public void initSpotifyPlayer() {
+        if (spotifyPlayer == null)
             spotifyPlayer = new MediaPlayer();
         spotifyPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
         try {
+            // play music depend on url track
             spotifyPlayer.setDataSource(mTrackUrlPreview);
             spotifyPlayer.prepareAsync();
             spotifyPlayer.setOnCompletionListener(SpotifyPlayerService.this);
@@ -163,28 +196,44 @@ public class SpotifyPlayerService extends BaseService implements
     }
 
     @Override
-    public void updateUI(){
+    public void updateUI() {
         uiUpdater = new Timer();
         uiUpdater.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
                 sendCurrentTrackPosition();
             }
-        },0,1000);
+        }, 0, 1000);
     }
 
     @Override
     public void noUpdateUI() {
-        if(uiUpdater != null){
+        if (uiUpdater != null) {
             uiUpdater.cancel();
             uiUpdater.purge();
         }
     }
 
-    private void sendCurrentTrackPosition(){
+    // get the duration at the moment of a track
+    @Override
+    public int getTrackDuration() {
+        if (spotifyPlayer != null && (isPlayerPaused || spotifyPlayer.isPlaying())) {
+            return (spotifyPlayer.getDuration() / 1000);
+        } else {
+            return 0;
+        }
+    }
+
+    // change time in milisecond to text
+    @Override
+    public String getTrackDurationString() {
+        return "00:" + String.format("%02d", getTrackDuration());
+    }
+
+    private void sendCurrentTrackPosition() {
         Message positionMessage = new Message();
         positionMessage.setData(getCurrentTrackPosition());
-        if(spotifyPlayerHandler != null){
+        if (spotifyPlayerHandler != null) {
             spotifyPlayerHandler.sendMessage(positionMessage);
         }
     }
@@ -192,12 +241,7 @@ public class SpotifyPlayerService extends BaseService implements
     public class Binder extends BaseBinder<SpotifyPlayerService> {
         @Override
         public SpotifyPlayerService getService() {
-            return super.getService();
-        }
-
-        @Override
-        public void setService(SpotifyPlayerService service) {
-            super.setService(service);
+            return SpotifyPlayerService.this;
         }
     }
 }

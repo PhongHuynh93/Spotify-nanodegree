@@ -37,4 +37,5 @@ public abstract class BaseService extends Service{
     public abstract IBinder getBinder();
     // get the data from intent
     public abstract void initService(Intent intent);
+
 }
