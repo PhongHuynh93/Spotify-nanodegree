@@ -25,6 +25,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -64,7 +65,11 @@ public class ShowTopTracksFragment extends BaseFragment implements
     @Inject
     SpotifyInteractor mSpotifyInteractor;
     @Inject
+    @Named("bottom")
     TopTrackAdapter mTopTrackAdapter;
+    @Inject
+    @Named("right")
+    TopTrackAdapter mTopTrackAdapterNav;
     @BindView(R.id.fab_heart)
     FloatingActionButton mFabHeart;
     @BindView(R.id.textview_toptrack_name_of_song)
@@ -83,6 +88,8 @@ public class ShowTopTracksFragment extends BaseFragment implements
     SeekBar mSeekbarShowtrackMusic;
     @BindView(R.id.textview_time_length_of_song)
     TextView mTextviewTimeLengthOfSong;
+
+    private RecyclerView mRecyclerviewShowTopTrackNavRight;
     /**
      * see this library
      *
@@ -185,11 +192,13 @@ public class ShowTopTracksFragment extends BaseFragment implements
             mArtistName = getArguments().getString(ARG_ARTIST_NAME);
         }
 
-        new Handler(Looper.getMainLooper()).post(() -> {
-            // set image of an artist
-            mImageviewShowArtist.setImageDrawable(SearchResultsFragment.sDrawable);
-            SearchResultsFragment.sDrawable = null; // after set image, set it to null to recycle
-        });
+        // set recyclerview for right navigation drawer
+        mRecyclerviewShowTopTrackNavRight = (RecyclerView) getActivity().findViewById(R.id.recyclerview_list_track_nav);
+
+        // set image of an artist
+        mImageviewShowArtist.setImageDrawable(SearchResultsFragment.sDrawable);
+        SearchResultsFragment.sDrawable = null; // after set image, set it to null to recycle
+
 
     }
 
@@ -384,6 +393,9 @@ public class ShowTopTracksFragment extends BaseFragment implements
     public void setupRecyclerView() {
         mRecyclerviewShowTopTrack.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerviewShowTopTrack.setHasFixedSize(true);
+
+        mRecyclerviewShowTopTrackNavRight.setLayoutManager(new LinearLayoutManager(getContext()));
+        mRecyclerviewShowTopTrackNavRight.setHasFixedSize(true);
     }
 
     @Override
@@ -392,6 +404,11 @@ public class ShowTopTracksFragment extends BaseFragment implements
         mRecyclerviewShowTopTrack.setAdapter(mTopTrackAdapter);
         mTopTrackAdapter.setClickListenerInterface(this);
         mRecyclerviewShowTopTrack.setItemAnimator(new SlideInItemAnimator());
+
+        checkNotNull(mTopTrackAdapterNav, "adapter not be null before set to list");
+        mRecyclerviewShowTopTrackNavRight.setAdapter(mTopTrackAdapterNav);
+        mTopTrackAdapterNav.setClickListenerInterface(this);
+        mRecyclerviewShowTopTrackNavRight.setItemAnimator(new SlideInItemAnimator());
     }
 
     @Override
@@ -402,6 +419,7 @@ public class ShowTopTracksFragment extends BaseFragment implements
     @Override
     public void showTrackOnList(ArrayList<TopTrack> topTracks) {
         mTopTrackAdapter.addAll(topTracks);
+        mTopTrackAdapterNav.addAll(topTracks);
     }
 
     // anim before go to previous view

@@ -2,6 +2,8 @@ package dhbk.android.spotifygcs.module;
 
 import android.content.Context;
 
+import javax.inject.Named;
+
 import dagger.Module;
 import dagger.Provides;
 import dhbk.android.spotifygcs.ActivityScope;
@@ -29,9 +31,20 @@ public class TopTrackModule {
     }
 
     // return adapter for this view, context from parent component
+    // adapter for music player at the bottom
     @Provides
     @ActivityScope
-    public TopTrackAdapter provideAdapter(Context context) {
+    @Named("bottom")
+    public TopTrackAdapter provideAdapterBottom(Context context) {
+        return new TopTrackAdapter(context);
+    }
+
+    // return adapter for this view, context from parent component
+    // adapter for music player at the right navigation drawer
+    @Provides
+    @ActivityScope
+    @Named("right")
+    public TopTrackAdapter provideAdapterRight(Context context) {
         return new TopTrackAdapter(context);
     }
 }
