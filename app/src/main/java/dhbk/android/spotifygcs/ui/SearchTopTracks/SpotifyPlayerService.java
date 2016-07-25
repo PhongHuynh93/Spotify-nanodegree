@@ -121,6 +121,7 @@ public class SpotifyPlayerService extends BaseService implements
         mTrackUrlPreview = trackUrlPreview;
     }
 
+    // start to play at 0:00 of a track
     @Override
     public void playTrack(int trackPosition) {
         currentTrackPosition = trackPosition;

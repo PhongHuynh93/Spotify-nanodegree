@@ -102,7 +102,12 @@ public class ShowTopTracksFragment extends BaseFragment implements
     private SpotifyPlayerService spotifyPlayerService;
     private boolean isServiceBounded = false;
     private boolean isPlayerPlaying = false;
-    private int trackCurrentPosition;
+    // track position in list
+    private int trackPositionInList = 0;
+    // time of music when pause the music
+    private int trackCurrentPosition = 0;
+    private Intent spotifyServiceIntent = null; // old intent
+
     private final Handler playerHandler = new Handler() {
         // receiver message from service to change song
         @Override
@@ -292,19 +297,34 @@ public class ShowTopTracksFragment extends BaseFragment implements
 
     //    start service with url of a song which was clicked
     @Override
-    public void startSpotifyService(TopTrack topTrack) {
-        Intent spotifyServiceIntent = SpotifyPlayerService.createStartIntent(getActivity(), topTrack.getTrackUrl());
+    public void startSpotifyService(TopTrack topTrack, int trackPositionInList) {
+        // if we click, the same track in a list, dont start again that service
+        if (this.trackPositionInList == trackPositionInList) {
+            // if the first time we click a track, start music to play
+            if (!HelpUtil.isServiceRunning(SpotifyPlayerService.class, getActivity())) {
+                // TODO: 7/25/16 change to use presenter
+                trackCurrentPosition = 0;
+                getActivity().getApplicationContext().startService(spotifyServiceIntent);
+            }
+            // if we click the track again, do nothing
+        } // if not click the same track, start a new service and play it
+        else {
+            Intent spotifyServiceIntent = SpotifyPlayerService.createStartIntent(getActivity(), topTrack.getTrackUrl());
 
-        // start service by running it indefinitely, because I dont want it to stop when no components is bound to it.
-        if (HelpUtil.isServiceRunning(SpotifyPlayerService.class, getActivity()) && !isPlayerPlaying) {
-            // stop service to start to new service.
-            trackCurrentPosition = 0;
-            getActivity().getApplicationContext().stopService(spotifyServiceIntent);
-            getActivity().getApplicationContext().startService(spotifyServiceIntent);
-        } else if (!HelpUtil.isServiceRunning(SpotifyPlayerService.class, getActivity())) {
-            trackCurrentPosition = 0;
-            getActivity().getApplicationContext().startService(spotifyServiceIntent);
+            if (HelpUtil.isServiceRunning(SpotifyPlayerService.class, getActivity())) {
+                trackCurrentPosition = 0;
+                // stop old service to start a new one.
+                getActivity().getApplicationContext().stopService(this.spotifyServiceIntent);
+                getActivity().getApplicationContext().startService(spotifyServiceIntent);
+                this.spotifyServiceIntent = spotifyServiceIntent;
+            } else {
+                trackCurrentPosition = 0;
+                getActivity().getApplicationContext().startService(spotifyServiceIntent);
+            }
         }
+
+        // set position to the new one
+        this.trackPositionInList = trackPositionInList;
 
         // bound service to component
         if (spotifyPlayerService == null) {
@@ -395,12 +415,9 @@ public class ShowTopTracksFragment extends BaseFragment implements
 //            Log.d(SpotifyPlayerFragment.class.getSimpleName(), "" + isServiceBounded);
 //            getActivity().getApplicationContext().bindService(spotifyServiceIntent, serviceConnection, Context.BIND_AUTO_CREATE);
 //        }
-        if (firstTimeClick) {
-            startSpotifyService(topTrack);
-            firstTimeClick = false;
-        }
+        startSpotifyService(topTrack, position);
 
-        // show play settings (play - stop - pause)
+        // show new player  (play - stop - pause)
         mTextviewToptrackNameOfArtist.setText(topTrack.getArtistsOfTrack());
         mTextviewToptrackNameOfSong.setText(topTrack.getNameOfTrack());
         mFabRevealLayout.revealSecondaryView();

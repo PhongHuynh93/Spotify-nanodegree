@@ -35,7 +35,7 @@ public interface ShowTopTracksContract {
         void expandImageAndFinish();
 
         // start service
-        void startSpotifyService(TopTrack topTrack);
+        void startSpotifyService(TopTrack topTrack, int position);
 
         // set the text to the time that player is playing
         void setTrackDuration();
