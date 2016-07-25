@@ -10,11 +10,5 @@ import android.os.Binder;
 public abstract class BaseBinder<S extends Service> extends Binder {
     private S mService;
 
-    public S getService() {
-        return mService;
-    }
-
-    public void setService(S service) {
-        mService = service;
-    }
+    public abstract S getService();
 }

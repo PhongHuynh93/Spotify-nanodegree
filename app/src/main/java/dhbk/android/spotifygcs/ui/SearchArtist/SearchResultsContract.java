@@ -1,4 +1,4 @@
-package dhbk.android.spotifygcs.ui.searchArtist;
+package dhbk.android.spotifygcs.ui.SearchArtist;
 
 import java.util.ArrayList;
 

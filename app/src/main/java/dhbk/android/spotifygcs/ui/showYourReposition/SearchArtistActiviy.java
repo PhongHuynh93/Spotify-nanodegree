@@ -39,7 +39,7 @@ public class SearchArtistActiviy extends BaseActivity {
 
     @Override
     protected void initView() {
-        mToolbar.setTitle(R.string.app_name);
+        getSupportActionBar().setTitle(R.string.app_name);
         // Set up the navigation drawer.
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerLayout.setStatusBarBackground(R.color.colorPrimaryDark);
