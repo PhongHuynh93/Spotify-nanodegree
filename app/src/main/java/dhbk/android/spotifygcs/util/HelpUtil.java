@@ -1,5 +1,6 @@
 package dhbk.android.spotifygcs.util;
 
+import android.app.ActivityManager;
 import android.content.Context;
 import android.os.Build;
 import android.support.annotation.NonNull;
@@ -11,7 +12,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * Created by phongdth.ky on 7/13/2016.
- *  contain help methods
+ * contain help methods
  */
 public class HelpUtil {
     @NonNull
@@ -30,8 +31,21 @@ public class HelpUtil {
 
     // translate milisecond to format minute:second
     public static String transformMilisecond(int millis) {
-        int minutes = (millis / 1000)  / 60;
+        int minutes = (millis / 1000) / 60;
         int seconds = (millis / 1000) % 60;
         return minutes + ":" + seconds;
+    }
+
+
+    public static boolean isServiceRunning(Class<?> serviceClass,
+                                           Context context) {
+        ActivityManager manager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        boolean isServiceRunning = false;
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (serviceClass.getName().equals(service.service.getClassName())) {
+                isServiceRunning = true;
+            }
+        }
+        return isServiceRunning;
     }
 }

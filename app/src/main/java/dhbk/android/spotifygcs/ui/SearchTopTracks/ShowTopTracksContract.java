@@ -40,6 +40,9 @@ public interface ShowTopTracksContract {
         // set the text to the time that player is playing
         void setTrackDuration();
 
+        // stop service
+        void destroySpotifyService();
+
     }
 
     interface Presenter extends BasePresenter {
@@ -57,6 +60,9 @@ public interface ShowTopTracksContract {
 
         // start to play a track
         void playTrack(int trackPosition);
+
+        // stop play track, return time which the track is currently playing on
+        int pauseTrack();
 
         // set listener when play success or fail
         void initSpotifyPlayer();
