@@ -2,7 +2,12 @@ package dhbk.android.spotifygcs.ui.SearchTopTracks;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.widget.RecyclerView;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import dhbk.android.spotifygcs.BaseActivity;
 import dhbk.android.spotifygcs.R;
 import dhbk.android.spotifygcs.domain.SpotifyConstant;
@@ -15,6 +20,10 @@ import dhbk.android.spotifygcs.util.Constant;
  * this activity will tell the top tracks of a artist which user has clicked
  */
 public class ShowTopTracksActivity extends BaseActivity {
+    @BindView(R.id.recyclerview_list_track_nav)
+    RecyclerView mRecyclerviewListTrackNav;
+    @BindView(R.id.drawer_layout)
+    DrawerLayout mDrawerLayout;
     private ShowTopTracksFragment mShowTopTrackView;
 
     public static Intent createStartIntent(Context context, String artistId, String artistName) {
@@ -62,5 +71,17 @@ public class ShowTopTracksActivity extends BaseActivity {
 
         // Create the presenter and set view
         ShowTopTracksPresenter showTopTracksPresenter = new ShowTopTracksPresenter(mShowTopTrackView);
+
+        // Set up the navigation drawer.
+        mDrawerLayout.setStatusBarBackground(R.color.grey_dark3);
+//        setupDrawerContent(mNavView);
+
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }

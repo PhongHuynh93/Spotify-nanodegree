@@ -55,6 +55,7 @@
     <dimen name="height_show_top_track_list">150dp</dimen>
     <dimen name="size_margin_show_top_track">12dp</dimen>
     <dimen name="margin_left_show_top_track_number">26dp</dimen>
+    <dimen name="margin_left_show_top_track_number_nav">12dp</dimen>
     <dimen name="margin_left_show_top_track_name_song">47dp</dimen>
     <dimen name="margin_left_show_top_track_length_song">284dp</dimen>
     <dimen name="shot_collapsed_app_bar_height">168dp</dimen>
@@ -66,4 +67,6 @@
     <dimen name="fab_size">56dp</dimen>
     <dimen name="margin_top_show_top_track_name_song">12dp</dimen>
     <dimen name="size_thumb_oval">21.3dp</dimen>
+    <dimen name="margin_left_show_top_track_name_song_nav">29dp</dimen>
+    <dimen name="margin_right_show_top_track_number_nav">9dp</dimen>
 </resources>
