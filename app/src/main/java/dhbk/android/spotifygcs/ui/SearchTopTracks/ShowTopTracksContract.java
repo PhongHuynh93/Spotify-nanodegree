@@ -1,5 +1,6 @@
 package dhbk.android.spotifygcs.ui.SearchTopTracks;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
@@ -48,6 +49,37 @@ public interface ShowTopTracksContract {
 
         // change icon of play button
         void changeIcon(String icon);
+
+        void startServiceSpotify(Intent spotifyServiceIntent);
+
+        void restartServiceSpotify(Intent spotifyServiceIntent);
+
+        void resumeServiceSpotify(Intent spotifyServiceIntent);
+
+        void goToPreviousView();
+
+        void setViewObject();
+
+        void addListener();
+
+        // get an intent to service
+        Intent getIntentForService();
+        Intent getIntentForService(String trackUrl);
+
+        // method for control the play and pause state
+        void setPlayState();
+
+        int getPreviousTrackPosition();
+
+        void startToPlayTrack(int position);
+
+        void startToPlayTrack();
+
+        void setPauseState();
+
+        void startToPauseTrack();
+
+        int getNextTrackPosition();
     }
 
     interface Presenter extends BasePresenter {
@@ -68,6 +100,26 @@ public interface ShowTopTracksContract {
 
         // change icon of playbutton to stopbutton
         void changeIconToStop();
+
+        void startServiceSpotify(Intent spotifyServiceIntent);
+
+        void restartServiceSpotify(Intent spotifyServiceIntent);
+
+        void resumeServiceSpotify(Intent spotifyServiceIntent);
+
+        // remove this view and go to view beneath
+        void goBackToPreviousView();
+
+        // init views object in views
+        void initView();
+
+        void playPreviousTrack();
+
+        void playTrack();
+
+        void pauseTrack();
+
+        void playNextTrack();
     }
 
     // for spotify play music service
@@ -81,7 +133,7 @@ public interface ShowTopTracksContract {
         // stop play track, return time which the track is currently playing on
         int pauseTrack();
 
-        // set listener when play success or fail
+        //    init the player service and start to play music background
         void initSpotifyPlayer();
 
         // set handler for service
@@ -90,8 +142,11 @@ public interface ShowTopTracksContract {
         // get the current position of the music that is playing
         Bundle getCurrentTrackPosition();
 
+        // update views with the current location of tracks
+        // update UI in views after 1s
         void updateUI();
 
+//    terminate timer
         void noUpdateUI();
 
         // get the duration at the moment of a track

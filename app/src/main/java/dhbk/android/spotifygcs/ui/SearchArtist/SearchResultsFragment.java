@@ -1,4 +1,4 @@
-package dhbk.android.spotifygcs.ui.searchArtist;
+package dhbk.android.spotifygcs.ui.SearchArtist;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -51,6 +51,7 @@ import dhbk.android.spotifygcs.interactor.SpotifyInteractor;
 import dhbk.android.spotifygcs.module.ArtistSearchModule;
 import dhbk.android.spotifygcs.ui.recyclerview.ArtistItemListener;
 import dhbk.android.spotifygcs.ui.recyclerview.SlideInItemAnimator;
+import dhbk.android.spotifygcs.ui.searchArtist.SearchResultsContract;
 import dhbk.android.spotifygcs.ui.widget.BaselineGridTextView;
 import dhbk.android.spotifygcs.util.AnimUtils;
 import dhbk.android.spotifygcs.util.ImeUtils;

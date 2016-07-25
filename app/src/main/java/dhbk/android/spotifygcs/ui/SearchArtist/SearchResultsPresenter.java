@@ -1,4 +1,4 @@
-package dhbk.android.spotifygcs.ui.searchArtist;
+package dhbk.android.spotifygcs.ui.SearchArtist;
 
 import android.support.annotation.NonNull;
 
@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import dhbk.android.spotifygcs.domain.Artist;
 import dhbk.android.spotifygcs.interactor.SpotifyInteractor;
 import dhbk.android.spotifygcs.io.callback.ArtistSearchServerCallback;
+import dhbk.android.spotifygcs.ui.searchArtist.SearchResultsContract;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 

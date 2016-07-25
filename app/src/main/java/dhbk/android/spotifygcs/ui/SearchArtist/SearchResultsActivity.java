@@ -1,4 +1,4 @@
-package dhbk.android.spotifygcs.ui.searchArtist;
+package dhbk.android.spotifygcs.ui.SearchArtist;
 
 import android.app.ActivityOptions;
 import android.app.SearchManager;
@@ -15,6 +15,7 @@ import java.util.Map;
 import dhbk.android.spotifygcs.BaseActivity;
 import dhbk.android.spotifygcs.R;
 import dhbk.android.spotifygcs.ui.SearchTopTracks.ShowTopTracksActivity;
+import dhbk.android.spotifygcs.ui.SearchTopTracks.ShowTopTracksFragment;
 import dhbk.android.spotifygcs.util.ActivityUtils;
 import dhbk.android.spotifygcs.util.Constant;
 
@@ -91,6 +92,9 @@ public class SearchResultsActivity extends BaseActivity {
     // image is a shared element between two activity
     public void goToAnotherActivity(View image, String idArtist, String nameArtist) {
         // anim when open second activity, with 2 share element
+        /**
+         *         the transition name is the same with the second activity's layout {@link ShowTopTracksFragment#getLayout()}
+         */
         ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(
                 this,
                 Pair.create(image, getString(R.string.transition_shot)),
@@ -99,7 +103,6 @@ public class SearchResultsActivity extends BaseActivity {
         // pass id of a artist to second activity
         startActivityForResult(ShowTopTracksActivity.createStartIntent(this, idArtist, nameArtist), REQUEST_CODE_VIEW_SHOT, options.toBundle());
     }
-
 
     private SharedElementCallback createSharedElementReenterCallback() {
         final String shotTransitionName = getString(R.string.transition_shot);

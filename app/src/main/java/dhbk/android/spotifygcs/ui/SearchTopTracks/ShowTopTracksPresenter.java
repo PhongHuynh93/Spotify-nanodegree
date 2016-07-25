@@ -1,5 +1,6 @@
 package dhbk.android.spotifygcs.ui.SearchTopTracks;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 
 import java.util.ArrayList;
@@ -17,71 +18,129 @@ public class ShowTopTracksPresenter implements ShowTopTracksContract.Presenter,
         TopTrackSearchServerCallback {
     public static final String PLAY_ICON = "play";
     public static final String STOP_ICON = "stop";
-    private ShowTopTracksContract.View mShowTopTrackView;
+    private ShowTopTracksContract.View mView;
     private SpotifyInteractor mSpotifyInteractor;
 
     public ShowTopTracksPresenter(@NonNull ShowTopTracksContract.View showTopTrackView) {
-        mShowTopTrackView = checkNotNull(showTopTrackView, "tasksView cannot be null!");
-        mShowTopTrackView.setPresenter(this);
+        mView = checkNotNull(showTopTrackView, "tasksView cannot be null!");
+        mView.setPresenter(this);
     }
-
 
     // works when views start
     @Override
     public void start() {
         // get the SpotifyInteractor for connect to the internet
-        mSpotifyInteractor = mShowTopTrackView.getSpotifyInteractor();
+        mSpotifyInteractor = mView.getSpotifyInteractor();
         // setup recyclerview and setup adapter
         setupList();
         // connect to spotify to download top ten track
         getTopTenTracks();
     }
 
+    // init views object
+    // init listener for views
+    @Override
+    public void initView() {
+        mView.setViewObject();
+        mView.addListener();
+
+    }
+
+    // setup recyclerview views
     @Override
     public void setupList() {
-        if (mShowTopTrackView != null) {
-            mShowTopTrackView.setupAdapter();
-            mShowTopTrackView.setupRecyclerView();
-        }
+        mView.setupAdapter();
+        mView.setupRecyclerView();
     }
 
     @Override
     public void getTopTenTracks() {
-        mSpotifyInteractor.performTopTrackSearch(mShowTopTrackView.getIdArtist(), this);
+        mSpotifyInteractor.performTopTrackSearch(mView.getIdArtist(), this);
     }
 
 
     @Override
     public void resetPlayer() {
-        if (mShowTopTrackView != null) {
-            mShowTopTrackView.resetPlayer();
-        }
+        mView.resetPlayer();
     }
 
     @Override
     public void stopDoBackgroundThread() {
-        mShowTopTrackView = null;
+        mView = null;
     }
 
     @Override
     public void changeIconToPlay() {
-        mShowTopTrackView.changeIcon(PLAY_ICON);
+        mView.changeIcon(PLAY_ICON);
     }
 
     @Override
     public void changeIconToStop() {
-        mShowTopTrackView.changeIcon(STOP_ICON);
+        mView.changeIcon(STOP_ICON);
     }
 
     // when top track found
     @Override
     public void onTopTracksFound(ArrayList<TopTrack> topTracks) {
-        mShowTopTrackView.showTrackOnList(topTracks);
+        mView.showTrackOnList(topTracks);
     }
 
     // when not found
     @Override
     public void onFailedSearch() {
 
+    }
+
+    // start service to play music
+    @Override
+    public void startServiceSpotify(Intent spotifyServiceIntent) {
+        if (mView != null) {
+            mView.startServiceSpotify(spotifyServiceIntent);
+        }
+    }
+
+    // nav to new track, so stop old service and start new one
+    @Override
+    public void restartServiceSpotify(Intent spotifyServiceIntent) {
+        if (mView != null) {
+            mView.restartServiceSpotify(spotifyServiceIntent);
+        }
+    }
+
+    // nav to old service, so not stop the service
+    @Override
+    public void resumeServiceSpotify(Intent spotifyServiceIntent) {
+        mView.resumeServiceSpotify(spotifyServiceIntent);
+    }
+
+    @Override
+    public void goBackToPreviousView() {
+        mView.goToPreviousView();
+    }
+
+    @Override
+    public void playPreviousTrack() {
+        mView.setPlayState();
+        int position = mView.getPreviousTrackPosition();
+        mView.startToPlayTrack(position);
+    }
+
+    @Override
+    public void playTrack() {
+        mView.setPlayState();
+        mView.startToPlayTrack();
+    }
+
+    @Override
+    public void pauseTrack() {
+        mView.setPauseState();
+        mView.startToPauseTrack();
+    }
+
+    @Override
+    public void playNextTrack() {
+        mView.setPlayState();
+        int position = mView.getNextTrackPosition();
+        mView.startToPlayTrack(position);
     }
 }
