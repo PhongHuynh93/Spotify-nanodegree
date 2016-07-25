@@ -16,6 +16,8 @@ import java.util.TimerTask;
 import dhbk.android.spotifygcs.BaseBinder;
 import dhbk.android.spotifygcs.BaseService;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 public class SpotifyPlayerService extends BaseService implements
         MediaPlayer.OnPreparedListener,
         MediaPlayer.OnCompletionListener,
@@ -24,7 +26,7 @@ public class SpotifyPlayerService extends BaseService implements
     public static final String IS_PLAYER_PLAYING = "is_player_playing";
     public static final String CURRENT_TRACK_POSITION = "current_track_position";
     public static final String TRACK_PREVIEW_URL = "track_preview_url";
-
+    public static final int START_PLAYING_MUSIC_TIME = 0;
     /**
      * this handler is connecting to {@link ShowTopTracksFragment#playerHandler}
      * use this var to update views
@@ -52,7 +54,6 @@ public class SpotifyPlayerService extends BaseService implements
         return spotifyServiceIntent;
     }
 
-    // FIXME: 7/25/16 test why no call onstartcommand
     @Override
     public IBinder getBinder() {
         IBinder binder = new Binder();
@@ -66,7 +67,7 @@ public class SpotifyPlayerService extends BaseService implements
             String trackUrl = intent.getStringExtra(SpotifyPlayerService.TRACK_PREVIEW_URL);
             if (trackUrl != null) {
                 setTrackUrlPreview(trackUrl);
-                playTrack(0);
+                playTrack(START_PLAYING_MUSIC_TIME);
             }
         }
     }
@@ -90,9 +91,10 @@ public class SpotifyPlayerService extends BaseService implements
     // Interface definition for a callback to be invoked when playback of a media source has completed.
     @Override
     public void onCompletion(MediaPlayer mediaPlayer) {
-        Message completionMessage = new Message();
         Bundle completionBundle = new Bundle();
         completionBundle.putBoolean(IS_PLAYER_PLAYING, false);
+
+        Message completionMessage = new Message();
         completionMessage.setData(completionBundle);
         if (spotifyPlayerHandler != null) {
             spotifyPlayerHandler.sendMessage(completionMessage);
@@ -110,7 +112,7 @@ public class SpotifyPlayerService extends BaseService implements
     @Override
     public void onPrepared(MediaPlayer mediaPlayer) {
         mediaPlayer.start();
-        if (currentTrackPosition != 0) {
+        if (currentTrackPosition != START_PLAYING_MUSIC_TIME) {
             mediaPlayer.seekTo(currentTrackPosition * 1000);
         }
         updateUI();
@@ -120,6 +122,11 @@ public class SpotifyPlayerService extends BaseService implements
     public void setTrackUrlPreview(String trackUrlPreview) {
         mTrackUrlPreview = trackUrlPreview;
     }
+
+    /**
+     *     start to play at 0:00 of a track when first call
+     *     when {@link ShowTopTracksFragment} call this method,
+     */
 
     @Override
     public void playTrack(int trackPosition) {
@@ -142,11 +149,12 @@ public class SpotifyPlayerService extends BaseService implements
             noUpdateUI();
             return spotifyPlayer.getDuration() / 1000;
         } else {
-            return 0;
+            return START_PLAYING_MUSIC_TIME;
         }
     }
 
-
+//    init the player service and start to play music background
+//    add lister when play music success
     @Override
     public void initSpotifyPlayer() {
         if (spotifyPlayer == null)
@@ -166,6 +174,7 @@ public class SpotifyPlayerService extends BaseService implements
 
     @Override
     public void setSpotifyPlayerHandler(Handler spotifyPlayerHandler) {
+        checkNotNull(spotifyPlayerHandler, "Handler from view cannot be null");
         this.spotifyPlayerHandler = spotifyPlayerHandler;
         Message spotifyPlayerMessage = new Message();
         Bundle spotifyPlayerBundle;
@@ -184,6 +193,7 @@ public class SpotifyPlayerService extends BaseService implements
 
     }
 
+    // get the current position of a track and send it to views
     @Override
     public Bundle getCurrentTrackPosition() {
         Bundle uiBundle = new Bundle();
@@ -195,6 +205,7 @@ public class SpotifyPlayerService extends BaseService implements
         return uiBundle;
     }
 
+    // update UI in views after 1s
     @Override
     public void updateUI() {
         uiUpdater = new Timer();
@@ -206,6 +217,7 @@ public class SpotifyPlayerService extends BaseService implements
         }, 0, 1000);
     }
 
+//    terminate timer
     @Override
     public void noUpdateUI() {
         if (uiUpdater != null) {
@@ -220,7 +232,7 @@ public class SpotifyPlayerService extends BaseService implements
         if (spotifyPlayer != null && (isPlayerPaused || spotifyPlayer.isPlaying())) {
             return (spotifyPlayer.getDuration() / 1000);
         } else {
-            return 0;
+            return START_PLAYING_MUSIC_TIME;
         }
     }
 
