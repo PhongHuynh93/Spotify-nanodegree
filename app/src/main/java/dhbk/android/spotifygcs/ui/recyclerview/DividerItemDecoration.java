@@ -41,7 +41,6 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
         final TypedArray a = context.obtainStyledAttributes(ATTRS);
         mDivider = a.getDrawable(0);
         mDivider.setTint(ContextCompat.getColor(context, resId));
-//        mDivider.setColorFilter(new PorterDuffColorFilter(0xC2313646, PorterDuff.Mode.MULTIPLY));
         a.recycle();
         setOrientation(orientation);
     }
