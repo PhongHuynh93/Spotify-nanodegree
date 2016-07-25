@@ -3,8 +3,8 @@ package dhbk.android.spotifygcs.interactor;
 import dhbk.android.spotifygcs.io.SpotifyApiService;
 import dhbk.android.spotifygcs.io.callback.ArtistSearchServerCallback;
 import dhbk.android.spotifygcs.io.callback.TopTrackSearchServerCallback;
+import dhbk.android.spotifygcs.ui.SearchArtist.SearchResultsPresenter;
 import dhbk.android.spotifygcs.ui.SearchTopTracks.ShowTopTracksPresenter;
-import dhbk.android.spotifygcs.ui.searchArtist.SearchResultsPresenter;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 

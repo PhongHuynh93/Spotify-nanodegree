@@ -427,7 +427,7 @@ public class ShowTopTracksFragment extends BaseFragment implements
     }
 
 
-    // TODO   start service with url of a song which was clicked
+    //   start service with url of a song which was clicked
     @Override
     public void startSpotifyService(TopTrack topTrack, int mTrackPositionInList) {
         // if we click, the same track in a list, dont start again that service
