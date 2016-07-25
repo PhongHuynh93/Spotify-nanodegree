@@ -38,6 +38,7 @@ import dhbk.android.spotifygcs.interactor.SpotifyInteractor;
 import dhbk.android.spotifygcs.module.TopTrackModule;
 import dhbk.android.spotifygcs.ui.SearchArtist.SearchResultsFragment;
 import dhbk.android.spotifygcs.ui.fab.FABRevealLayout;
+import dhbk.android.spotifygcs.ui.recyclerview.DividerItemDecoration;
 import dhbk.android.spotifygcs.ui.recyclerview.SlideInItemAnimator;
 import dhbk.android.spotifygcs.ui.recyclerview.TrackItemListener;
 import dhbk.android.spotifygcs.ui.widget.ElasticDragDismissFrameLayout;
@@ -400,15 +401,22 @@ public class ShowTopTracksFragment extends BaseFragment implements
 
     @Override
     public void setupAdapter() {
+//        bottom list
         checkNotNull(mTopTrackAdapter, "adapter not be null before set to list");
         mRecyclerviewShowTopTrack.setAdapter(mTopTrackAdapter);
         mTopTrackAdapter.setClickListenerInterface(this);
         mRecyclerviewShowTopTrack.setItemAnimator(new SlideInItemAnimator());
 
+//        right nav list
         checkNotNull(mTopTrackAdapterNav, "adapter not be null before set to list");
         mRecyclerviewShowTopTrackNavRight.setAdapter(mTopTrackAdapterNav);
         mTopTrackAdapterNav.setClickListenerInterface(this);
         mRecyclerviewShowTopTrackNavRight.setItemAnimator(new SlideInItemAnimator());
+
+        // add horizontal white divider between each row
+        RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL_LIST, R.color.grey_light2);
+        mRecyclerviewShowTopTrack.addItemDecoration(itemDecoration);
+        mRecyclerviewShowTopTrackNavRight.addItemDecoration(itemDecoration);
     }
 
     @Override
