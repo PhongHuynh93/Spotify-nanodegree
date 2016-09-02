@@ -106,7 +106,7 @@ public class SearchResultsFragment extends BaseFragment implements
         // Required empty public constructor
     }
 
-    // get the location of search icon to make an anim
+    // todo  13 get the location of search icon to make an anim
     public static SearchResultsFragment newInstance(int searchBackDistanceX, int searchIconCenterX) {
         SearchResultsFragment searchChildFragment = new SearchResultsFragment();
         Bundle arg = new Bundle();
@@ -142,6 +142,7 @@ public class SearchResultsFragment extends BaseFragment implements
         return false;
     }
 
+//    todo 14 - get the location and anim the search bar
     @Override
     protected void initView() {
         if (getArguments() != null) {
@@ -151,6 +152,7 @@ public class SearchResultsFragment extends BaseFragment implements
         startTransition();
     }
 
+//    todo 16 - anim the searchview
     @Override
     public void animSearchView() {
         // translate icon to match the launching screen then animate back into position
@@ -217,6 +219,7 @@ public class SearchResultsFragment extends BaseFragment implements
             }
         });
     }
+    // end anim the searchbar
 
     // anim the search icon when close this activity
     @OnClick({R.id.scrim, R.id.searchback})
@@ -333,6 +336,7 @@ public class SearchResultsFragment extends BaseFragment implements
         mSearchResultsAdapter.setClickListenerInterface(this);
     }
 
+//    todo 17 - setup listen in search view and declare query hint in this menu
     @Override
     public void setupSearchBar() {
         SearchManager searchManager = (SearchManager) getContext().getSystemService(getContext().SEARCH_SERVICE);
@@ -359,6 +363,7 @@ public class SearchResultsFragment extends BaseFragment implements
             }
         });
     }
+    // end setup listen in search view and declare query hint in this menu
 
     public SpotifyInteractor getSpotifyInteractor() {
         checkNotNull(mSpotifyInteractor, "SpotifyInteractor cannot be null");
@@ -408,7 +413,7 @@ public class SearchResultsFragment extends BaseFragment implements
         // : 7/19/2016 stop loading network anymore.
     }
 
-
+//     15 - get the transition from layout
     private void startTransition() {
         auto = TransitionInflater.from(getContext()).inflateTransition(R.transition.auto);
     }

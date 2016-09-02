@@ -9,7 +9,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * Created by phongdth.ky on 7/14/2016.
- * todo This provides methods to help Activities load their UI.
+ *  This provides methods to help Activities load their UI.
  *
  */
 public class ActivityUtils {

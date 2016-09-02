@@ -46,7 +46,7 @@ public class SearchArtistActiviy extends BaseActivity {
         setupDrawerContent(mNavView);
         // end setup nav
 
-        // todo add fragment to this activity
+        //  add fragment to this activity
         SearchArtistFragment searchArtistFragment = (SearchArtistFragment) getSupportFragmentManager().findFragmentByTag(Constant.TAG_FRAGMENT_SEARCH_ARTISTS);
         if (searchArtistFragment == null) {
             // Create the fragment

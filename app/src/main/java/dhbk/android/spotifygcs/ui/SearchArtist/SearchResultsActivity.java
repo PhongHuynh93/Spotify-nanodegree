@@ -31,7 +31,7 @@ public class SearchResultsActivity extends BaseActivity {
     private SearchResultsPresenter mSearchResultsPresenter;
     private SearchResultsFragment mView;
 
-    // intent to go to searchChildActivity, with anim search icon on toolbar, so get the location of it
+    // todo 8 intent to go to searchChildActivity, with anim search icon on toolbar, so get the location of it
     public static Intent createStartIntent(Context context, int menuIconLeft, int menuIconCenterX) {
         Intent starter = new Intent(context, SearchResultsActivity.class);
         starter.putExtra(EXTRA_MENU_LEFT, menuIconLeft);
@@ -59,6 +59,7 @@ public class SearchResultsActivity extends BaseActivity {
         return false;
     }
 
+//    todo 12
     @Override
     protected void initView() {
         // extract the search icon's location passed from the launching activity, minus 4dp to
@@ -66,6 +67,7 @@ public class SearchResultsActivity extends BaseActivity {
         final int searchBackDistanceX = getIntent().getIntExtra(EXTRA_MENU_LEFT, 0) - (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 4, getResources().getDisplayMetrics());
         final int searchIconCenterX = getIntent().getIntExtra(EXTRA_MENU_CENTER_X, 0);
 
+        // init fragment and pass the location
         mView = (SearchResultsFragment) getSupportFragmentManager().findFragmentByTag(Constant.TAG_FRAGMENT_TEST_CHILD_SEARCH_ARTISTS);
         if (mView == null) {
             mView = SearchResultsFragment.newInstance(searchBackDistanceX, searchIconCenterX);
@@ -78,6 +80,7 @@ public class SearchResultsActivity extends BaseActivity {
         // You can invoke onNewIntent always by putting it into onCreate method like
         onNewIntent(getIntent());
 
+        // fixme call this to anim search bar callback  (understand this method)
         setExitSharedElementCallback(createSharedElementReenterCallback());
     }
 
@@ -104,6 +107,7 @@ public class SearchResultsActivity extends BaseActivity {
         startActivityForResult(ShowTopTracksActivity.createStartIntent(this, idArtist, nameArtist), REQUEST_CODE_VIEW_SHOT, options.toBundle());
     }
 
+    // todo 12
     private SharedElementCallback createSharedElementReenterCallback() {
         final String shotTransitionName = getString(R.string.transition_shot);
         final String shotBackgroundTransitionName = getString(R.string.transition_shot_background);
@@ -128,5 +132,6 @@ public class SearchResultsActivity extends BaseActivity {
                 }
             }
         };
+        // end 12
     }
 }

@@ -23,7 +23,7 @@
             </intent-filter>
         </activity>
 
-
+        <!--todo 5 - this activity have parentActivityName, so when click the back button, it nav to previous activity-->
         <activity
             android:name=".ui.showYourReposition.SearchArtistActiviy"
             android:label="@string/title_activity_search_artist_activiy"

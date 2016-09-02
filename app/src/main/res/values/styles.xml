@@ -25,7 +25,7 @@
         <item name="android:background">@color/colorPrimary</item>
     </style>
 
-    <!--style with no actionbar-->
+    <!--todo 11 style with no actionbar-->
     <style name="AppThemeNoActionBar" parent="@style/AppTheme">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
@@ -82,7 +82,7 @@
         <item name="android:textColor">@color/text_primary_light</item>
     </style>
 
-    <!--make activity demi transparent-->
+    <!--todo 10 make activity demi transparent-->
     <style name="AppThemeNoActionBar.Translucent">
         <!-- using a semi-transparent window background for the drag-back gesture -->
         <!--use color that have opacity so we can see other views under the top views. -->
@@ -96,13 +96,15 @@
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
     </style>
 
+    <!--todo 9 - make the layout semi translucent-->
     <style name="AppThemeNoActionBar.Translucent.Search">
         <item name="android:windowAnimationStyle">@style/SearchWindowAnimations</item>
         <item name="android:statusBarColor">@color/background_super_dark</item>
         <item name="android:navigationBarColor">@color/background_super_dark</item>
         <item name="android:windowEnterTransition">@transition/search_enter</item>
-        <item name="shotLoadingPlaceholderColors">@array/loading_placeholders_dark</item>
-        <item name="initialBadgeColor">@color/gif_badge_dark_image</item>
+
+        <!--<item name="shotLoadingPlaceholderColors">@array/loading_placeholders_dark</item>-->
+        <!--<item name="initialBadgeColor">@color/gif_badge_dark_image</item>-->
     </style>
 
     <!--style for search child artist, we want this view is translution, so we can see the under views-->

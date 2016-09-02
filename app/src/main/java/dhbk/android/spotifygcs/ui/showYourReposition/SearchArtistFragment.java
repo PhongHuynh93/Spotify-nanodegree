@@ -76,12 +76,13 @@ public class SearchArtistFragment extends BaseFragment implements SearchArtistCo
         mTextviewEmptySearchArtistHelpInfo.setText(HelpUtil.getSpannedText(getContext(), R.string.search_artist_emtpy_help_text));
     }
 
-    //    menu toolbar
+    // todo 2 - inflate menu toolbar in a view
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_search_artist, menu);
     }
 
+//    todo 4 - listen when click the menu toolbar
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -91,6 +92,7 @@ public class SearchArtistFragment extends BaseFragment implements SearchArtistCo
             case R.id.menu_about:
                 mPresenter.loadAboutSetting();
                 break;
+            //  nav to home, when click the up button
             case android.R.id.home:
                 NavUtils.navigateUpFromSameTask(getActivity());
                 break;
@@ -105,7 +107,7 @@ public class SearchArtistFragment extends BaseFragment implements SearchArtistCo
         mPresenter = checkNotNull(presenter);
     }
 
-    // call when user click the search icon, the view'll navigate to another activity to search
+    // todo 6 call when user click the search icon, the view'll navigate to another activity to search, the search icon have the animation from left to right
     @Override
     public void startSearchActivity() {
         // get the icon's location on screen to pass through to the search screen
@@ -118,17 +120,19 @@ public class SearchArtistFragment extends BaseFragment implements SearchArtistCo
                 SearchResultsActivity.createStartIntent(getContext(), loc[0], loc[0] + (searchMenuView.getWidth() / 2)),
                 RC_SEARCH,
                 ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
+        // make the search icon in this activity dissappear
         searchMenuView.setAlpha(0f);
     }
 
-    // : 7/18/2016 implement this method, if we find an artist, what to do next
+    // todo 7 -  when turning back from next activity, make the toolbar appear again
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
             case RC_SEARCH:
                 // Make sure the request was successful
-                // reset the search icon which we hid
+                // reset the search icon which we hide
+                // fixme - we can use bindview so not to findViewById again
                 View searchMenuView = getActivity().findViewById(R.id.menu_search);
                 if (searchMenuView != null) {
                     searchMenuView.setAlpha(1f);

@@ -1,8 +1,10 @@
+<!--todo 3 - toolbar has a icon in it-->
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
       xmlns:app="http://schemas.android.com/apk/res-auto"
       xmlns:tools="http://schemas.android.com/tools"
       tools:context=".ui.showYourReposition.SearchArtistActiviy">
 
+    <!--search icon-->
     <item
         android:id="@+id/menu_search"
         android:title="@string/toolbar_search"
