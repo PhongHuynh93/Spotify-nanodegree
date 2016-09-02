@@ -46,6 +46,7 @@ public class SearchArtistActiviy extends BaseActivity {
         setupDrawerContent(mNavView);
         // end setup nav
 
+        // todo add fragment to this activity
         SearchArtistFragment searchArtistFragment = (SearchArtistFragment) getSupportFragmentManager().findFragmentByTag(Constant.TAG_FRAGMENT_SEARCH_ARTISTS);
         if (searchArtistFragment == null) {
             // Create the fragment
@@ -53,6 +54,7 @@ public class SearchArtistActiviy extends BaseActivity {
             ActivityUtils.addFragmentToActivity(
                     getSupportFragmentManager(), searchArtistFragment, R.id.contentFrame_searchartist);
         }
+        // end add fragment to this activity
 
         // Create the presenter
         SearchArtistPresenter mSearchArtistPresenter = new SearchArtistPresenter(searchArtistFragment);
