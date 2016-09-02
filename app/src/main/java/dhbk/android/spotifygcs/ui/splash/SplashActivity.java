@@ -34,8 +34,9 @@ public class SplashActivity extends AppCompatActivity {
         //  because before nav to this activity, the app load theme for brand
         // so after loading brand done, nav to Splash Theme
         setTheme(R.style.AppThemeNoActionBarSplash);
-        //  make this activity go full screen - hide navigation bottom bar and status bar
+        // todo  make this activity go full screen - hide navigation bottom bar and status bar
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         ButterKnife.bind(this);
