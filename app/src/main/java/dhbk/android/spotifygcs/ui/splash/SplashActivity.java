@@ -50,19 +50,19 @@ public class SplashActivity extends AppCompatActivity {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
-    // anim view on the screen, amin with different start delay
+    // todo anim view on the screen, amin with different start delay
     private void animate() {
-        // anim image - move upward
+        // todo anim image - move upward
         Animator setImage = AnimatorInflater.loadAnimator(this, R.animator.main_move_translation_y_headphone);
         setImage.setTarget(mImageviewSplashHeadphone);
         setImage.start();
 
-        // anim text - move downward and appear
+        // todo anim text - move downward and appear
         Animator setText = AnimatorInflater.loadAnimator(this, R.animator.main_move_translation_y_text);
         setText.setTarget(mTextviewSplashLogan);
         setText.start();
 
-        // anim button - zoom out
+        // todo anim button - zoom out
         Animator setButton = AnimatorInflater.loadAnimator(this, R.animator.main_scale_button);
         setButton.setTarget(mButtonSplashGoToSearchActivity);
         setButton.start();

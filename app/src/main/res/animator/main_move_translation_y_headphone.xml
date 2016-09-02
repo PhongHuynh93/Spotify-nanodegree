@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--anim 1s, move up 90dp after 0.3s-->
+<!--todo anim 1s, move up 90dp after 0.3s-->
 <objectAnimator
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:duration="@integer/main_anim_move_y_duration"
