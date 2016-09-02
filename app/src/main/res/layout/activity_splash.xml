@@ -31,6 +31,7 @@
         android:textSize="@dimen/textsize_medium_24"/>
 
     <!--scale = 0 because we want button to dissappear first, after the delay it's will scale to the large size-->
+    <!--todo - add font-->
     <Button
         android:id="@+id/button_splash_go_to_search_activity"
         fontPath="fonts/Montserrat-Bold.otf"

@@ -35,7 +35,7 @@
         <item name="android:windowBackground">@drawable/splash_layerlist_anim</item>
     </style>
 
-    <!--style for views to use MontSerret Light font-->
+    <!--todo - style for views to use MontSerret Light font-->
     <style name="FontCustom">
         <item name="fontPath">fonts/Montserrat-Light.otf</item>
     </style>

@@ -42,7 +42,7 @@ dependencies {
     compile "com.jakewharton:butterknife:$rootProject.butterknife"
     apt "com.jakewharton:butterknife-compiler:$rootProject.butterknife"
 
-//    font
+//   todo - font library
     compile "uk.co.chrisjenx:calligraphy:$rootProject.font"
 
     // guava
