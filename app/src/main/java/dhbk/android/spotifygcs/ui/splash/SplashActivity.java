@@ -75,7 +75,7 @@ public class SplashActivity extends AppCompatActivity {
         mTextviewSplashLogan.setText(HelpUtil.getSpannedText(this, R.string.splash_text));
     }
 
-    // when click button, go to search artist activity.
+    // todo when click button, go to search artist activity by calling this class intent
     @OnClick(R.id.button_splash_go_to_search_activity)
     public void onClick() {
         startActivity(SearchArtistActiviy.createStartIntent(this));

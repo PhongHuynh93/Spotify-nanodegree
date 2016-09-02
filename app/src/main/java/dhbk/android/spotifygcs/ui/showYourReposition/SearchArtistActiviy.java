@@ -22,7 +22,7 @@ public class SearchArtistActiviy extends BaseActivity {
     @BindView(R.id.drawer_layout)
     DrawerLayout mDrawerLayout;
 
-    // other activity will use this method to go to this activity
+    // todo other activity will use this method to go to this activity
     public static Intent createStartIntent(Context context) {
         return new Intent(context, SearchArtistActiviy.class);
     }
