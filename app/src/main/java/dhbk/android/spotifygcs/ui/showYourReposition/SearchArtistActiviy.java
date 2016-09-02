@@ -40,7 +40,7 @@ public class SearchArtistActiviy extends BaseActivity {
     @Override
     protected void initView() {
         getSupportActionBar().setTitle(R.string.app_name);
-        // todo Set up the navigation drawer.
+        //  Set up the navigation drawer.
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerLayout.setStatusBarBackground(R.color.colorPrimaryDark);
         setupDrawerContent(mNavView);
@@ -63,7 +63,7 @@ public class SearchArtistActiviy extends BaseActivity {
         return true;
     }
 
-    // todo listen for nav click
+    //  listen for nav click
     private void setupDrawerContent(NavigationView navigationView) {
         checkNotNull(navigationView, "Cann't find navigationview. Did you inflate this yet");
         navigationView.setNavigationItemSelectedListener(
