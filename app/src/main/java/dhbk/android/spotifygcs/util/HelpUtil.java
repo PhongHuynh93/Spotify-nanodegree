@@ -17,7 +17,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 public class HelpUtil {
 
     /**
-     *      * todo - auto bold the part of text
+     *      *  - auto bold the part of text
      * @param context
      * @param stringRes
      * @return
@@ -27,7 +27,7 @@ public class HelpUtil {
         checkNotNull(context);
         context = context.getApplicationContext();
         Spanned formattedText;
-        // todo check because in android N, Html.fromHtml is deprecated
+        //  check because in android N, Html.fromHtml is deprecated
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             formattedText = Html.fromHtml(context.getString(stringRes), Html.FROM_HTML_MODE_LEGACY);
         } else {
