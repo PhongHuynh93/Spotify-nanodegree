@@ -34,7 +34,7 @@ public class SplashActivity extends AppCompatActivity {
         //  because before nav to this activity, the app load theme for brand
         // so after loading brand done, nav to Splash Theme
         setTheme(R.style.AppThemeNoActionBarSplash);
-        // todo  make this activity go full screen - hide navigation bottom bar and status bar
+        //   make this activity go full screen - hide navigation bottom bar and status bar
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
 
         super.onCreate(savedInstanceState);
@@ -44,25 +44,25 @@ public class SplashActivity extends AppCompatActivity {
         animate();
     }
 
-    // todo use this method for an activity to change font of text
+    //  use this method for an activity to change font of text
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
-    // todo anim view on the screen, amin with different start delay
+    //  anim view on the screen, amin with different start delay
     private void animate() {
-        // todo anim image - move upward
+        //  anim image - move upward
         Animator setImage = AnimatorInflater.loadAnimator(this, R.animator.main_move_translation_y_headphone);
         setImage.setTarget(mImageviewSplashHeadphone);
         setImage.start();
 
-        // todo anim text - move downward and appear
+        //  anim text - move downward and appear
         Animator setText = AnimatorInflater.loadAnimator(this, R.animator.main_move_translation_y_text);
         setText.setTarget(mTextviewSplashLogan);
         setText.start();
 
-        // todo anim button - zoom out
+        //  anim button - zoom out
         Animator setButton = AnimatorInflater.loadAnimator(this, R.animator.main_scale_button);
         setButton.setTarget(mButtonSplashGoToSearchActivity);
         setButton.start();
