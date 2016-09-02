@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--contain an empty screen-->
-<!--todo - for the image branch is in the center of the layout, not use coordinator because this will remain the space for toolbar -->
+<!-- - for the image branch is in the center of the layout, not use coordinator because this will remain the space for toolbar -->
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"

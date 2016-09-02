@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--todo drawn in the order, note the opacity="opaque" -->
+<!-- drawn in the order, note the opacity="opaque" -->
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android"
             android:opacity="opaque">
-    <!--todo - remember that background is the same as the background in the first layout-->
+    <!-- - remember that background is the same as the background in the first layout-->
     <item style="@style/ColorPrimaryBackground"/>
-    <!--todo - draw image after draw bg-->
+    <!-- - draw image after draw bg-->
     <item>
         <bitmap
             android:gravity="center"

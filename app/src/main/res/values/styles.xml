@@ -1,15 +1,15 @@
 <resources>
 
-    <!--todo the base theme for android 5.0 with animation -->
+    <!-- the base theme for android 5.0 with animation -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <!-- todo we use the custome windows background which show a brand for an app before loading, so set it to null-->
+        <!--  we use the custome windows background which show a brand for an app before loading, so set it to null-->
         <item name="android:windowBackground">@null</item>
-        <!--todo custom font for app-->
+        <!-- custom font for app-->
         <item name="android:textViewStyle">@style/FontCustom</item>
-        <!-- todo enable overlapping of exiting and entering activities, mean enable Transition between activities-->
+        <!--  enable overlapping of exiting and entering activities, mean enable Transition between activities-->
         <item name="android:windowAllowEnterTransitionOverlap">true</item>
         <item name="android:windowAllowReturnTransitionOverlap">true</item>
         <item name="android:windowSharedElementsUseOverlay">false</item>
@@ -31,7 +31,7 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <!--todo - style for activity to load the image icon before loading any objs for activity-->
+    <!-- - style for activity to load the image icon before loading any objs for activity-->
     <style name="AppThemeNoActionBar.CenterAnimation">
         <item name="android:windowBackground">@drawable/splash_layerlist_anim</item>
     </style>
