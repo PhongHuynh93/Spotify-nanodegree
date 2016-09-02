@@ -22,7 +22,7 @@ public class SearchArtistActiviy extends BaseActivity {
     @BindView(R.id.drawer_layout)
     DrawerLayout mDrawerLayout;
 
-    // todo other activity will use this method to go to this activity
+    //  other activity will use this method to go to this activity
     public static Intent createStartIntent(Context context) {
         return new Intent(context, SearchArtistActiviy.class);
     }
@@ -40,10 +40,11 @@ public class SearchArtistActiviy extends BaseActivity {
     @Override
     protected void initView() {
         getSupportActionBar().setTitle(R.string.app_name);
-        // Set up the navigation drawer.
+        // todo Set up the navigation drawer.
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerLayout.setStatusBarBackground(R.color.colorPrimaryDark);
         setupDrawerContent(mNavView);
+        // end setup nav
 
         SearchArtistFragment searchArtistFragment = (SearchArtistFragment) getSupportFragmentManager().findFragmentByTag(Constant.TAG_FRAGMENT_SEARCH_ARTISTS);
         if (searchArtistFragment == null) {
@@ -62,6 +63,7 @@ public class SearchArtistActiviy extends BaseActivity {
         return true;
     }
 
+    // todo listen for nav click
     private void setupDrawerContent(NavigationView navigationView) {
         checkNotNull(navigationView, "Cann't find navigationview. Did you inflate this yet");
         navigationView.setNavigationItemSelectedListener(
