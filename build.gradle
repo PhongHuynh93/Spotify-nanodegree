@@ -39,7 +39,7 @@ ext {
     junitVersion = '4.12'
     butterknife = '8.2.1'
 
-    // todo - font library
+    //  - font library
     font = '2.2.0'
 //    dagger
     daggerCompiler = '2.5'

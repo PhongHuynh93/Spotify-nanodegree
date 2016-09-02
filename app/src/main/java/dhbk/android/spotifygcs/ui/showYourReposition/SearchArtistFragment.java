@@ -121,7 +121,7 @@ public class SearchArtistFragment extends BaseFragment implements SearchArtistCo
         searchMenuView.setAlpha(0f);
     }
 
-    // TODO: 7/18/2016 implement this method, if we find an artist, what to do next
+    // : 7/18/2016 implement this method, if we find an artist, what to do next
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

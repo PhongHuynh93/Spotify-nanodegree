@@ -48,7 +48,7 @@ import dhbk.android.spotifygcs.util.HelpUtil;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-// TODO: 7/25/2016 show a notification when app was playing, because we cant stop the service when distroy this view.
+// : 7/25/2016 show a notification when app was playing, because we cant stop the service when distroy this view.
 public class ShowTopTracksFragment extends BaseFragment implements
         ShowTopTracksContract.View,
         TrackItemListener {
@@ -499,7 +499,7 @@ public class ShowTopTracksFragment extends BaseFragment implements
                 }
                 // play music
                 else {
-                    // FIXME: 7/25/16 error here when play music, not resume play but play the next song
+                    // : 7/25/16 error here when play music, not resume play but play the next song
                     mPresenter.playTrack();
                 }
                 break;

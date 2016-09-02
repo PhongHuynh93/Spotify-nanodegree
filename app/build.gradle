@@ -42,14 +42,14 @@ dependencies {
     compile "com.jakewharton:butterknife:$rootProject.butterknife"
     apt "com.jakewharton:butterknife-compiler:$rootProject.butterknife"
 
-//   todo - font library
+//    - font library
     compile "uk.co.chrisjenx:calligraphy:$rootProject.font"
 
     // guava
     compile "com.google.guava:guava:$rootProject.guavaVersion"
     compile "com.android.support:support-v4:$rootProject.buildToolsVersion"
 
-    dagger
+//    dagger
     // apt command comes from the android-apt plugin
     apt "com.google.dagger:dagger-compiler:$rootProject.daggerCompiler"
     compile "com.google.dagger:dagger:$rootProject.dagger"

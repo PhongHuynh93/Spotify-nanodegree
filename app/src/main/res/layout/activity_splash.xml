@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--contain an empty screen-->
+<!--todo - for the image branch is in the center of the layout, not use coordinator because this will remain the space for toolbar -->
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -31,7 +32,7 @@
         android:textSize="@dimen/textsize_medium_24"/>
 
     <!--scale = 0 because we want button to dissappear first, after the delay it's will scale to the large size-->
-    <!--todo - add font-->
+    <!-- - add font-->
     <Button
         android:id="@+id/button_splash_go_to_search_activity"
         fontPath="fonts/Montserrat-Bold.otf"

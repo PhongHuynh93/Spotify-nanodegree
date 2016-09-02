@@ -58,7 +58,7 @@ import dhbk.android.spotifygcs.util.ViewUtils;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-// TODO: 7/19/2016 implement onNewIntent()
+// : 7/19/2016 implement onNewIntent()
 public class SearchResultsFragment extends BaseFragment implements
         SearchResultsContract.View,
         ArtistItemListener {
@@ -405,7 +405,7 @@ public class SearchResultsFragment extends BaseFragment implements
     @Override
     protected void doThingWhenDestroyApp() {
         sDrawable = null;
-        // TODO: 7/19/2016 stop loading network anymore.
+        // : 7/19/2016 stop loading network anymore.
     }
 
 

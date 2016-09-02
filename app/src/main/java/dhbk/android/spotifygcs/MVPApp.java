@@ -35,7 +35,7 @@ public class MVPApp extends Application {
                 .build();
     }
 
-    // todo setup custome font for all my views
+    //  setup custome font for all my views
     private void setupFont() {
         CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
                 .setDefaultFontPath("fonts/Montserrat-Regular.otf")
