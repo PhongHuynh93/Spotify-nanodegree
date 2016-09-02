@@ -68,6 +68,9 @@ public class SplashActivity extends AppCompatActivity {
         setButton.start();
     }
 
+    /**
+     * todo - auto bold the part of text 
+     */
     private void initView() {
         mTextviewSplashLogan.setText(HelpUtil.getSpannedText(this, R.string.splash_text));
     }

@@ -15,12 +15,19 @@ import static com.google.common.base.Preconditions.checkNotNull;
  * contain help methods
  */
 public class HelpUtil {
+
+    /**
+     *      * todo - auto bold the part of text
+     * @param context
+     * @param stringRes
+     * @return
+     */
     @NonNull
     public static Spanned getSpannedText(@NonNull Context context, @StringRes int stringRes) {
         checkNotNull(context);
         context = context.getApplicationContext();
         Spanned formattedText;
-        // check because in android N, Html.fromHtml is deprecated
+        // todo check because in android N, Html.fromHtml is deprecated
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             formattedText = Html.fromHtml(context.getString(stringRes), Html.FROM_HTML_MODE_LEGACY);
         } else {
@@ -28,6 +35,7 @@ public class HelpUtil {
         }
         return formattedText;
     }
+    // end auto bold the part of text
 
     // translate milisecond to format minute:second
     public static String transformMilisecond(int millis) {

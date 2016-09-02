@@ -11,7 +11,7 @@
     <string name="toolbar_login">Login</string>
     <string name="toolbar_about">About</string>
 
-    <!--splash-->
+    <!--todo - auto bold the part of the text-->
     <string name="splash_text">
         <![CDATA[
         Without <b>music,</b>
