@@ -44,7 +44,7 @@ public class SplashActivity extends AppCompatActivity {
         animate();
     }
 
-    // use this method for an activity to change font of text
+    // todo use this method for an activity to change font of text
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
